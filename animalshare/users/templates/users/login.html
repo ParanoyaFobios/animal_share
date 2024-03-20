@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <p><b>Log In</b></p>
+    {{ form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
+    <p>
+        <button type="submit">Log In</button>
+    </p>
+</form>
+<p>Forget your password?</p>
+    <p><a href="{% url 'password_reset' %}">Reset password</a></p>
+<p>Need an account?</p>
+    <p><a href="{% url 'register' %}">Sign Up</a></p>
+{% endblock content %}

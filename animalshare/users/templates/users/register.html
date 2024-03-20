@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><b>Registration</b></p>
+    {{ form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
+    <p>
+        <button type="submit">Send</button>
+    </p>
+</form>
+<p>Already have an account?</p>
+    <p><a href="{% url 'login' %}">Sign in</a></p>
+{% endblock content %}

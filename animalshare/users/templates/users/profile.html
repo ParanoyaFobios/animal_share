@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="profilepic"><image src="{{ user.profile.image.url }}" width="250px" height="250px"
+></image></div> <!---->
+<div class="profile_text"><h1> {{ user.username }} </h1> <!--джанго сам показывает в этой переменной залогиненого пользователя-->
+<h1> {{ user.email }} </h1>
+<form method="POST" enctype="multipart/form-data"> <!--тип кодировки, для того что бы наша форма вставила правильные данные изображения, если забыть, форма не будет сохранять обновленное изображение--> 
+    {% csrf_token %}
+    <p><b>Profile info Update</b></p>
+    {{ u_form.as_p }}
+    {{ p_form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
+    <p><button type="submit">Update</button></p>
+</form>
+<p>Change my password</p>
+    <p><a href="{% url 'password_reset' %}">Reset password</a></p>
+</div>
+{% endblock content %}
