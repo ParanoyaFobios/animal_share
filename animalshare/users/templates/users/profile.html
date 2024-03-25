@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="profilepic"><image src="{{ user.profile.image.url }}" width="250px" height="250px"
-></image></div> <!---->
-<div class="profile_text"><h1> {{ user.username }} </h1> <!--джанго сам показывает в этой переменной залогиненого пользователя-->
-<h1> {{ user.email }} </h1>
+<div class="post-user-img-box">
+    <image class="userpic" src="{{ user.profile.image.url }}" 
+></image>
+</div> <!---->
+<div class="post-profile-text">
+<a class="user-name">
+    <h1>{{ user.username }}</h1></div> <!--джанго сам показывает в этой переменной залогиненого пользователя-->
+<a class="user-name">
+    <h1> {{ user.email }} </h1></a></div>
 <form method="POST" enctype="multipart/form-data"> <!--тип кодировки, для того что бы наша форма вставила правильные данные изображения, если забыть, форма не будет сохранять обновленное изображение--> 
     {% csrf_token %}
     <p><b>Profile info Update</b></p>

@@ -4,50 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% if title%}
+    {% if title %}
         <title>Fill title section</title>
     {% else %}
         <title>Title ELSE working now</title>
     {% endif %}
-    <link rel="stylesheet" href="{% static 'css/homec.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/Ubuntu/stylesheet.css' %}"/>
     <link rel="shortcut icon" type="image/ico" href="{% static "image/icons/favicone.ico" %}" />
-</head>
 <body>
-<slider class="slider">
-    <a href="#" title="My posts"><image src="{% static "image/icons/02.jpg" %}" alt="Icon 2" width="35px" height="35px"></image></a>
-    <a href="#" title="My friends"><image src="{% static "image/icons/05.jpg" %}" alt="Icon 5" width="35px" height="35px"></image></a>
-    <a href="#" title="My messages"><image src="{% static "image/icons/03.jpg" %}" alt="Icon 3" width="35px" height="35px"></image></a>
-    <a href="#" title="My comments"><image src="{% static "image/icons/04.jpg" %}" alt="Icon 4" width="35px" height="35px"></image></a>
-    <a href="#" title="Animal gallery"><image src="{% static "image/icons/06.jpg" %}" alt="Icon 6" width="35px" height="35px"></image></a></slider><!---->
-<main class="main">
-    <header class="header">
-    <a href="http://127.0.0.1:8000"> Go Home page | </a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
-    <a href="http://127.0.0.1:8000/about"> Go about page | </a>
-    <a href="{% url 'post-create' %}"> Create a new post |</a>
-    {% if user.is_authenticated %}
-        <div class="login_text"><a href="{% url 'profile' %}"> My profile | </a> <!-- условие для отображения ссылок на регистрацию и входа на сайт-->
-        <a href="{% url 'logout' %}"> Log Out | </a></div>
+<header>
+    <nav class="dark-grey wrapper flex">
+        <a href="http://127.0.0.1:8000"> Go Home page | </a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
+        <a href="{% url 'post-create' %}"> Create a new post |</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}"> My profile | </a> <!-- условие для отображения ссылок на регистрацию и входа на сайт-->
+        <a href="{% url 'logout' %}"> Log Out | </a>
     {% else %}
-        <div class="login_text"><a href="{% url 'register' %}"> Registration form | </a>
-        <a href="{% url 'login' %}"> Log In | </a></div>
-    {% endif %}
-    </header>
-        <div class="firstblock">
-        TOP ANIMALS
-        </div><!--
-        -->
-        <div class="firstblock">
-            TOP ANIMALS
-        </div><!--
-            -->
-        <div class="firstblock">
-            TOP ANIMALS
-        </div><!--
-            -->
-        <div class="firstblock">
-            TOP ANIMALS
-        </div><!--
-            -->
+        <a href="{% url 'register' %}"> Registration form | </a>
+        <a href="{% url 'login' %}"> Log In | </a>
+    {% endif %} 
+    </nav>
+</div>
+<div class="logo-long wrapper">
+    <a href="http://127.0.0.1:8000"><img src="{% static 'image/logo-long2.png' %}" alt="Logo-photo" width="1150" height="98"></a>
+</div>
+</header>
 {% if messages %}
     {% for message in messages %}
     <div class="warning">
@@ -56,16 +39,38 @@
     </div>
     {% endfor %}
 {% endif %}
-<div class="secondmain">
-    <div class="post_block">
-{% block content %}{% endblock %}
-    </div>
-    <div class="right_section">
-        <div class="right_section1"><a href="#" title="Our sponsors"><image src="{% static 'image/commercial1.jpg' %}" width="100%" height="33.3%"></image></a></div>
-        <div class="right_section2"><a href="#" title="Our sponsors"><image src="{% static 'image/example.jpg' %}" width="100%" height="33.3%"></image></a></div>
-        <div class="right_section3"><a href="#" title="Our sponsors"><image src="{% static 'image/commercial2.jpg' %}" width="100%" height="33.3%"></image></a></div>
-    </div>
-</div>
+<main class="dark-grey wrapper flex">
+    <aside class="aside-left flex column">
+        <button><a href="#" title="My posts">
+            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+        <button><a href="#" title="My friends">
+            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+        <button><a href="#" title="My messages">
+            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+        <button><a href="#" title="Gallery">
+            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+        <button><a href="{% url 'blog-about' %}" title="About us">
+            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+    </aside>
+    <section class="post-block flex column">
+    {% block content %}{% endblock %}
+    </section>
+    <aside class="aside-right flex column">
+        <div class="advertising-card first-advertising-card">
+            <img src="{% static "image/commercial2.jpg" %}" alt="Зоомагазин на Привозе" title="Our sponsors" width="200" height="200" target="_blank">
+            </div>
+        <div class="advertising-card second-advertising-card">
+            <img src="{% static "image/commercial1.jpg" %}" alt="Сухой корм для собак 2190 грн." title="Our sponsors" width="200" height="200" target="_blank">
+            </div>
+        <div class="advertising-card fird-advertising-card">
+            <img src="{% static "image/advertisement-running-wheel-img.jpg" %}" alt="Беговое колесо для кота" title="Our sponsors" width="200" height="200" target="_blank">
+            </div>
+    </aside>
 </main>
 </body>
 </html>
