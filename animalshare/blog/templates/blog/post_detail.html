@@ -28,6 +28,32 @@
       </object>
   </div>
 </a>
+<h3>Comments  |
+{% if user.is_authenticated %}
+<a href="{% url 'add_comment' post.pk %}">  Add comment</a>
+{% else %}
+Log in to be able to add comments
+{% endif %}
+</h3>
+{% if not post.comments.all %}
+<h3>No comments yet! Be the first one!</h3>
+{% else %}
+    {% for comments in post.comments.all %}
+<a class="post-a flex">
+<div class="post-user-img-box">
+    <object>
+        <a href="{% url 'user-posts' comments.comment_author %}">
+            <img src="{{ comments.comment_author.profile.image.url }}" alt="img" >
+        </a>
+    </object>
+</div> 
+        {{ comments.comment_author }}'s comment at {{ comments.date_added|date:"d F - Y (H:i)" }}
+</br>
+        {{ comments.body }}
+</br></br></br>
+</a>
+    {% endfor %}
+{% endif %}
 {% if object.author == user %}
 <a href="{% url 'post-update' post.id %}">Update Post |</a>
 <a href="{% url 'post-delete' post.id %}">Delete Post |</a>

@@ -5,8 +5,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth.models import User
+from users.forms import CommentForm
+
 
 
 def home(request):
@@ -14,7 +16,6 @@ def home(request):
         'posts' : Post.objects.all()
     }
     return render(request, 'home.html', context, {'animal_image': context})
-
 
 
 class PostListView(ListView):
@@ -74,12 +75,22 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
+class AddCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = 'new_comment.html' #<app>/<model>_<view_type>.html это шаблон по которому джанго будет отрисовывать наши посты
+    form_class = CommentForm
+    order_by = ['-date_posted'] #даем запрос в БД на отображение постов в порядке добавления
+    #paginate_by = 20
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.comment_author = self.request.user #присвоили коменту текущего пользователя
+        form.instance.post_id = self.kwargs['pk'] #присвоили коменту айди текущего поста
+        return super().form_valid(form)
+        
+
 def about(request):
     return render(request, 'about.html', {'title' : 'About'})
-
-
-
-
-
 
 # Create your views here.

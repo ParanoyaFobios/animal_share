@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Add a comment {% endblock %}
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><b>New comment</b></p>
+    {{ form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
+    <p>
+        <button type="submit">Send comment</button>
+    </p>
+</form>
+{% endblock content %}
