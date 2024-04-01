@@ -1,0 +1,40 @@
+{% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
+{% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
+{% block content %} <!-- начало уникального контента для данной страницы-->
+<h3>Your comments </h3>
+{% for comment in comments %}
+<a class="post-a flex">
+<div class="post-user-img-box">
+    <object>
+            <a href="{% url 'user-posts' comment.comment_author %}">
+            <img src="{{ comment.comment_author.profile.image.url }}" alt="img" >
+        </a>
+    </object>
+    </div>
+    <object>{{ comment.comment_author }}'s comment at {{ comment.date_added|date:"d F - Y (H:i)" }} in Post: <a class="hz-a" href="{% url 'post-detail' comment.post.id %}"> {{ comment.post.title }}</a>
+    </br></hr>{{ comment.body }}
+    </object>
+</a>
+{% endfor %}
+<div class="pagination wrapper">
+{% if is_paginated %} <!--начало логики для пагинации-->
+    {% if page_obj.has_previous %}
+    <P class="blocktext"><a href="?page=1">First page</a></P>
+    <P class="blocktext previous-page"><a href="?page={{ page_obj.previous }}">Previous page</a></P>
+    {% endif %}
+  
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
+      {% endif %}
+    {% endfor %}
+  
+    {% if page_obj.has_next %}
+    <P class="blocktext next-page"><a href="?page={{ page_obj.next_page_number }}">Next page</a></P>
+    <P class="blocktext"><a href="?page={{ page_obj.paginator.num_pages }}">Last page</a></P>
+    {% endif %}
+{% endif %}
+</div>
+{% endblock content %} <!-- конец уникального контента для данной страницы -->

@@ -148,6 +148,11 @@ aside button img {
     column-gap: 10px;
 }
 
+.hz-a {
+    color: #1a1a1a;
+
+}
+
 .post-a:hover {
     text-decoration: none;
     color: #1a1a1a;

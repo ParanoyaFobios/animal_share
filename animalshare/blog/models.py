@@ -17,6 +17,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk}) #перенаправление после создания поста в детали поста
     
@@ -27,10 +28,9 @@ class Comment(models.Model):
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
         return '%s - %s' % (self.post.title, self.comment_author)
     
-    #def get_absolute_url(self):
-    #    return reverse('post/<int:pk>', kwargs={'pk': Post.pk})
-    #def get_absolute_url(self):
-    #    return reverse('post/<int:pk>', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk': self.post.pk})

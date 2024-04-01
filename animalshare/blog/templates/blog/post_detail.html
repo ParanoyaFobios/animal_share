@@ -38,7 +38,7 @@ Log in to be able to add comments
 {% if not post.comments.all %}
 <h3>No comments yet! Be the first one!</h3>
 {% else %}
-    {% for comments in post.comments.all %}
+{% for comments in post.comments.all %}
 <a class="post-a flex">
 <div class="post-user-img-box">
     <object>
@@ -52,8 +52,29 @@ Log in to be able to add comments
         {{ comments.body }}
 </br></br></br>
 </a>
-    {% endfor %}
+{% endfor %}
 {% endif %}
+<div class="pagination wrapper">
+{% if is_paginated %} <!--начало логики для пагинации-->
+    {% if page_obj.has_previous %}
+    <P class="blocktext"><a href="?page=1">First page</a></P>
+    <P class="blocktext previous-page"><a href="?page={{ page_obj.previous }}">Previous page</a></P>
+    {% endif %}
+  
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
+      {% endif %}
+    {% endfor %}
+  
+    {% if page_obj.has_next %}
+    <P class="blocktext next-page"><a href="?page={{ page_obj.next_page_number }}">Next page</a></P>
+    <P class="blocktext"><a href="?page={{ page_obj.paginator.num_pages }}">Last page</a></P>
+    {% endif %}
+{% endif %}
+</div>
 {% if object.author == user %}
 <a href="{% url 'post-update' post.id %}">Update Post |</a>
 <a href="{% url 'post-delete' post.id %}">Delete Post |</a>

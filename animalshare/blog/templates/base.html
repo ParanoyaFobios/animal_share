@@ -44,7 +44,7 @@
         <button><a href="{% url 'user-posts' request.user.username %}" title="My posts"> <!--возвращает имя пользователя как агрумент-->
             <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
         </a></button>
-        <button><a href="#" title="My friends">
+        <button><a href="{% url 'user-comments' %}" title="My Comments">
             <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
         </a></button>
         <button><a href="#" title="My messages">
