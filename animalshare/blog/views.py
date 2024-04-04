@@ -14,8 +14,9 @@ def home(request):
     context = {
         'posts' : Post.objects.all(),
         'comments' : Comment.objects.all(),
+        'gallery' : Post.objects.all(),
     }
-    return render(request, 'home.html', 'user_comments.html', context, {'animal_image': context}, {'comments':context},)
+    return render(request, 'home.html', 'user_comments.html', 'gallery.html', context, {'animal_image': context}, {'comments':context}, {'gallery': context},)
 
 
 class PostListView(ListView):
@@ -35,6 +36,28 @@ class UserPostListView(ListView): #создание класса который 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
+
+
+
+class GalleryListView(ListView): #создание класса который отфильтрует из БД все картинки
+    model = Post
+    template_name = 'gallery.html' 
+    context_object_name = 'gallery'
+    paginate_by = 18
+    ordering = ['?']
+    # def get_queryset(self):
+    #     return Post.objects.values_list('animal_image', flat=True)
+
+
+class UserCommentListView(ListView): #создание класса который отфильтрует комментарии пользователя
+    model = Comment
+    template_name = 'user_comments.html' 
+    context_object_name = 'comments'
+    paginate_by = 20
+
+    def get_queryset(self):
+        user = get_object_or_404(User, id=self.request.user.id)
+        return Comment.objects.filter(comment_author=user).order_by('-date_added')
 
 
 class PostDetailView(DetailView):
@@ -62,17 +85,7 @@ class AddCommentView(LoginRequiredMixin, CreateView):
         form.instance.comment_author = self.request.user #присвоили коменту текущего пользователя
         form.instance.post_id = self.kwargs['pk'] #присвоили коменту айди текущего поста
         return super().form_valid(form)
-
-class UserCommentListView(ListView): #создание класса который отфильтрует комментарии пользователя
-    model = Comment
-    template_name = 'user_comments.html' 
-    context_object_name = 'comments'
-    paginate_by = 20
-
-    def get_queryset(self):
-        user = get_object_or_404(User, id=self.request.user.id)
-        return Comment.objects.filter(comment_author=user).order_by('-date_added')
-    
+  
 
    
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

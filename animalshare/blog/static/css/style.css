@@ -217,8 +217,14 @@ aside button img {
     font-weight: normal;
     font-size: 20px;
     line-height: 24px;
+    display: block;
+    overflow-x: none;
 }
 
+.gallery-page .post-title {
+    width: 230px;
+    height: 24px;
+}
 
 .post-profile-text object a {
     text-decoration: none;
@@ -261,4 +267,23 @@ aside button img {
 
 .previous-page {
     order: 1;
+}
+
+.gallery-page {
+    flex-direction: row;
+    width: fit-content;
+}
+
+.gallery-page a img {
+    height: 200px;
+    width: 230px;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+.asd {
+    display: flex;
+    column-gap: 20px;
+    flex-wrap: wrap;
 }
