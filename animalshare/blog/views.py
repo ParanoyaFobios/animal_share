@@ -78,8 +78,8 @@ class AddCommentView(LoginRequiredMixin, CreateView):
     fields = ['body', ]
     template_name = 'new_comment.html' #<app>/<model>_<view_type>.html это шаблон по которому джанго будет отрисовывать наши посты
     context_object_name = 'comments'
-    ordering = ['-date_added'] #даем запрос в БД на отображение постов в порядке добавления
-    paginate_by = 5
+    #ordering = ['-date_added'] #даем запрос в БД на отображение постов в порядке добавления
+    #paginate_by = 5
 
     def form_valid(self, form):
         form.instance.comment_author = self.request.user #присвоили коменту текущего пользователя

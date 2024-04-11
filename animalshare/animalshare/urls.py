@@ -21,6 +21,7 @@ from users import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     path('', include('blog.urls')),
     path('about/', include('blog.urls')),
+    path('messages/', include('usertouser.urls')),
 ]
 
 if settings.DEBUG:
