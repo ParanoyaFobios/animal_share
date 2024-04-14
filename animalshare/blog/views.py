@@ -1,13 +1,10 @@
 from typing import Any
-from django.db.models.query import QuerySet
-from django.forms.models import BaseModelForm
-from django.http import request
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Comment
 from django.contrib.auth.models import User
-
+from usertouser.models import usertouser
 
 
 def home(request):
@@ -15,6 +12,7 @@ def home(request):
         'posts' : Post.objects.all(),
         'comments' : Comment.objects.all(),
         'gallery' : Post.objects.all(),
+        'sms' : usertouser.objects.all(),
     }
     return render(request, 'home.html', 'user_comments.html', 'gallery.html', context, {'animal_image': context}, {'comments':context}, {'gallery': context},)
 
@@ -32,6 +30,7 @@ class UserPostListView(ListView): #создание класса который 
     template_name = 'user_posts.html' 
     context_object_name = 'posts'
     paginate_by = 5
+    ordering = ['-date_posted']
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -54,14 +53,12 @@ class UserCommentListView(ListView): #создание класса которы
     template_name = 'user_comments.html' 
     context_object_name = 'comments'
     paginate_by = 20
+    ordering = ['-date_added']
 
     def get_queryset(self):
         user = get_object_or_404(User, id=self.request.user.id)
         return Comment.objects.filter(comment_author=user).order_by('-date_added')
 
-
-class PostDetailView(DetailView):
-    model = Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -78,7 +75,7 @@ class AddCommentView(LoginRequiredMixin, CreateView):
     fields = ['body', ]
     template_name = 'new_comment.html' #<app>/<model>_<view_type>.html это шаблон по которому джанго будет отрисовывать наши посты
     context_object_name = 'comments'
-    #ordering = ['-date_added'] #даем запрос в БД на отображение постов в порядке добавления
+    # #даем запрос в БД на отображение постов в порядке добавления
     #paginate_by = 5
 
     def form_valid(self, form):
@@ -101,7 +98,11 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False #функция которая позволяет редактировать только те посты, автором которых является пользователь
-    
+
+
+class PostDetailView(DetailView):
+    model = Post
+
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post

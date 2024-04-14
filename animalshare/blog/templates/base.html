@@ -40,6 +40,7 @@
     {% endfor %}
 {% endif %}
 <main class="dark-grey wrapper flex">
+    {% if user.is_authenticated %}
     <aside class="aside-left flex column">
         <button><a href="{% url 'user-posts' request.user.username %}" title="My posts"> <!--возвращает имя пользователя как агрумент-->
             <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
@@ -47,6 +48,15 @@
         <button><a href="{% url 'user-comments' %}" title="My Comments">
             <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
         </a></button>
+    {% else %}
+    <aside class="aside-left flex column">
+        <button><a href="{% url 'login' %}" title="My posts"> <!--возвращает имя пользователя как агрумент-->
+            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+        <button><a href="{% url 'login' %}" title="My Comments">
+            <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
+        </a></button>
+    {% endif %}
         <button><a href="{% url 'inbox' %}" title="My messages">
             <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
         </a></button>

@@ -11,12 +11,15 @@
       </object>
   </div>
   <div class="post-text-box">
-      <object>
+    <object>
           <a class="user-name" href="{% url 'user-posts' post.author.username %}" title="User posts"> {{post.author}} </a>
-      </object> 
-      <object>
+    </object>
+    <object>
+        <a class="post-title" href="{% url 'create_message' %}" title="sms"> |mail </a>
+    </object>
+    <object>
           <a class="post-title" href="{% url 'post-detail' post.id %}" title="Comments"> {{ post.title }} </a>
-      </object>
+    </object>
       <p> {{post.animaltype}} is {{post.animalstatus}} in {{post.date_posted|date:"d F - Y (H:i)"}} </p> <!--формат даты - день, месяц, год, время-->
       <p> {{ post.description}} </p>
   </div>
