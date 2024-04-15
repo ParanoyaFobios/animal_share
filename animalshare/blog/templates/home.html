@@ -15,7 +15,7 @@
           <a class="user-name" href="{% url 'user-posts' post.author.username %}" title="User posts"> {{post.author}} </a>
     </object>
     <object>
-        <a class="post-title" href="{% url 'create_message' %}" title="sms"> |mail </a>
+        <a class="post-title" href="{% url 'create_message' recipient=post.author.username %}" title="sms"> Message me </a>
     </object>
     <object>
           <a class="post-title" href="{% url 'post-detail' post.id %}" title="Comments"> {{ post.title }} </a>

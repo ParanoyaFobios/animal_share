@@ -16,7 +16,7 @@
 <body>
 <header>
     <nav class="dark-grey wrapper flex">
-        <a href="http://127.0.0.1:8000"> Go Home page | </a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
+        <a href="{% url 'blog-home' %}"> Go Home page | </a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
         <a href="{% url 'post-create' %}"> Create a new post |</a>
         {% if user.is_authenticated %}
         <a href="{% url 'profile' %}"> My profile | </a> <!-- условие для отображения ссылок на регистрацию и входа на сайт-->
@@ -28,7 +28,7 @@
     </nav>
 </div>
 <div class="logo-long wrapper">
-    <a href="http://127.0.0.1:8000"><img src="{% static 'image/logo-long2.png' %}" alt="Logo-photo" width="1150" height="98"></a>
+    <a href="{% url 'blog-home' %}"><img src="{% static 'image/logo-long2.png' %}" alt="Logo-photo" width="1150" height="98"></a>
 </div>
 </header>
 {% if messages %}
@@ -46,7 +46,7 @@
             <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
         </a></button>
         <button><a href="{% url 'user-comments' %}" title="My Comments">
-            <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
+            <img src="{% static "image/icons/logo-min-on-blue-comments.png" %}" alt="button1" width="50" height="50">
         </a></button>
     {% else %}
     <aside class="aside-left flex column">
@@ -54,14 +54,14 @@
             <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
         </a></button>
         <button><a href="{% url 'login' %}" title="My Comments">
-            <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
+            <img src="{% static "image/icons/logo-min-on-blue-comments.png" %}" alt="button1" width="50" height="50">
         </a></button>
     {% endif %}
         <button><a href="{% url 'inbox' %}" title="My messages">
-            <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
+            <img src="{% static "image/icons/logo-min-on-blue_message.png" %}" alt="button1" width="50" height="50">
         </a></button>
         <button><a href="{% url 'gallery' %}" title="Gallery">
-            <img src="{% static "image/icons/logo-min-on-blue.png" %}" alt="button1" width="50" height="50">
+            <img src="{% static "image/icons/logo-min-on-blue-photo.png" %}" alt="button1" width="50" height="50">
         </a></button>
         <button><a href="{% url 'blog-about' %}" title="About us">
             <img src="{% static "image/icons/logo-min-on-white.png" %}" alt="button1" width="50" height="50">
@@ -72,13 +72,13 @@
     </section>
     <aside class="aside-right flex column">
         <div class="advertising-card first-advertising-card">
-            <img src="{% static "image/commercial2.jpg" %}" alt="Зоомагазин на Привозе" title="Our sponsors" width="200" height="200" target="_blank">
+            <a href="{% url 'blog-about' %}"><img src="{% static "image/commercial2.jpg" %}" alt="Зоомагазин на Привозе" title="Our sponsors" width="200" height="200" target="_blank"></a>
             </div>
         <div class="advertising-card second-advertising-card">
-            <img src="{% static "image/commercial1.jpg" %}" alt="Сухой корм для собак 2190 грн." title="Our sponsors" width="200" height="200" target="_blank">
+            <a href="{% url 'blog-about' %}"><img src="{% static "image/commercial1.jpg" %}" alt="Сухой корм для собак 2190 грн." title="Our sponsors" width="200" height="200" target="_blank"></a>
             </div>
         <div class="advertising-card fird-advertising-card">
-            <img src="{% static "image/advertisement-running-wheel-img.jpg" %}" alt="Беговое колесо для кота" title="Our sponsors" width="200" height="200" target="_blank">
+            <a href="{% url 'blog-about' %}"><img src="{% static "image/advertisement-running-wheel-img.jpg" %}" alt="Беговое колесо для кота" title="Our sponsors" width="200" height="200" target="_blank"></a>
             </div>
     </aside>
 </main>

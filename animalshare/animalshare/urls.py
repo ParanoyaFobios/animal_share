@@ -20,6 +20,7 @@ from django.urls import path, include
 from users import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
+from blog.views import PostListView
 
 
 urlpatterns = [
@@ -32,7 +33,7 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-    path('', include('blog.urls')),
+    path('', PostListView.as_view(), name='blog-home'),
     path('about/', include('blog.urls')),
     path('messages/', include('usertouser.urls')),
 ]

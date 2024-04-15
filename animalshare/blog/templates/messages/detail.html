@@ -2,8 +2,9 @@
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
 
-<a class="post-title" href="#" title="Outbox messages"> Outbox messages </a>
-<a class="post-title" href="{% url 'create_message' %}" title="Sent message"> Sent message </a>
+<a class="post-title" href="{% url 'outbox' %}" title="Outbox messages"> Outbox messages </a>
+<br>
+<a class="post-title" href="{% url 'inbox' %}" title="Outbox messages"> Inbox messages </a>
 <br><br>
 <a class="post-a flex">
   <div class="post-user-img-box">
@@ -20,7 +21,7 @@
         <p>{{ usertouser.subject }}</p>
       <p>{{ usertouser.content }}</p>
     </div>
-    <a class="user-name" href="#" title="Answer"> Answer </a>
+    <a class="user-name" href="{% url 'create_message' recipient=usertouser.sender.username %}" title="Answer"> Answer </a>
 </a>
 <form method="POST">
     {% csrf_token %}

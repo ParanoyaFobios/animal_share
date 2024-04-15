@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Comment
 from django.contrib.auth.models import User
-from usertouser.models import usertouser
+
 
 
 def home(request):
@@ -12,7 +12,6 @@ def home(request):
         'posts' : Post.objects.all(),
         'comments' : Comment.objects.all(),
         'gallery' : Post.objects.all(),
-        'sms' : usertouser.objects.all(),
     }
     return render(request, 'home.html', 'user_comments.html', 'gallery.html', context, {'animal_image': context}, {'comments':context}, {'gallery': context},)
 

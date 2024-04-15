@@ -2,7 +2,6 @@
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
 <a class="post-title" href="{% url 'inbox' %}" title="Outbox messages"> Inbox messages </a>
-<a class="post-title" href="{% url 'create_message' %}" title="Sent message"> Sent message </a>
 <br><br>
 {% for usertouser in sms %}
 <a class="post-a flex">
@@ -24,23 +23,4 @@
 {% empty %}
 No messages yet.
 {% endfor %}
-<div class="pagination wrapper">{% if is_paginated %} <!--начало логики для пагинации-->
-    {% if page_obj.has_previous %}
-    <P class="blocktext"><a href="?page=1">First page</a></P>
-    <P class="blocktext previous-page"><a href="?page={{ page_obj.previous }}">Previous page</a></P>
-    {% endif %}
-  
-    {% for num in page_obj.paginator.page_range %}
-      {% if page_obj.number == num %}
-      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
-      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
-      {% endif %}
-    {% endfor %}
-  
-    {% if page_obj.has_next %}
-    <P class="blocktext next-page"><a href="?page={{ page_obj.next_page_number }}">Next page</a></P>
-    <P class="blocktext"><a href="?page={{ page_obj.paginator.num_pages }}">Last page</a></P>
-    {% endif %}
-    {% endif %}</div>
 {% endblock content %} <!-- конец уникального контента для данной страницы -->
