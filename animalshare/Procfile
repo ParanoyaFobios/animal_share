@@ -1,1 +1,1 @@
-web: serve server.py
+web: python animalshare/server.py serve
