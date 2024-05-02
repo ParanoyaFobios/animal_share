@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
-from decouple import config
-
+from dotenv import load_dotenv
+load_dotenv(override=True)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast = bool, default = True)#по умолчанию True|False, вся эта лабуда для пакета Decouple
+DEBUG = os.getenv("DEBUG") 
 
-ALLOWED_HOSTS = ['*.ondigitalocean.app', '127.0.0.1']
+ALLOWED_HOSTS = ['*'] #поменять перед деплоем
 
 
 # Application definition
@@ -122,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = '/blog/static/'
 #STATICFILES_DIRS = [
 #    os.path.join(BASE_DIR, 'static')]
 
@@ -143,12 +143,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #EMAIL_HOST_USER = os.environ.get('EMAIL_USER') #команда брать переменные вирт окружения из винды
 #EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER') #команда брать переменные вирт окружения из .env файла для пакета Decouple
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER") #команда брать переменные вирт окружения из .env файла для пакета dotenv
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = 'default from email'
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID') ##команда брать переменные вирт окружения из .env файла для пакета Decouple
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID") ##команда брать переменные вирт окружения из .env файла для пакета dotenv
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 #AWS_ACCESS_KEY_ID = os.environ.get('AWS_USER') #команда брать переменные вирт окружения из винды
 #AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_PASS')
 AWS_STORAGE_BUCKET_NAME = 'fobios-bucket'
