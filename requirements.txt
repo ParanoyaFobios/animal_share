@@ -5,6 +5,7 @@ Django==4.2.11
 django-storages==1.14.2
 gunicorn==22.0.0
 jmespath==1.0.1
+packaging==24.0
 pillow==10.3.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
