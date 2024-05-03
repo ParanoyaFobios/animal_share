@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") 
+DEBUG = False 
 
 ALLOWED_HOSTS = ['*'] #поменять перед деплоем
 
@@ -134,7 +134,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
+LOGIN_REDIRECT_URL = '/' #может быть проблема, держать под контролем
 LOGIN_URL = 'login' #настройка перенаправления за счет декоратора users/view.py, что бы пользователи не мутили воду без логина на сайте
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
