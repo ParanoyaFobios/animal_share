@@ -9,7 +9,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "D:\\jungo\\firstsite\\animalshare\\manage.py",
+            "program": "D:\\jungo\\firstsite\\manage.py",
             "args": [
                 "runserver"
             ],
