@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['*.herokuapp.com', 'localhost', '*'] #поменять перед деплоем
-
+ALLOWED_HOSTS = ['*.herokuapp.com', 'localhost', '127.0.0.1:8000'] #поменять перед деплоем
+CSRF_TRUSTED_ORIGINS = ["https://animalshare-34ce92dca6ea.herokuapp.com"]
 
 # Application definition
 
@@ -134,7 +134,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/' #может быть проблема, держать под контролем
+LOGIN_REDIRECT_URL = 'https://animalshare-34ce92dca6ea.herokuapp.com' #может быть проблема, держать под контролем
 LOGIN_URL = 'login' #настройка перенаправления за счет декоратора users/view.py, что бы пользователи не мутили воду без логина на сайте
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
