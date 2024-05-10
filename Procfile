@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT animalshare.animalshare.wsgi:application
+web: python animalshare/server.py
