@@ -1,1 +1,1 @@
-web: gunicorn animalshare.wsgi
+web: waitress-serve --port=$PORT animalshare.wsgi:application
