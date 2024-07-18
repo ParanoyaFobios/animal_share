@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['animalshare-34ce92dca6ea.herokuapp.com', 'localhost', '127.0.0.1:8000'] #поменять перед деплоем
+ALLOWED_HOSTS = ['animalshare-34ce92dca6ea.herokuapp.com', 'localhost', '127.0.0.1'] #поменять перед деплоем
 CSRF_TRUSTED_ORIGINS = ["https://animalshare-34ce92dca6ea.herokuapp.com"]
 
 # Application definition
