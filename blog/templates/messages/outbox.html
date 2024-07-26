@@ -7,14 +7,14 @@
 <a class="post-a flex">
   <div class="post-user-img-box">
       <object>
-          <a href="{% url 'user-posts' usertouser.recipient.username %}" title="User posts">
-              <img src="{{ usertouser.recipient.profile.image.url }}" alt="img" > 
+          <a href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">
+              <img src="{{ usertouser.sender.profile.image.url }}" alt="img" > 
           </a>
       </object>
   </div>
   <div class="post-text-box">
       <object>
-          <a class="user-name" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">For: {{usertouser.sender.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
+          <a class="user-name" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">For: {{usertouser.recipient.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
       </object> 
         <p>{{ usertouser.subject }}</p>
       <p>{{ usertouser.content }}</p>
