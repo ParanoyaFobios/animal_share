@@ -4,7 +4,6 @@ from django.utils.functional import lazy
 from django.urls import reverse
 from .models import usertouser
 from django.contrib.auth.models import User
-from django.core.cache import cache
 
 
 class usertouserCreateView(LoginRequiredMixin, CreateView):

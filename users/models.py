@@ -16,6 +16,6 @@ class Profile(models.Model):
     
     #    img = Image.open(self.image.path) #открываем изображение с помощью подушки
     #    if img.height > 800 or img.width > 800:#условие для сверки размера
-    #        output_size = (800, 800)#команда конвертации
-    #        img.thumbnail(output_size)#продолжение команды конвертации
+    #       output_size = (800, 800)#команда конвертации
+    #       img.thumbnail(output_size)#продолжение команды конвертации
     #       img.save(self.image.path)#сохранение с перезаписью, путь перезаписи в аргументе
