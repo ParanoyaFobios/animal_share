@@ -14,7 +14,10 @@
     <div class="post-text-box">
         <object>
             <a class="user-name" href="{% url 'user-posts' post.author.username %}"> {{post.author}} </a>
-        </object> 
+        </object>
+        <object>
+            <a class="post-title" href="{% url 'create_message' recipient=post.author.username %}" title="sms"> Message me </a>
+        </object>
         <object>
             <a class="post-title" href="{% url 'post-detail' post.id %}"> {{ post.title }} </a>
         </object>
