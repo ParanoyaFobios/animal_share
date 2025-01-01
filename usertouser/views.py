@@ -41,7 +41,6 @@ class usertouserListView(LoginRequiredMixin, ListView):
 
 
     def get_queryset(self):
-        cache.clear()
         return usertouser.objects.filter(recipient=self.request.user).order_by('-timestamp')
     
 
