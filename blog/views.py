@@ -12,11 +12,7 @@ def home(request):
         'comments' : Comment.objects.all(),
         'gallery' : Post.objects.all(),
     }
-    return render(request,
-    'home.html',
-    'user_comments.html',
-    'gallery.html',
-    context,)
+    return render(request, 'home.html', 'user_comments.html', 'gallery.html', context,)
 
 class PostListView(ListView):
     model = Post
