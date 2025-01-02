@@ -1,10 +1,9 @@
-from typing import Any
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Comment
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -13,8 +12,11 @@ def home(request):
         'comments' : Comment.objects.all(),
         'gallery' : Post.objects.all(),
     }
-    return render(request, 'home.html', 'user_comments.html', 'gallery.html', context, {'animal_image': context}, {'comments':context}, {'gallery': context},)
-
+    return render(request,
+    'home.html',
+    'user_comments.html',
+    'gallery.html',
+    context,)
 
 class PostListView(ListView):
     model = Post
@@ -58,6 +60,13 @@ class UserCommentListView(ListView): #создание класса которы
         user = get_object_or_404(User, id=self.request.user.id)
         return Comment.objects.filter(comment_author=user).order_by('-date_added')
 
+@login_required
+def Delete_Comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id, comment_author=request.user)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('user-comments')  # Перенаправление на страницу с комментариями
+    return render(request, 'confirm_delete.html', {'comment': comment})
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
