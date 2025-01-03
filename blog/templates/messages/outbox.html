@@ -1,7 +1,7 @@
 {% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
-<a class="post-title" href="{% url 'inbox' %}" title="Outbox messages"> Inbox messages </a>
+<a class="post-title" href="{% url 'usertouser:inbox' %}" title="Outbox messages"> Inbox messages </a>
 <br><br>
 {% for usertouser in sms %}
 <a class="post-a flex">

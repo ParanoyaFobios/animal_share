@@ -1,8 +1,10 @@
 from django.urls import path, re_path
-from .views import PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, AddCommentView, UserCommentListView, GalleryListView, Delete_Comment
+from .views import PostDetailView, PostCreateView, PostListView, PostUpdateView, PostDeleteView, UserPostListView, AddCommentView, UserCommentListView, GalleryListView, Delete_Comment
 from . import views
 
+
 urlpatterns = [
+    path('', PostListView.as_view(), name='blog-home'),
     re_path(r'^user/(?P<username>\w{0,50})/$', UserPostListView.as_view(), name='user-posts'),
     path('post/<int:pk>', PostDetailView.as_view(), name='post-detail'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),

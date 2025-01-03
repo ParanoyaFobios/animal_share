@@ -2,7 +2,7 @@
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
 
-<a class="post-title" href="{% url 'outbox' %}" title="Outbox messages"> Outbox messages </a>
+<a class="post-title" href="{% url 'usertouser:outbox' %}" title="Outbox messages"> Outbox messages </a>
 <br><br>
 
 {% for usertouser in sms %}
@@ -12,7 +12,7 @@
           <a class="post-title" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">From: {{usertouser.sender.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
       </object> 
       <object>
-          <a class="post-title" href="{% url 'detail' usertouser.id %}" title="Details"> {{ usertouser.subject }} <- click for detail </a>
+          <a class="post-title" href="{% url 'usertouser:detail' usertouser.id %}" title="Details"> {{ usertouser.subject }} <- click for detail </a>
       </object>
     </div>
 </a>
