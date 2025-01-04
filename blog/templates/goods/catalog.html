@@ -4,7 +4,7 @@
 <h2>Goods for our beloved animals.</h2> 
 <h2>DEVELOPMENT IN PROGRESS....</h2> 
 <div class="asd">
-{% for post in gallery %} <!-- начало цикла словарей из модуля views.py  -->
+{% for category in categories %} <!-- начало цикла словарей из модуля views.py  -->
       <div class="gallery-page">
         <a class="post-title" href="{% url 'goods:post-detail' post.id %}" title="Go to post"> {{ post.title }} </a>
         <a href="{{ post.animal_image.url }}">
