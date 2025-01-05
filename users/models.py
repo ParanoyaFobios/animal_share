@@ -8,7 +8,7 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics') #
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username} Profile' #переопределение надписи в админке, вместо object(1), будет отобржаться юзернейм профиль
     
 
     #def save(self, *args, **kwargs):

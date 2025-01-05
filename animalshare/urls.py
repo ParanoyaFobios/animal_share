@@ -36,7 +36,7 @@ urlpatterns = [
     path('', include('blog.urls'), name='blog-home'),
 
     path('messages/', include('usertouser.urls', namespace='usertouser')), #тут мы реализовали пространство имен, что б не было конфликтов с хтмл файлами назанными одинаково, при указании ссылок надо добавлять префикс указанный в пространстве имен, см фалйы хтмл в usertouser
-    path('shop/', include('goods.urls', namespace='goods')),
+    path('shop/', include('goods.urls'), name='shop'),
 ]
 
 if settings.DEBUG:

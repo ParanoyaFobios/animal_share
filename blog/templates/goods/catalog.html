@@ -2,16 +2,24 @@
 {% load static %}
 {% block content %}
 <h2>Goods for our beloved animals.</h2> 
-<h2>DEVELOPMENT IN PROGRESS....</h2> 
 <div class="asd">
-{% for category in categories %} <!-- начало цикла словарей из модуля views.py  -->
-      <div class="gallery-page">
-        <a class="post-title" href="{% url 'goods:post-detail' post.id %}" title="Go to post"> {{ post.title }} </a>
-        <a href="{{ post.animal_image.url }}">
-          <img src="{{ post.animal_image.url }}" alt="img" >
-        </a>
-      </div>
-      {% endfor %}
+    {% for category in categories %} <!-- начало цикла словарей из модуля views.py  -->
+<li>
+  <a href="{% url 'product' %}">{{category.name}}</a>
+</li><br><hr>
+    {% endfor %}
+    <br><br>
+    {% for product in goods %}
+    <div class="gallery-page">
+      <a href="{{ product.image.url }}">
+        <img src="{{ product.image.url }}" alt="img" >
+        <a class="post-title" href="{% url 'product' %}" title="Go to description"> {{ product.name }} </a><br>
+        <a>Prise - {{ product.price }}</a><br>
+        <a>Discount - {{ product.discount }}%</a><br>
+        <a>Aviable - {{ product.quantity }} pieces</a><br>
+      </a><br>
+    </div>
+    {% endfor %}
 </div>
 <div class="pagination wrapper">{% if is_paginated %} <!--начало логики для пагинации-->
     {% if page_obj.has_previous %}
