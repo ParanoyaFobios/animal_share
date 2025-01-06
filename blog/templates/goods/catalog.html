@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+{% load goods_tags %}
 {% block content %}
 <h2>Goods for our beloved animals.</h2> 
 <div class="asd">
-    {% for category in categories %} <!-- начало цикла словарей из модуля views.py  -->
+    {% tag_categories as categories %} <!--tag_categories это имя функции пользовательского тэга для джанго, мы создали ее в goods.templatetags.goods_tags-->
+    {% for category in categories %} <!-- начало цикла словарей из модуля views.py, в данной ситуации categories это функция qwery set из шаблонных тагов  -->
 <li>
   <a href="{% url 'product' %}">{{category.name}}</a>
 </li><br><hr>
@@ -11,12 +13,18 @@
     <br><br>
     {% for product in goods %}
     <div class="gallery-page">
-      <a href="{{ product.image.url }}">
+      <a href="{% url 'product' %}" title="Go to description">
         <img src="{{ product.image.url }}" alt="img" >
         <a class="post-title" href="{% url 'product' %}" title="Go to description"> {{ product.name }} </a><br>
-        <a>Prise - {{ product.price }}</a><br>
+        {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
+        <a><s>Price - {{ product.price }}</s></a><br>
         <a>Discount - {{ product.discount }}%</a><br>
+        <a>Final price - {{ product.sell_price }}</a><br>
+        {% else %}
+        <a>Price - {{ product.price }}</a><br>
+        {% endif %}
         <a>Aviable - {{ product.quantity }} pieces</a><br>
+        <a>Id № - {{ product.display_id }}</a><br> <!-- в обычой ситуации мы бы вызвали айди товара через запись {{product.id}},однко, если мы хотим вызвать метод класса Product с измененным отображением, пишем {{product.display_id}} -->
       </a><br>
     </div>
     {% endfor %}
