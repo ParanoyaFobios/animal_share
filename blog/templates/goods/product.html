@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load goods_tags %}
+{% block content %}
+<div class="gallery-page">
+    <img src="{{ product.image.url }}" alt="img" >
+    <a class="post-title"> {{ product.name }} </a><br>
+    {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
+    <a><s>Price - {{ product.price }}</s></a><br>
+    <a>Discount - {{ product.discount }}%</a><br>
+    <a>Final price - {{ product.sell_price }}</a><br>
+    {% else %}
+    <a>Price - {{ product.price }}</a><br>
+    {% endif %}
+    <a>Aviable - {{ product.quantity }} pieces</a><br>
+    <a>Id № - {{ product.display_id }}</a><br> <!-- в обычой ситуации мы бы вызвали айди товара через запись {{product.id}},однко, если мы хотим вызвать метод класса Product с измененным отображением, пишем {{product.display_id}} -->
+    <a>{{ product.description }}</a><br>
+    </a><br>
+</div>
+{% endblock content %}
