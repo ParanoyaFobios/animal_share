@@ -6,8 +6,8 @@ from goods.models import Products
 
 
 
-def catalog(request): #контроллер отображения каталога находится в пользовательских тагах goods_tags.py
-    goods = Products.objects.all().order_by('?')
+def catalog(request, category_slug): #контроллер отображения каталога находится в пользовательских тагах goods_tags.py
+    goods = Products.objects.filter(category__slug=category_slug)
 
     context = {
         'title':'Goods categories',
@@ -15,6 +15,15 @@ def catalog(request): #контроллер отображения катало�
     }
     return render(request, 'goods/catalog.html', context,)
 
+
+def catalog_all(request): #контроллер отображения каталога находится в пользовательских тагах goods_tags.py
+    goods = Products.objects.all().order_by('?')
+
+    context = {
+        'title':'Goods categories',
+        'goods' : goods,
+    }
+    return render(request, 'goods/catalog.html', context,)
 #Products.objects.filter(category__id=9).order_by('-price') сортировка обьектов бд по категории Cat's gear, сначала дешевые, потом дорогие
 
 def product(request, product_slug):

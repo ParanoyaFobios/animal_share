@@ -3,11 +3,12 @@
 {% load goods_tags %}
 {% block content %}
 <h2>Goods for our beloved animals.</h2> 
+<h2>DEVELOPMENT IN PROGRES....</h2> 
 <div class="asd">
     {% tag_categories as categories %} <!--tag_categories это имя функции пользовательского тэга для джанго, мы создали ее в goods.templatetags.goods_tags-->
     {% for category in categories %} <!-- начало цикла словарей из модуля views.py, в данной ситуации categories это функция qwery set из шаблонных тагов  -->
 <li>
-  <a href="{% url 'catalog' %}">{{category.name}}</a>
+  <a href="{% url 'catalog' category.slug %}">{{category.name}}</a>
 </li><br><hr>
     {% endfor %}
     <br><br>
