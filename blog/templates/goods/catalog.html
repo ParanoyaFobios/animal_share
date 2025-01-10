@@ -3,31 +3,43 @@
 {% load goods_tags %}
 {% block content %}
 <h2>Goods for our beloved animals.</h2> 
-<h2>DEVELOPMENT IN PROGRES....</h2> 
-<div class="asd">
+<form><a form action="{% url 'catalog-all' %}" method="GET" class="main-item" href="javascript:void(0);" tabindex="1" ><label>Price filter</label></a>
+<ul class="sub-menu"> 
+   <li><input type="checkbox" name="on_sale" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}><label>Discount only</label></li>
+   <p>Sort by:</p><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
+   <li><input type="radio" name="order_by" id="flexRadioDefault1" value="default" 
+    {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}><label>No filter</label></li>
+   <li><input type="radio" name="order_by" id="flexRadioDefault2" value="-price" 
+    {% if request.GET.order_by == '-price' %}checked{% endif %}><label>From high to low</label></li>
+   <li><input type="radio" name="order_by" id="flexRadioDefault3" value="price" 
+    {% if request.GET.order_by == 'price' %}checked{% endif %}><label>Cheaperst first</label></li>
+   <button type="submit">Sort</button>
+  </ul>
+</form>
+<br>
+<div class="asd"> 
 <li>
   <a href="{% url 'catalog-all' %}">All goods</a>
-</li><br><hr>
+</li><br>
     {% tag_categories as categories %} <!--tag_categories это имя функции пользовательского тэга для джанго, мы создали ее в goods.templatetags.goods_tags-->
     {% for category in categories %} <!-- начало цикла словарей из модуля views.py, в данной ситуации categories это функция qwery set из шаблонных тагов  -->
 <li>
   <a href="{% url 'catalog' category.slug %}">{{category.name}}</a>
-</li><br><hr>
+</li><br>
     {% endfor %}
     <br><br>
     {% for product in goods %}
-    <div class="gallery-page">
+    <div class="gallery-page shop-page-card">
       <a href="{% url 'product' product.slug %}" title="Go to description">
         <img src="{{ product.image.url }}" alt="img" >
-        <a class="post-title" href="{% url 'product' product.slug %}" title="{{ product.name }}"> {{ product.name|truncatechars:20 }} </a><br><!--оберание оборажения более чем 20ти символов на странице-->
+        <a class="post-title" href="{% url 'product' product.slug %}" title="{{ product.name }}"> {{ product.name|truncatechars:20 }} </a><!--оберание оборажения более чем 20ти символов на странице-->
         {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
-        <a><s>Price - {{ product.price }}</s></a><br>
-        <a>Discount - {{ product.discount }}%</a><br>
-        <a>Final price - {{ product.sell_price }}</a><br>
+        <p>Price - {{ product.sell_price }}</p>
+        <p>Discount - {{ product.discount }}%</p>
         {% else %}
-        <a>Price - {{ product.price }}</a><br>
+        <p>{{ product.price }} $</p>
         {% endif %}
-        <a>Aviable - {{ product.quantity }} pieces</a><br>
+        <p>Aviable - {{ product.quantity }} pieces</p>
     </div>
     {% endfor %}
 </div>

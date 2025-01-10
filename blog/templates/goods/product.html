@@ -3,18 +3,17 @@
 {% load goods_tags %}
 {% block content %}
 <div class="gallery-page">
-    <img src="{{ product.image.url }}" alt="img" >
-    <a class="post-title"> {{ product.name }} </a><br>
+    <img class="shop-image" src="{{ product.image.url }}" alt="img" >
+    <h3> {{ product.name }} </h3>
     {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
-    <a><s>Price - {{ product.price }}</s></a><br>
-    <a>Discount - {{ product.discount }}%</a><br>
-    <a>Final price - {{ product.sell_price }}</a><br>
+    <p><s>Price - {{ product.price }}</s></p>
+    <p>Discount - {{ product.discount }}%</p>
+    <p>Final price - {{ product.sell_price }}</p>
     {% else %}
-    <a>Price - {{ product.price }}</a><br>
+    <p>Price - {{ product.price }}</p>
     {% endif %}
-    <a>Aviable - {{ product.quantity }} pieces</a><br>
-    <a>Id № - {{ product.display_id }}</a><br> <!-- в обычой ситуации мы бы вызвали айди товара через запись {{product.id}},однко, если мы хотим вызвать метод класса Product с измененным отображением, пишем {{product.display_id}} -->
-    <a>{{ product.description }}</a><br>
-    </a><br>
+    <p>Aviable - {{ product.quantity }} pieces</p>
+    <p>Id № - {{ product.display_id }}</p><!-- в обычой ситуации мы бы вызвали айди товара через запись {{product.id}},однко, если мы хотим вызвать метод класса Product с измененным отображением, пишем {{product.display_id}} -->
+    <p>{{ product.description }}</p>
 </div>
 {% endblock content %}

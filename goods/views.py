@@ -9,6 +9,13 @@ from django.core.paginator import Paginator
 
 def catalog(request, category_slug): #контроллер отображения каталога находится в пользовательских тагах goods_tags.py
     goods = Products.objects.filter(category__slug=category_slug)
+    on_sale = request.GET.get('on_sale', None)
+    order_by = request.GET.get('order_by', None)
+
+    if on_sale:
+        goods = goods.filter(discount__gt=0) #discount__gt означает условие greater then, думаю есть такое же lt - lesser then
+    if order_by and order_by != 'default':
+        goods = goods.order_by(order_by)
 
     context = {
         'title':'Goods categories',
@@ -18,11 +25,18 @@ def catalog(request, category_slug): #контроллер отображени�
 
 
 def catalog_all(request): #контроллер отображения каталога находится в пользовательских тагах goods_tags.py
-    goods = Products.objects.all().order_by('?')
+    goods = Products.objects.all()
+    on_sale = request.GET.get('on_sale', None)
+    order_by = request.GET.get('order_by', None)
+
+    if on_sale:
+        goods = goods.filter(discount__gt=0) #discount__gt означает условие greater then, думаю есть такое же lt - lesser then
+    if order_by and order_by != 'default':
+        goods = goods.order_by(order_by)
+
     paginator = Paginator(goods, 9) #пагинация не для классов, как я делал раьше, а для функций отображения
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
 
     context = {
         'title':'Goods categories',

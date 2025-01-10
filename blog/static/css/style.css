@@ -272,6 +272,7 @@ aside button img {
 .gallery-page {
     flex-direction: row;
     width: fit-content;
+
 }
 
 .gallery-page a img {
@@ -279,11 +280,38 @@ aside button img {
     width: 230px;
     object-fit: cover;
     object-position: center;
+    border-radius: 10px;
 
 }
 
 .asd {
     display: flex;
-    column-gap: 20px;
+    column-gap: 10px;
     flex-wrap: wrap;
 }
+
+.shop-image {
+    max-width: 500px;
+    max-height: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+.shop-page-card {
+    border: 3px rgba(192, 192, 192, 0.435) solid;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 3px;
+}
+
+.sub-menu 
+{ 
+   display: none; 
+} 
+.main-item:focus ~ .sub-menu, 
+.main-item:active ~ .sub-menu, 
+.sub-menu:hover 
+{ 
+   display: block; 
+} 
