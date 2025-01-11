@@ -34,7 +34,7 @@ def catalog_all(request): #контроллер отображения ката�
     if order_by and order_by != 'default':
         goods = goods.order_by(order_by)
 
-    paginator = Paginator(goods, 9) #пагинация не для классов, как я делал раьше, а для функций отображения
+    paginator = Paginator(goods, 6) #пагинация не для классов, как я делал раьше, а для функций отображения
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
