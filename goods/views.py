@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from goods.models import Products
 from django.core.paginator import Paginator
-
+from goods.utils import q_search
 
 
 
@@ -13,7 +13,7 @@ def catalog(request, category_slug): #контроллер отображени�
     order_by = request.GET.get('order_by', None)
 
     if on_sale:
-        goods = goods.filter(discount__gt=0) #discount__gt означает условие greater then, думаю есть такое же lt - lesser then
+        goods = goods.filter(discount__gt=0) #discount__gt означает условие greater then, lt - lesser then
     if order_by and order_by != 'default':
         goods = goods.order_by(order_by)
 
@@ -25,9 +25,16 @@ def catalog(request, category_slug): #контроллер отображени�
 
 
 def catalog_all(request): #контроллер отображения каталога находится в пользовательских тагах goods_tags.py
-    goods = Products.objects.all()
+    #goods = Products.objects.all()
     on_sale = request.GET.get('on_sale', None)
     order_by = request.GET.get('order_by', None)
+    query = request.GET.get('q', None)
+
+    if query:
+        goods = q_search(query)
+    else:
+        goods = Products.objects.all()
+
 
     if on_sale:
         goods = goods.filter(discount__gt=0) #discount__gt означает условие greater then, думаю есть такое же lt - lesser then

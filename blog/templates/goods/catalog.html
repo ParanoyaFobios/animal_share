@@ -2,14 +2,17 @@
 {% load static %}
 {% load goods_tags %}
 {% block content %}
-<form class="" role="search">
-  <input class="" type="search" placeholder="Search">
+<form class="" role="search" action="{% url 'search' %}" method="get">
+  <input class="" type="search" name="q" placeholder="Good's search">
   <button class="" type="submit">Search</button>
-</form>Search algoritms in development state
-<form><a form action="{% url 'catalog-all' %}" method="GET" class="main-item" href="javascript:void(0);" tabindex="1" ><label>Price filter</label></a>
+</form>
+<form><a form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}" method="GET" class="main-item" href="javascript:void(0);" tabindex="1" ><label>Price filter</label></a>
 <ul class="sub-menu"> 
-   <li><input type="checkbox" name="on_sale" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}><label>Discount only</label></li>
-   <p>Sort by:</p><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
+   <li><input type="checkbox" name="on_sale" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}><label>Discount only</label></li><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
+   {% if request.GET.q %}
+    <input type="hidden" name="q" value="{{ request.GET.q }}"><!--если пользователь делает поисковый запрос с включенной сортировкой, срабатывает скрыттый ввод, который сохранит все параметры-->
+   {% endif %}
+   <p>Sort by:</p>
    <li><input type="radio" name="order_by" id="flexRadioDefault1" value="default" 
     {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}><label>No filter</label></li>
    <li><input type="radio" name="order_by" id="flexRadioDefault2" value="-price" 
