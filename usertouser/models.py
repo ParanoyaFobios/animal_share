@@ -10,6 +10,10 @@ class usertouser(models.Model):
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    # def __str__(self):
+    #     return self.subject
+    #нюанс в том, что сюда, можно писать только Charfield и TextField, если будут числа или айди вылазит ошибка
+    #леко меняется в admin.py
 
     def get_absolute_url(self):
         return reverse('inbox')

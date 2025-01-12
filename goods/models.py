@@ -28,7 +28,7 @@ class Products(models.Model):
     class Meta:
         db_table = 'product'
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name #тут мы реализовали изменение названия товаров в админ панеле. Если без этой функции, категории и товары будут выглядеть как: Object_1 и т.д.
     
     def display_id(self):

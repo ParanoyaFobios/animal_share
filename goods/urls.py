@@ -5,6 +5,7 @@ from goods import views
 
 urlpatterns = [
     path('', views.catalog_all, name='catalog-all'),
+    path('search/', views.catalog_all, name='search'),
     path('<slug:category_slug>/', views.catalog, name='catalog'),
     path('product/<slug:product_slug>/', views.product, name='product'), #задействуем URL dispatcher см документацию джанго
     ]
