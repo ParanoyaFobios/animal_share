@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<form method="POST">
+<form class="" role="login" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <p><b>Log In</b></p>
-    {{ form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
+    {% if form.non_field_errors %}
+    <div class="warning login-warning">{{form.non_field_errors}}</div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
+    {% endif %}
+    <div>
+        <label for="{{ form.username.id_for_label }}" placeholder="Username"></label>
+        <input type="text" class="" name="username"  
+        value="{% if form.username.value %}{{ form.username.value }}{% endif %}" 
+        id="id_username" placeholder="Username" required>
+    </div>
+    <div>
+        <label for="{{ form.password.id_for_label }}" placeholder="Password"></label>
+        <input type="password" class="" name="password" id="id_password" placeholder="Password" required>
+    </div>
     <p>
         <button type="submit">Log In</button>
     </p>

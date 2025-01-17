@@ -13,11 +13,23 @@
 <form method="POST" enctype="multipart/form-data"> <!--тип кодировки, для того что бы наша форма вставила правильные данные изображения, если забыть, форма не будет сохранять обновленное изображение--> 
     {% csrf_token %}
     <p><b>Profile info Update</b></p>
-    {{ u_form.as_p }}
-    {{ p_form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
+    {% if form.non_field_errors %}
+    <div class="warning login-warning">{{form.non_field_errors}}</div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
+    {% endif %}
+    <div>
+        <input type="text" class="" name="username"  
+        value="{{ u_form.username.value }}" 
+        id="id_username" placeholder="Username" required>
+        <label for="{{ u_form.username.id_for_label }}" placeholder="Username">Change your name here</label>
+    </div>
+    <div>
+        <input type="email" class="" name="email" value="{{ u_form.email.value }}" id="id_email" placeholder="Email" required>
+        <label for="{{ u_form.email.id_for_label }}" placeholder="Email">Change your email if requred</label>
+    </div>
+    {{ p_form.as_p }}
     <p><button type="submit">Update</button></p>
 </form>
-<p>Change my password</p>
+<p>Not sure about your password?</p>
     <p><a href="{% url 'password_reset' %}">Reset password</a></p>
 </div>
 {% endblock content %}

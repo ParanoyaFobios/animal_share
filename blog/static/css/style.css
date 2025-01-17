@@ -244,6 +244,10 @@ aside button img {
     font-size: xx-large;
   }
 
+  .warning.login-warning {
+    width: 100%;
+  }
+
 .pagination {
     margin-left: auto;
     margin-right: auto;

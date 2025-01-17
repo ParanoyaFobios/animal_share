@@ -14,7 +14,7 @@ class UserRegisterForm(UserCreationForm): #в агрументе класса у
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
-    class Meta: #что мы хотим видеть в моделе нашей формы регистрации
+    class Meta:
         model = User
         fields = ['username', 'email']
 
