@@ -12,11 +12,7 @@ class Post(models.Model):
     animal_image = models.ImageField(default='default_animal.jpg', upload_to='animal_pics')
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    
-    def __str__(self):
-        return self.title
-    
+   
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk}) #перенаправление после создания поста в детали поста
@@ -30,7 +26,8 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return '%s - %s' % (self.post.title, self.comment_author)
+        return f'{self.comment_author, self.post.title} Author/post title'
+    #   return '%s - %s' % (self.post.title, self.comment_author)
     
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.post.pk})

@@ -4,13 +4,13 @@
 <h2>Our animal photos.</h2> 
 <div class="asd">
 {% for post in gallery %} <!-- начало цикла словарей из модуля views.py  -->
-      <div class="gallery-page">
-        <a class="post-title" href="{% url 'post-detail' post.id %}" title="Go to post"> {{ post.title }} </a>
-        <a href="{{ post.animal_image.url }}">
-          <img src="{{ post.animal_image.url }}" alt="img" >
-        </a>
-      </div>
-      {% endfor %} <!-- всегда нужно оканчивать начало цикла в джанго-->
+<div class="gallery-page">
+  <a class="post-title" href="{% url 'post-detail' post.id %}" title="Go to post"> {{ post.title }} </a>
+  <a href="{{ post.animal_image.url }}">
+    <img src="{{ post.animal_image.url }}" alt="img" >
+  </a>
+</div>
+{% endfor %} <!-- всегда нужно оканчивать начало цикла в джанго-->
 </div>
 <div class="pagination wrapper">{% if is_paginated %} <!--начало логики для пагинации-->
     {% if page_obj.has_previous %}

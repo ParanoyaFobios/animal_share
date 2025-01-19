@@ -41,8 +41,9 @@ class GalleryListView(ListView): #создание класса который �
     context_object_name = 'gallery'
     paginate_by = 18
     ordering = ['?']
-    # def get_queryset(self):
-    #     return Post.objects.values_list('animal_image', flat=True)
+
+    def get_queryset(self):
+        return Post.objects.exclude(animal_image='default_animal.jpg')#реализовано условие выборки из БД, КРОМЕ (что б не отображались стандартные пикчи животных)
 
 
 class UserCommentListView(ListView): #создание класса который отфильтрует комментарии пользователя
