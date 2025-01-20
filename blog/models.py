@@ -26,7 +26,7 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return f'{self.comment_author, self.post.title} Author/post title'
+        return f'Author {self.comment_author}| post title {self.post.title}'
     #   return '%s - %s' % (self.post.title, self.comment_author)
     
     def get_absolute_url(self):

@@ -1,0 +1,24 @@
+{% load static %}
+
+<p>My orders</p>
+<div class="shop-page-card shop-page-card-cont">
+    <div class="shop-page-card-cont-left">
+        <a href="#" title="Go to description">
+            <img src="{% static 'image/commercial2.jpg' %}" alt="img" >
+        </a>
+    </div>
+    <div class="shop-page-card-cont-middle">
+        <a class="post-title" href="#" title="product.name">product.name|truncatechars:20      
+        </a><!--оберание оборажения более чем 20ти символов на странице-->
+        {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
+        <p>Price - {{ product.sell_price }}</p>
+        <p>Discount - {{ product.discount }}%</p>
+        {% else %}
+        <p>{{ product.price }} $</p>
+        {% endif %}
+    </div>
+    <div class="shop-page-card-cont-right">
+        <p>Aviable - {{ product.quantity }} pieces</p>
+        <p>Status</p>
+    </div>
+</div>

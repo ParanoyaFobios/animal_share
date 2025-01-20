@@ -1,15 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="post-user-img-box">
+<div class="gallery-page shop-page-card">
     <image class="userpic" src="{{ user.profile.image.url }}" 
 ></image>
-</div> <!---->
-<div class="post-profile-text">
-<a class="user-name">
-    <h1>{{ user.username }}</h1></div> <!--джанго сам показывает в этой переменной залогиненого пользователя-->
-<a class="user-name">
-    <h1> {{ user.email }} </h1></a></div>
+ <!---->
 <form method="POST" enctype="multipart/form-data"> <!--тип кодировки, для того что бы наша форма вставила правильные данные изображения, если забыть, форма не будет сохранять обновленное изображение--> 
     {% csrf_token %}
     <p><b>Profile info Update</b></p>
@@ -24,12 +19,14 @@
     </div>
     <div>
         <input type="email" class="" name="email" value="{{ u_form.email.value }}" id="id_email" placeholder="Email" required>
-        <label for="{{ u_form.email.id_for_label }}" placeholder="Email">Change your email if requred</label>
+        <label for="{{ u_form.email.id_for_label }}" placeholder="Email">Change your email</label>
     </div>
     {{ p_form.as_p }}
     <p><button type="submit">Update</button></p>
 </form>
 <p>Not sure about your password?</p>
     <p><a href="{% url 'password_reset' %}">Reset password</a></p>
+</div>
+{% include "carts/includes/included_cart.html" %}
 </div>
 {% endblock content %}

@@ -2,10 +2,12 @@
 {% load static %}
 {% load goods_tags %}
 {% block content %}
+<!--начало поиска и фильтра-->
 <form class="" role="search" action="{% url 'search' %}" method="get">
   <input class="" type="search" name="q" placeholder="Good's search">
   <button class="" type="submit">Search</button>
 </form>
+<a href="{% url 'users-cart' %}" class="orders-href">My orders</a>
 <form><a form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}" method="GET" class="main-item" href="javascript:void(0);" tabindex="1" ><label>Price filter</label></a>
 <ul class="sub-menu"> 
    <li><input type="checkbox" name="on_sale" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}><label>Discount only</label></li><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
@@ -23,6 +25,8 @@
   </ul>
 </form>
 <br>
+<!--конец поиска и фильтра-->
+<!--начало каталога товаров-->
 <div class="asd"> 
 <li>
   <a href="{% url 'catalog-all' %}">All goods</a>
@@ -49,6 +53,7 @@
     </div>
     {% endfor %}
 </div>
+<!--конец каталога товаров-->
 <div class="pagination wrapper"> <!--начало логики для пагинации-->
   {% if page_obj.has_previous %}
   <P class="blocktext"><a href="?{% change_params page=page_obj.first %}">First page</a></P>

@@ -22,18 +22,18 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-@login_required #это декоратор связанный с настройкой animalshare/settings.py LOGIN_URL = 'login'
+@login_required #это декоратор связанный с настройкой animalshare/settings.py LOGIN_URL = 'login', дает доступ к контроллеру только авторизированным пользователям, выдаст 404 если не указать в настройках куда редиректить
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)#request.FiLES необходимо для того, что бы форма приняла файлы картинок
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Account has been updated!You may continue!')
             return redirect('profile')
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user)#instance передает обьект пользователя, что б при изменении профиля пользователя, сразу отображались его текущие данные
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {

@@ -309,6 +309,26 @@ aside button img {
     padding: 3px;
 }
 
+.shop-page-card-cont {
+    display: flex;
+}
+
+.shop-page-card-cont-left, .shop-page-card-cont-right {
+    width: 20%;
+}
+
+.shop-page-card-cont-middle {
+    width: 60%;
+}
+
+.shop-page-card-cont-left img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+}
+
 .sub-menu 
 { 
    display: none; 
@@ -318,4 +338,11 @@ aside button img {
 .sub-menu:hover 
 { 
    display: block; 
-} 
+}
+
+.orders-href {
+    flex-grow: 1;
+    margin-left: 80%;
+    margin-right: auto;
+    row-gap: 10px;
+}

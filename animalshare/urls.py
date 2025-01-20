@@ -22,7 +22,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
@@ -33,10 +32,11 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
+   
     path('', include('blog.urls'), name='blog-home'),
-
     path('messages/', include('usertouser.urls', namespace='usertouser')), #тут мы реализовали пространство имен, что б не было конфликтов с хтмл файлами назанными одинаково, при указании ссылок надо добавлять префикс указанный в пространстве имен, см фалйы хтмл в usertouser
     path('shop/', include('goods.urls'), name='shop'),
+    path('cart/', include('carts.urls'), name='cart'),
 ]
 
 if settings.DEBUG:
