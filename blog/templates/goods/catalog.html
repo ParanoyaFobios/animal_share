@@ -50,6 +50,7 @@
         <p>{{ product.price }} $</p>
         {% endif %}
         <p>Aviable - {{ product.quantity }} pieces</p>
+        <a href="{% url 'cart-add' product.slug %}">Add to my goods</a>
     </div>
     {% endfor %}
 </div>

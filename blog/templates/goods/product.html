@@ -15,5 +15,6 @@
     <p>Aviable - {{ product.quantity }} pieces</p>
     <p>Id № - {{ product.display_id }}</p><!-- в обычой ситуации мы бы вызвали айди товара через запись {{product.id}},однко, если мы хотим вызвать метод класса Product с измененным отображением, пишем {{product.display_id}} -->
     <p>{{ product.description }}</p>
+    <a href="{% url 'cart-add' product.slug %}">Add to my goods</a>
 </div>
 {% endblock content %}
