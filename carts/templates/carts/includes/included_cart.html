@@ -20,10 +20,13 @@
         <button type="button" class="" data-cart-id="" data-cart-change-url="">-</button>
         <p>WTB {{ cart.quantity }} pieces</p>
         <button type="button" class="" data-cart-id="" data-cart-change-url="">+</button>
-        <a href="{% url 'cart-remove' cart.product.slug %}" class="" data-cart-id="">
+        <a href="{% url 'cart-remove' cart.id %}" class="" data-cart-id="">
         <img class="" src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
         </a>
     </div>
 </div>
 {% endfor %}
 <strong>{{ carts.totall_quantity }} goods for totall {{ carts.totall_price }} $</strong>
+{% if carts %}<!--показываем кнопку Заказать только если есть корзины пользователя-->
+<strong><a href="#">Place an order!</a></strong>
+{% endif %}
