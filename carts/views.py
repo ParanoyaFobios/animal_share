@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from goods.models import Products
 from carts.models import Carts
+from django.http import JsonResponse
 
 
 def users_cart(request):
@@ -23,8 +24,23 @@ def cart_add(request, product_slug):
 
     
 def cart_change(request, product_slug):
-    ...
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        cart_id = request.POST.get('cart_id')
+        cart = Carts.objects.get(id=cart_id)
+
+        if action == 'increase':
+            cart.quantity += 1
+        elif action == 'decrease' and cart.quantity > 0:
+            cart.quantity -= 1
+        
+        cart.save()
+        
+        return JsonResponse({'new_quantity': cart.quantity})
+    
+    
 def cart_remove(request, cart_id):
-    cart = Carts.objects.get(id=cart_id)
-    cart.delete()
-    return redirect(request.META['HTTP_REFERER'])
+    if request.method == 'POST':
+        cart = Carts.objects.get(id=cart_id)
+        cart.delete()
+        return JsonResponse({'success': True})

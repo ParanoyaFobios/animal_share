@@ -4,7 +4,7 @@
 
 <p>My orders</p>
 {% for cart in carts %}
-<div class="shop-page-card shop-page-card-cont">
+<div class="shop-page-card shop-page-card-cont" data-cart-id="{{ cart.id }}">
     <div class="shop-page-card-cont-left">
         <a href="{% url 'product' cart.product.slug %}" title="Go to description">
             <img src="{{ cart.product.image.url }}" alt="img" >
@@ -17,12 +17,12 @@
         <strong>Totall {{ cart.products_price }}$</strong><!--обращаемся в методу, написанному в carts/Carts.Models-->
     </div>
     <div class="shop-page-card-cont-right">
-        <button type="button" class="" data-cart-id="" data-cart-change-url="">-</button>
+        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">-</button>
         <p>WTB {{ cart.quantity }} pieces</p>
-        <button type="button" class="" data-cart-id="" data-cart-change-url="">+</button>
-        <a href="{% url 'cart-remove' cart.id %}" class="" data-cart-id="">
-        <img class="" src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
-        </a>
+        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">+</button>
+        <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">
+            <img src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
+        </button>
     </div>
 </div>
 {% endfor %}
@@ -30,3 +30,54 @@
 {% if carts %}<!--показываем кнопку Заказать только если есть корзины пользователя-->
 <strong><a href="#">Place an order!</a></strong>
 {% endif %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Изменение количества товара
+    $('.change-quantity').on('click', function() {
+        var cartId = $(this).data('cart-id');
+        var changeUrl = $(this).data('change-url');
+        var action = $(this).data('action');
+
+        $.ajax({
+            url: changeUrl,
+            type: 'POST',
+            data: {
+                'action': action,
+                'cart_id': cartId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Обновить количество на странице
+                // Например, если response содержит новое количество
+                $('p:contains("WTB")').text('WTB ' + response.new_quantity + ' pieces');
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+    // Удаление товара из корзины
+    $('.remove-cart-item').on('click', function() {
+        var cartId = $(this).data('cart-id');
+        var removeUrl = $(this).data('remove-url');
+
+        $.ajax({
+            url: removeUrl,
+            type: 'POST',
+            data: {
+                'cart_id': cartId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Удалить элемент из DOM или обновить корзину
+                $('div.shop-page-card[data-cart-id="' + cartId + '"]').remove();
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
