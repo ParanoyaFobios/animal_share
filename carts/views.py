@@ -20,6 +20,15 @@ def cart_add(request, product_slug):
                 cart.save()
         else:
             Carts.objects.create(user=request.user, product=product, quantity = 1)#если продукта нет в корзине, создаем этот обьект
+    else:
+        carts = Carts.objects.filter(session_key=request.session.session_key, product=product)
+        if carts.exists():
+            cart = carts.first()
+            if cart:
+                cart.quantity += 1
+                cart.save()
+        else:
+            Carts.objects.create(session_key=request.session.session_key, product=product, quantity = 1)
     return redirect(request.META['HTTP_REFERER'])#эта команда возвращает пользователя на страницу с которой он сюда попал
 
     

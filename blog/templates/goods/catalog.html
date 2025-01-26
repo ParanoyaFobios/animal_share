@@ -7,7 +7,7 @@
   <input class="" type="search" name="q" placeholder="Good's search">
   <button class="" type="submit">Search</button>
 </form>
-<a href="{% url 'users-cart' %}" class="orders-href">My orders</a>
+<a href="{% url 'users-cart' %}" class="orders-href">My goods ({{ total_quantity }})</a>
 <form><a form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}" method="GET" class="main-item" href="javascript:void(0);" tabindex="1" ><label>Price filter</label></a>
 <ul class="sub-menu"> 
    <li><input type="checkbox" name="on_sale" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}><label>Discount only</label></li><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
@@ -50,7 +50,7 @@
         <p>{{ product.price }} $</p>
         {% endif %}
         <p>Aviable - {{ product.quantity }} pieces</p>
-        <a href="{% url 'cart-add' product.slug %}">Add to my goods</a>
+        <a href="{% url 'cart-add' product.slug %}">Add to my goods{% csrf_token %}</a>
     </div>
     {% endfor %}
 </div>

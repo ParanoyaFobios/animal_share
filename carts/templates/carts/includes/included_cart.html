@@ -18,11 +18,11 @@
     </div>
     <div class="shop-page-card-cont-right">
         <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
-        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">-</button>
+        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">{% csrf_token %}-</button>
         <p class="cart-quantity" data-cart-id="{{ cart.id }}">WTB {{ cart.quantity }} pieces</p>
         <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
-        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">+</button> 
-        <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">
+        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">{% csrf_token %}+</button> 
+        <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">{% csrf_token %}
             <img src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
         </button>
     </div>
