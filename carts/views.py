@@ -31,16 +31,37 @@ def cart_change(request, product_slug):
 
         if action == 'increase':
             cart.quantity += 1
-        elif action == 'decrease' and cart.quantity > 0:
+        elif action == 'decrease' and cart.quantity > 1:
             cart.quantity -= 1
         
         cart.save()
-        
-        return JsonResponse({'new_quantity': cart.quantity})
+
+        # Получаем обновленные значения для всех товаров в корзине
+        total_quantity = Carts.objects.filter(user=request.user).totall_quantity()
+        total_price = Carts.objects.filter(user=request.user).totall_price()
+
+        return JsonResponse({
+            'new_quantity': cart.quantity,
+            'total_quantity': total_quantity,
+            'total_price': total_price
+        })
+
+
     
     
 def cart_remove(request, cart_id):
     if request.method == 'POST':
         cart = Carts.objects.get(id=cart_id)
         cart.delete()
-        return JsonResponse({'success': True})
+
+        # Получаем обновленные значения для всех товаров в корзине
+        total_quantity = Carts.objects.filter(user=request.user).totall_quantity()
+        total_price = Carts.objects.filter(user=request.user).totall_price()
+
+        return JsonResponse({
+            'success': True,
+            'total_quantity': total_quantity,
+            'total_price': total_price
+        })
+
+    

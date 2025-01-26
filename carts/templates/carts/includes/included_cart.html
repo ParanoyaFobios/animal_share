@@ -17,16 +17,18 @@
         <strong>Totall {{ cart.products_price }}$</strong><!--обращаемся в методу, написанному в carts/Carts.Models-->
     </div>
     <div class="shop-page-card-cont-right">
-        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">-</button>
-        <p>WTB {{ cart.quantity }} pieces</p>
-        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">+</button>
+        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
+        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">-</button>
+        <p class="cart-quantity" data-cart-id="{{ cart.id }}">WTB {{ cart.quantity }} pieces</p>
+        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
+        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">+</button> 
         <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">
             <img src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
         </button>
     </div>
 </div>
 {% endfor %}
-<strong>{{ carts.totall_quantity }} goods for totall {{ carts.totall_price }} $</strong>
+<strong id="cart-quantity">{{ carts.totall_quantity }} goods for</strong><strong id="cart-price"> totall {{ carts.totall_price }} $</strong>
 {% if carts %}<!--показываем кнопку Заказать только если есть корзины пользователя-->
 <strong><a href="#">Place an order!</a></strong>
 {% endif %}
@@ -38,6 +40,7 @@ $(document).ready(function() {
         var cartId = $(this).data('cart-id');
         var changeUrl = $(this).data('change-url');
         var action = $(this).data('action');
+        var button = $(this); // Сохраняем ссылку на кнопку
 
         $.ajax({
             url: changeUrl,
@@ -50,14 +53,17 @@ $(document).ready(function() {
             success: function(response) {
                 // Обновить количество на странице
                 // Например, если response содержит новое количество
-                $('p:contains("WTB")').text('WTB ' + response.new_quantity + ' pieces');
+                var cartId = button.data('cart-id'); // Получаем cart_id из сохраненной кнопки
+                $('p.cart-quantity[data-cart-id="' + cartId + '"]').text('WTB ' + response.new_quantity + ' pieces');     
+                // $('p:contains("WTB")').text('WTB ' + response.new_quantity + ' pieces');
+                updateCartSummary(response);
             },
             error: function(xhr) {
                 console.error(xhr.responseText);
             }
         });
     });
-
+    
     // Удаление товара из корзины
     $('.remove-cart-item').on('click', function() {
         var cartId = $(this).data('cart-id');
@@ -79,5 +85,11 @@ $(document).ready(function() {
             }
         });
     });
+
+    function updateCartSummary(response) {
+        // Предполагаем, что сервер возвращает обновленные данные о сумме и количестве
+        $('#cart-quantity').text(response.total_quantity + ' goods for');
+        $('#cart-price').text('total ' + response.total_price + ' $');
+    }
 });
 </script>
