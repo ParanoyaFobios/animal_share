@@ -4,6 +4,7 @@ from carts.models import Carts
 from django.http import JsonResponse
 
 
+
 def users_cart(request):
     return render(request, 'carts/users_cart.html')
 
@@ -46,8 +47,12 @@ def cart_change(request, product_slug):
         cart.save()
 
         # Получаем обновленные значения для всех товаров в корзине
-        total_quantity = Carts.objects.filter(user=request.user).totall_quantity()
-        total_price = Carts.objects.filter(user=request.user).totall_price()
+        if request.user.is_authenticated:
+            total_quantity = Carts.objects.filter(user=request.user).totall_quantity()
+            total_price = Carts.objects.filter(user=request.user).totall_price()
+        else:
+            total_quantity = Carts.objects.filter(session_key=request.session.session_key).totall_quantity()
+            total_price = Carts.objects.filter(session_key=request.session.session_key).totall_price()
 
         return JsonResponse({
             'new_quantity': cart.quantity,
@@ -64,8 +69,12 @@ def cart_remove(request, cart_id):
         cart.delete()
 
         # Получаем обновленные значения для всех товаров в корзине
-        total_quantity = Carts.objects.filter(user=request.user).totall_quantity()
-        total_price = Carts.objects.filter(user=request.user).totall_price()
+        if request.user.is_authenticated:
+            total_quantity = Carts.objects.filter(user=request.user).totall_quantity()
+            total_price = Carts.objects.filter(user=request.user).totall_price()
+        else:
+            total_quantity = Carts.objects.filter(session_key=request.session.session_key).totall_quantity()
+            total_price = Carts.objects.filter(session_key=request.session.session_key).totall_price()
 
         return JsonResponse({
             'success': True,

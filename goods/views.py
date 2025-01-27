@@ -28,12 +28,10 @@ def catalog_all(request): #контроллер отображения ката�
     total_quantity = 0  # Инициализация переменной total_quantity
     if request.user.is_authenticated:
         user = request.user#получаю обьект пользовтеля, что бы в дальнейшем использовать его для отображения количества корзин
-        total_quantity = Carts.objects.filter(user=user).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0  # Получаем общее количество товаров в корзине  # Получаем общее количество товаров в корзине для анонимного пользователя
+        total_quantity = Carts.objects.filter(user=user).aggregate(total_quantity=Sum('quantity'))['total_quantity']  # Получаем общее количество товаров в корзине
     else:
-        if not request.session.session_key:
-            user = request.session.create()
-            total_quantity = Carts.objects.filter(session_key=request.session.session_key).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0  # Получаем общее количество товаров в корзине для анонимного пользователя
-            # total_quantity = Carts.objects.filter(session_key=request.session.session_key).totall_quantity()
+        user = request.session.session_key
+        total_quantity = Carts.objects.filter(session_key=user).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0 # Получаем общее количество товаров в корзине для анонимного пользователя
 
 
     on_sale = request.GET.get('on_sale', None)
