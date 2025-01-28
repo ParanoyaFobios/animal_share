@@ -17,6 +17,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk}) #перенаправление после создания поста в детали поста
     
+    def __str__(self) -> str:
+        return self.title
+    
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)

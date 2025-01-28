@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from carts.models import Carts
 
 
 def register(request):
@@ -9,8 +10,11 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid(): #если форма соответсвует всем правилам заполнения
             form.save() #сохраняем введеные данные в базу данных
+            session_key = request.session.session_key#получаю экземпляр кулюча сессии не зареганого пользователя
             user = form.instance #получаем пользователя из поля заполненной формы
             auth.login(request, user) #логиним пользователя на сайт
+            if session_key:#если сессионный ключ есть, перекидываем его на пользователя
+                Carts.objects.filter(session_key=session_key).update(user=user)#товары которые не хареганный пользователь забросил в корзину, после регистрации появятся в его заказах
             username = form.cleaned_data.get('username') #берем данные из формы с очисткой кеша и передаем в ф строку для приветствия
             messages.success(request, f'Account created for {username}!Enjoy!')
             return redirect('blog-home') #условие для отображения сообщения о успехе и перенаправления на главную страницу 
