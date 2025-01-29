@@ -14,6 +14,8 @@
     <nav class="dark-grey wrapper flex">
         <a href="{% url 'blog-home' %}"> Go Home page | </a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
         <a href="{% url 'post-create' %}"> Create a new post |</a>
+        <p>Totall posts: {{ posts_quantity|default:'N/A' }}</p>
+        <p>Totall users: {{ users_quantity|default:'N/A' }}</p>
         {% if user.is_superuser or user.is_stuff %}
         <a href="{% url 'admin:index' %}"> For Admin |</a><!--пришлось поискать, но редирект на админ панель происходит именно так-->
         {% endif %}

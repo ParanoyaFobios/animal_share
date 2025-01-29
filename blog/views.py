@@ -1,3 +1,4 @@
+from typing import Any
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -6,13 +7,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 
-def home(request):
-    context = {
-        'posts' : Post.objects.all(),
-        'comments' : Comment.objects.all(),
-        'gallery' : Post.objects.all(),
-    }
-    return render(request, 'home.html', 'user_comments.html', 'gallery.html', context,)
 
 class PostListView(ListView):
     model = Post
@@ -20,6 +14,14 @@ class PostListView(ListView):
     context_object_name = 'posts' #показываем название что зацикливать
     ordering = ['-date_posted'] #даем запрос в БД на отображение постов в порядке добавления
     paginate_by = 5 # метод, который позволяет оставить 5 постов на одну страницу
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)#получаю контекст из родительского класса
+        context['comments'] = Comment.objects.all()
+        context['posts_quantity'] = Post.objects.count()
+        context['users_quantity'] = User.objects.filter(is_active=True).count()
+        context['posts'] = Post.objects.all()
+        return context
 
 
 class UserPostListView(ListView): #создание класса который отфильтрует посты пользователя
