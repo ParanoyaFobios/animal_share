@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Comment
+from goods.models import Products
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -21,6 +22,7 @@ class PostListView(ListView):
         context['posts_quantity'] = Post.objects.count()
         context['users_quantity'] = User.objects.filter(is_active=True).count()
         context['posts'] = Post.objects.all()
+        context['products_quantity'] = Products.objects.count()
         return context
 
 

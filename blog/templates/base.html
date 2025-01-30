@@ -12,16 +12,17 @@
 <body>
 <header>
     <nav class="dark-grey wrapper flex">
-        <a href="{% url 'blog-home' %}"> Go Home page | </a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
-        <a href="{% url 'post-create' %}"> Create a new post |</a>
+        <a href="{% url 'blog-home' %}"> Go Home page</a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
+        <a href="{% url 'post-create' %}"> Create a new post</a>
         <p>Totall posts: {{ posts_quantity|default:'N/A' }}</p>
         <p>Totall users: {{ users_quantity|default:'N/A' }}</p>
+        <p>Products in market: {{ products_quantity|default:'N/A' }}</p>
         {% if user.is_superuser or user.is_stuff %}
-        <a href="{% url 'admin:index' %}"> For Admin |</a><!--пришлось поискать, но редирект на админ панель происходит именно так-->
+        <a href="{% url 'admin:index' %}"> For Admin</a><!--пришлось поискать, но редирект на админ панель происходит именно так-->
         {% endif %}
         {% if user.is_authenticated %}
-        <a href="{% url 'profile' %}"> My profile | </a> <!-- условие для отображения ссылок на регистрацию и входа на сайт-->
-        <a href="{% url 'logout' %}"> Log Out | </a>
+        <a href="{% url 'profile' %}"> My profile</a> <!-- условие для отображения ссылок на регистрацию и входа на сайт-->
+        <a href="{% url 'logout' %}"> Log Out</a>
     {% else %}
         <a href="{% url 'register' %}"> Registration form | </a>
         <a href="{% url 'login' %}"> Log In | </a>
