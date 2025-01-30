@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Categories(models.Model):
@@ -28,12 +29,19 @@ class Products(models.Model):
     class Meta:
         db_table = 'product'
 
+
     def __str__(self):
         return self.name #тут мы реализовали изменение названия товаров в админ панеле. Если без этой функции, категории и товары будут выглядеть как: Object_1 и т.д.
     
+
+    def get_absolute_url(self):#добавляет view on site в админке, к тому же можно в любом урл писать форматом href="{%url product.get_avsolute_url %}" 
+        return reverse('product', kwargs={'product_slug':self.slug})#куда нас будет отправлять, смотри urls.py
+
+
     def display_id(self):
         return f"{self.id:05}" #функция с помощью которой мы изменяем внешний вид айдишника товара, обычно он выглядит просто 1-2-3, тут мы ф-строкой меняем отображение на 00001, 00002..
-    
+        
+
     def sell_price(self):
         if self.discount:
             return round(self.price - self.discount*self.price/100, 2)
