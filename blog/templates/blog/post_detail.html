@@ -38,24 +38,23 @@
 Log in to be able to add comments
 {% endif %}
 </h3>
-{% if not post.comments.all %}
+<!-- {% if not comments %}
 <h3>No comments yet! Be the first one!</h3>
-{% else %}
-{% for comments in post.comments.all %}
+{% else %} -->
+{% for comment in comments %}
 <a class="post-a flex">
-<div class="post-user-img-box">
-    <object>
-        <a href="{% url 'user-posts' comments.comment_author %}">
-            <img src="{{ comments.comment_author.profile.image.url }}" alt="img" >
-        </a>
-    </object>
-</div> 
-        {{ comments.comment_author }}'s comment at {{ comments.date_added|date:"d F - Y (H:i)" }}
-</br>
-        {{ comments.body }}
-</br></br></br>
-</a>
-{% endfor %}
+    <div class="post-user-img-box">
+        <object>
+                <a href="{% url 'user-posts' comment.comment_author %}">
+                <img src="{{ comment.comment_author.profile.image.url }}" alt="img" >
+            </a>
+        </object>
+        </div>
+        <object>{{ comment.comment_author }}'s comment at {{ comment.date_added|date:"d F - Y (H:i)" }} in Post: <a class="hz-a" href="{% url 'post-detail' comment.post.id %}"> {{ comment.post.title }}</a>
+        </br></hr>{{ comment.body }}</br></br>
+        </object>
+    </a>
+    {% endfor %}
 {% endif %}
 <div class="pagination wrapper">
 {% if is_paginated %} <!--начало логики для пагинации-->

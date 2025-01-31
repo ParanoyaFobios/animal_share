@@ -18,10 +18,9 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)#получаю контекст из родительского класса
-        context['comments'] = Comment.objects.all()
+        context['comments'] = Comment.objects.all().order_by('-date_added')
         context['posts_quantity'] = Post.objects.count()
         context['users_quantity'] = User.objects.filter(is_active=True).count()
-        context['posts'] = Post.objects.all()
         context['products_quantity'] = Products.objects.count()
         return context
 
@@ -59,7 +58,7 @@ class UserCommentListView(ListView): #создание класса которы
 
     def get_queryset(self):
         user = get_object_or_404(User, id=self.request.user.id)
-        return Comment.objects.filter(comment_author=user).order_by('-date_added')
+        return Comment.objects.filter(comment_author=user).select_related('comment_author')
 
 @login_required
 def Delete_Comment(request, comment_id):
@@ -111,7 +110,14 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDetailView(DetailView):
     model = Post
+    context_object_name = 'post'
+    template_name = 'blog/post_detail.html'
 
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)#получил контекст из родительского класса
+        context['comments'] = Comment.objects.filter(post=self.object).order_by('-date_added')#добавил комментарии в контекст
+        return context
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
@@ -127,4 +133,4 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request, 'about.html', {'title' : 'About'})
 
-# Create your views here.
+
