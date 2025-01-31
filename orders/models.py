@@ -17,7 +17,6 @@ class OrderitemQueryset(models.QuerySet):#аналогичная функция 
 
 class Order(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.SET_DEFAULT, blank=True, null=True, verbose_name="User", default=None)
-    cart = models.ForeignKey(to=Carts, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Busket", related_name='orders')
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Date created")
     phone_number = models.CharField(max_length=10, verbose_name="Phone number")
     requires_delivery = models.BooleanField(default=False, verbose_name="Delivery required")

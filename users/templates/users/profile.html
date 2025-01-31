@@ -22,8 +22,9 @@
         <label for="{{ u_form.email.id_for_label }}" placeholder="Email">Change your email</label>
     </div>
     <div>
-        <input type="phone_number" class="" name="phone_number" value="{{ p_form.phone_number.value }}" id="id_phone_number" placeholder="Phone Number" required>
-        <label for="{{ p_form.phone_number.id_for_label }}" placeholder="Phone Number">Change your phone</label>
+        <input type="text" class="form-label" name="phone_number" value="{% if p_form.phone_number.value %}{{ p_form.phone_number.value }}{% endif %}"
+        id="id_phone_number" placeholder="(000) 000-00-00" required>
+        <label for="id_phone_number" class="form-label">Add or change your phone</label>
     </div>
     <div>
         <label for="image" placeholder="{{ p_form.image.id_for_label }}">Your avatar picture</label>
