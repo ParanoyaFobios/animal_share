@@ -57,7 +57,8 @@ def cart_change(request, product_slug):
         return JsonResponse({
             'new_quantity': cart.quantity,
             'total_quantity': total_quantity,
-            'total_price': total_price
+            'total_price': total_price,
+            'title': 'Animalshop',
         })
 
 
@@ -79,7 +80,8 @@ def cart_remove(request, cart_id):
         return JsonResponse({
             'success': True,
             'total_quantity': total_quantity,
-            'total_price': total_price
+            'total_price': total_price,
+            'title': 'Animalshop',
         })
 
     

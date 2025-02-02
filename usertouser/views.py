@@ -22,6 +22,7 @@ class usertouserCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         recipient = self.kwargs.get('recipient')  # Получаем получателя из URL параметра
         context['recipient'] = recipient
+        context['title'] = 'Create message'
         return context
 
     def form_valid(self, form):

@@ -5,27 +5,36 @@
     {% csrf_token %}
     <p><b>Registration</b></p>
     {% if form.non_field_errors %}
-    <div class="warning login-warning">{{form.non_field_errors}}</div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
+    <div class="warning login-warning">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
     {% endif %}
     <div>
         <input type="text" class="" name="username"
         id="id_username" placeholder="Enter your username" required>
         <label for="id_username" class="" placeholder="Username">Username</label>
+        {% if form.username.errors %}
+        <div class="warning login-warning">{% for error in form.username.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% endif %}
     </div>
     <div>
         <input type="email" class="" name="email"
         id="id_email" placeholder="Enter your email" required>
         <label for="id_email" class="" placeholder="email">Email</label>
+        {% if form.email.errors %}<div class="warning login-warning">{% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% endif %}
     </div>
     <div>
         <input type="password" class="" name="password1"  
         id="id_password1" placeholder="Enter your password" required>
         <label for="id_password1" class="" placeholder="password">Password</label>
+        {% if form.password1.errors %}<div class="warning login-warning">{% for error in form.password1.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% endif %}
     </div>
     <div>
         <input type="password" class="" name="password2"  
         id="id_password2" placeholder="Repeat your password" required>
         <label for="id_password2" class="" placeholder="password">Repeat your password</label>
+        {% if form.password2.errors %}<div class="warning login-warning">{% for error in form.password2.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% endif %}
     </div>
     <p>
         <button type="submit">Send</button>

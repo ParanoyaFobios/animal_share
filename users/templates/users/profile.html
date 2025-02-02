@@ -37,6 +37,44 @@
 <p>Not sure about your password?</p>
     <p><a href="{% url 'password_reset' %}">Reset password</a></p>
 </div>
+<div class="">
+    <div class="" id="accordionExample">
+        {% for order in orders %}
+        <div class="">
+            <h2 class="" id="heading{{ order.id }}">
+                <button class="accordion-button {% if order != orders.0 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
+                    Order № {{ order.id }} - {{ order.created_timestamp }} | Satus: <strong class="">{{order.status}}</strong>
+                </button>
+            </h2>
+            <div id="collapse{{ order.id }}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}" aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
+                <div class="">
+                    <table class="">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Totall price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.orderitem_set.all %}
+                            <tr>
+                                <td><a class="" href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a></td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.products_price }}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% include "carts/includes/included_cart.html" %}
 <strong><a href="{% url 'create-order' %}">Place an order!</a></strong>
 </div>

@@ -22,6 +22,7 @@ class PostListView(ListView):
         context['posts_quantity'] = Post.objects.count()
         context['users_quantity'] = User.objects.filter(is_active=True).count()
         context['products_quantity'] = Products.objects.count()
+        context['title'] = 'Home page'
         return context
 
 
@@ -66,7 +67,7 @@ def Delete_Comment(request, comment_id):
     if request.method == 'POST':
         comment.delete()
         return redirect('user-comments')  # Перенаправление на страницу с комментариями
-    return render(request, 'confirm_delete.html', {'comment': comment})
+    return render(request, 'confirm_delete.html', {'comment': comment}, {'title': 'Your comments'},)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -117,6 +118,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)#получил контекст из родительского класса
         context['comments'] = Comment.objects.filter(post=self.object).order_by('-date_added')#добавил комментарии в контекст
+        context['title'] = 'Post detail'
         return context
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

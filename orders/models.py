@@ -1,7 +1,6 @@
 from django.db import models
 from goods.models import Products
 from django.contrib.auth.models import User
-from carts.models import Carts
 
 
 class OrderitemQueryset(models.QuerySet):#аналогичная функция есть и в Carts, однако этот класс относится конкретно к высчитыванию цены именно в заказах
