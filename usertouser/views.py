@@ -11,7 +11,7 @@ class usertouserCreateView(LoginRequiredMixin, CreateView):
     fields = ['subject', 'content']
     template_name = 'messages/create.html'
     context_object_name = 'create_message'
-    success_url = lazy(reverse, str)('outbox')
+    success_url = lazy(reverse, str)('usertouser:outbox')
 
     def get_initial(self):
         initial = super(usertouserCreateView, self).get_initial()
@@ -62,7 +62,7 @@ class usertouserOutboxListView(LoginRequiredMixin, ListView):
 class usertouserDetailListView(DetailView, LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = usertouser
     template_name = 'messages/detail.html'
-    success_url = lazy(reverse, str)('inbox')
+    success_url = lazy(reverse, str)('usertouser:inbox')
     
     def test_func(self):
         sms = self.get_object()

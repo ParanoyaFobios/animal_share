@@ -28,6 +28,9 @@
     </div>
 </div>
 {% endfor %}
+{% if carts and not order %}<!--проверка, если есть товары в корзине, но я не в вкладке заказы, в заказах этой кнопки быть не должно-->
+<strong><a href="{% url 'create-order' %}">Place an order!</a></strong>
+{% endif %}
 <strong id="cart-quantity">{{ carts.totall_quantity }} goods for</strong><strong id="cart-price"> totall {{ carts.totall_price }} $</strong>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
