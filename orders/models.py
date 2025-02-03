@@ -14,6 +14,7 @@ class OrderitemQueryset(models.QuerySet):#аналогичная функция 
         return 0
 
 
+
 class Order(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.SET_DEFAULT, blank=True, null=True, verbose_name="User", default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Date created")
@@ -31,6 +32,8 @@ class Order(models.Model):
     def __str__(self):
         return f"Заказ № {self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
     
+    def total_sum(self):
+        return sum(item.products_price() for item in self.orderitem_set.all())#высчитываем общую стоимость заказа
 
 
 class OrderItem(models.Model):
