@@ -14,7 +14,8 @@
   </div>
   <div class="post-text-box">
       <object>
-          <a class="user-name" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">For: {{usertouser.recipient.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
+          <a class="user-name" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">
+            To: {{usertouser.recipient.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
       </object> 
         <p>{{ usertouser.subject }}</p>
       <p>{{ usertouser.content }}</p>

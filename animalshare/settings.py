@@ -26,8 +26,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['animalshare-34ce92dca6ea.herokuapp.com', 'localhost', '127.0.0.1'] #поменять перед деплоем
-CSRF_TRUSTED_ORIGINS = ["https://animalshare-34ce92dca6ea.herokuapp.com"]
+ALLOWED_HOSTS = ['animalshare-34ce92dca6ea.herokuapp.com', '127.0.0.1'] #поменять перед деплоем
+CSRF_TRUSTED_ORIGINS = ['https://animalshare-34ce92dca6ea.herokuapp.com']
 
 # Application definition
 
@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'animalshare.context_processors.unread_messages_count',
             ],
         },
     },

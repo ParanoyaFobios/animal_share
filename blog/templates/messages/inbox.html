@@ -9,7 +9,8 @@
 <a class="post-a flex">
     <div class="post-text-box">
       <object>
-          <a class="post-title" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">From: {{usertouser.sender.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
+          <a class="post-title" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">From: {{usertouser.sender.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}
+          {% if not usertouser.is_read %}<span class="badge">New</span>{% endif %}</a>
       </object> 
       <object>
           <a class="post-title" href="{% url 'usertouser:detail' usertouser.id %}" title="Details"> {{ usertouser.subject }} <- click for detail </a>

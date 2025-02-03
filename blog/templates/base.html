@@ -61,6 +61,9 @@
     {% endif %}
         <button><a href="{% url 'usertouser:inbox' %}" title="My messages">
             <img src="{% static "image/icons/logo-min-on-blue_message.png" %}" alt="button1" width="50" height="50">
+            {% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
+            <span class="badge">{{ unread_messages_count }}</span>
+        {% endif %}
         </a></button>
         <button><a href="{% url 'gallery' %}" title="Gallery">
             <img src="{% static "image/icons/logo-min-on-blue-photo.png" %}" alt="button1" width="50" height="50">

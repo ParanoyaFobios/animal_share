@@ -346,3 +346,14 @@ aside button img {
     margin-right: auto;
     row-gap: 10px;
 }
+
+.badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: relative;
+    top: -10px;
+    left: -10px;
+}

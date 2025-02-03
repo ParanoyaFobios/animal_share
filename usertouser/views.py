@@ -69,3 +69,10 @@ class usertouserDetailListView(DetailView, LoginRequiredMixin, UserPassesTestMix
         if self.request.user == sms.recipient:
             return True
         return False
+    
+    def get(self, request, *args, **kwargs):# Отмечаем сообщение как прочитанное
+        sms = self.get_object()
+        if not sms.is_read:
+            sms.is_read = True
+            sms.save()
+        return super().get(request, *args, **kwargs)
