@@ -14,7 +14,7 @@
         <a class="post-title" href="{% url 'product' cart.product.slug %}" title="{{cart.product.name}}">{{ cart.product.name|truncatechars:35 }}      
         </a><!--оберание оборажения более чем 20ти символов на странице-->
         <p>{{ cart.product.sell_price }}$</p>
-        <strong>Totall {{ cart.products_price }}$</strong><!--обращаемся в методу, написанному в carts/Carts.Models-->
+        <strong id="cart-price-{{ cart.id }}">Totall {{ cart.products_price }}$</strong><!--обращаемся в методу, написанному в carts/Carts.Models-->
     </div>
     <div class="shop-page-card-cont-right">
         <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
@@ -55,7 +55,7 @@ $(document).ready(function() {
                 // Например, если response содержит новое количество
                 var cartId = button.data('cart-id'); // Получаем cart_id из сохраненной кнопки
                 $('p.cart-quantity[data-cart-id="' + cartId + '"]').text('WTB ' + response.new_quantity + ' pieces');     
-                // $('p:contains("WTB")').text('WTB ' + response.new_quantity + ' pieces');
+                $('#cart-price-' + cartId).text('Totall ' + response.new_price + ' $');
                 updateCartSummary(response);
             },
             error: function(xhr) {

@@ -59,6 +59,7 @@ def cart_change(request, product_slug):
             'total_quantity': total_quantity,
             'total_price': total_price,
             'title': 'Animalshop',
+            'new_price': cart.products_price(),
         })
 
 
