@@ -4,15 +4,17 @@ from django.contrib import messages
 from django.db import transaction
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import FormView
 from django.core.exceptions import ValidationError
 from carts.models import Carts
 
 from orders.forms import CreateOrderForm
 from orders.models import Order, OrderItem
 
+from django.contrib.auth.models import User
+from usertouser.models import usertouser
 
+# from django.core.mail import send_mail
+# from django.conf import settings
 
 @login_required
 def create_order(request):
@@ -59,6 +61,28 @@ def create_order(request):
 
                         # Очистить корзину пользователя после создания заказа
                         cart_items.delete()
+                        # Уведомление администратора через usertouser
+                        admin_user = User.objects.filter(is_superuser=True).first()
+                        if admin_user:
+                            usertouser.objects.create(
+                                sender=user,
+                                recipient=admin_user,
+                                subject='New Order',
+                                content=f'A new order #{order.id} has been created by {user.username}.',
+                            )
+                        # Уведомление администратора по почте
+                        # admin_user = User.objects.filter(is_superuser=True).first()
+                        # if admin_user:
+                        #     subject = 'New Order Notification'
+                        #     message = f'A new order #{order.id} has been created by {user.username}.'
+                        #     send_mail(
+                        #         subject,
+                        #         message,
+                        #         settings.EMAIL_HOST_USER,
+                        #         [admin_user.email],
+                        #         fail_silently=False,
+                        #     )
+
 
                         messages.success(request, 'Ordered!')
                         return redirect('profile')
