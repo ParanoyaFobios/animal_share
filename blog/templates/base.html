@@ -1,94 +1,328 @@
 <!DOCTYPE html>
 {% load static %}
+{% load goods_tags %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{% if title %}{{title}}{% else %}Animalshare{% endif %}</title>
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/reset.css' % }" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/Ubuntu/stylesheet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'fonts/workSans/font.css'%}" />
+    <link rel="stylesheet" href="{% static 'fonts/spaceMono/font.css.css'%}" />
     <link rel="shortcut icon" type="image/ico" href="{% static "image/icons/favicone.ico" %}" />
+</head>
 <body>
-<header>
-    <nav class="dark-grey wrapper flex">
-        <a href="{% url 'blog-home' %}"> Go Home page</a> <!-- формат записи ссылок без хардкодинга, референс имени из вкладки urls.py-->
-        <a href="{% url 'post-create' %}"> Create a new post</a>
-        <p>Totall posts: {{ posts_quantity|default:'N/A' }}</p>
-        <p>Totall users: {{ users_quantity|default:'N/A' }}</p>
-        <p>Products in market: {{ products_quantity|default:'N/A' }}</p>
+<!--? Мобильный хедер -->
+<header class="header-mobile wrapper-header">
+    <a class="logo spaceMono-btns" href="{% url 'home' %}">
+        <img
+        class="logo__img img-in-btn"
+        src="{% static 'image/icons/logo.png' % }"
+        alt="logo"
+        />
+        Animalshare
+    </a>
+    <div class="overlay hidden"></div>
+    <button class="btn-menu"></button>
+    <div class="mobile-menu hidden">
+        <div class="mobile-menu__logo-cont">
+        <a href="{% url 'home' %}" class="logo spaceMono-btns">
+            <img
+            class="btn__img"
+            src="{% static 'image/icons/logo.png' % }"
+            alt="logo"
+            />
+            Animalshare
+        </a>
+        <button class="mobile-menu__exit workSans-btns"></button>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="mobile-menu__a-cont">
+        <a
+            href="{% url 'logout' %}"
+            class="mobile-menu__a-without-arrow workSans-btns"
+        >
+            Log out
+            <img
+            class="btn__img btn__img--mobile"
+            src="{% static 'image/icons/user--violet.png' %}"
+            alt="Log out"
+            />
+        </a>
+        </div>
+        {% else %}
+        <div class="mobile-menu__a-cont">
+          <a
+              href="{% url 'login' %}"
+              class="mobile-menu__a-without-arrow workSans-btns"
+          >
+              Login
+              <img
+              class="btn__img btn__img--mobile"
+              src="{% static 'image/icons/user--violet.png' %}"
+              alt="Login"
+              />
+          </a>
+          </div>
+        {% endif %}
         {% if user.is_superuser or user.is_stuff %}
-        <a href="{% url 'admin:index' %}"> For Admin</a><!--пришлось поискать, но редирект на админ панель происходит именно так-->
+        <div class="mobile-menu__a-cont">
+            <a
+                href="{% url 'admin:index' %}"
+                class="mobile-menu__a-without-arrow workSans-btns"
+            >
+            For admin
+            <img
+            class="btn__img btn__img--mobile"
+            src="{% static 'image/icons/user--violet.png' %}"
+            alt="For admin"
+            />
+        </a>
+        </div>
         {% endif %}
         {% if user.is_authenticated %}
-        <a href="{% url 'profile' %}"> My profile</a> <!-- условие для отображения ссылок на регистрацию и входа на сайт-->
-        <a href="{% url 'logout' %}"> Log Out</a>
-    {% else %}
-        <a href="{% url 'register' %}"> Registration form | </a>
-        <a href="{% url 'login' %}"> Log In | </a>
-    {% endif %} 
-    </nav>
-</div>
-<div class="logo-long wrapper">
-    <a href="{% url 'blog-home' %}"><img src="{% static 'image/logo-long2.png' %}" alt="Logo-photo" width="1150" height="98"></a>
-</div>
-</header>
-{% if messages %}
-    {% for message in messages %}
-    <div class="warning">
-        {{ message }} <!--тут мы сделали условие и цикл перечиления для отображения предупредительного сообщения
-        о успехе/не успехе создания нового пользователя по форме-->
-    </div>
-    {% endfor %}
-{% endif %}
-<main class="dark-grey wrapper flex">
-    {% if user.is_authenticated %}
-    <aside class="aside-left flex column">
-        <button><a href="{% url 'user-posts' request.user.username %}" title="My posts"> <!--возвращает имя пользователя как агрумент-->
-            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-        <button><a href="{% url 'user-comments' %}" title="My Comments">
-            <img src="{% static "image/icons/logo-min-on-blue-comments.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-    {% else %}
-    <aside class="aside-left flex column">
-        <button><a href="{% url 'login' %}" title="My posts"> <!--возвращает имя пользователя как агрумент-->
-            <img src="{% static "image/icons/logo-on-blue.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-        <button><a href="{% url 'login' %}" title="My Comments">
-            <img src="{% static "image/icons/logo-min-on-blue-comments.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-    {% endif %}
-        <button><a href="{% url 'usertouser:inbox' %}" title="My messages">
-            <img src="{% static "image/icons/logo-min-on-blue_message.png" %}" alt="button1" width="50" height="50">
+        <div class="mobile-menu__a-cont">
+        <a
+            class="mobile-menu__a-without-arrow workSans-btns"
+            href="{% url 'profile' %}"
+            >Profile</a>
+        </div>
+        {% endif %}
+        <div class="mobile-menu__a-cont">
+        <a class="mobile-menu__a-with-arrow workSans-btns" href="{% url 'forum' %}"
+            >Forum</a
+        >
+        <button
+            class="btn-arrow-down btn--with-img btn--with-img--forum"
+        ></button>
+        </div>
+        <div class="dropdown-menu dropdown-menu--mobile-forum workSans-base">
+        {% if user.is_authenticated %}
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'post-create' %}"
+            >Create a post</a
+            >
+        </div>
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'user-posts' request.user.username %}">My posts</a>
+        </div>
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'user-comments' %}"
+            >My comments</a
+            >
+        </div>
+        {% else %}
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'login' %}"
+            >Create a post</a
+            >
+        </div>
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'login' %}">My posts</a>
+        </div>
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'login' %}"
+            >My comments</a
+            >
+        </div>
+        {% endif %}
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'usertouser:inbox' %}"
+            >My messages
             {% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
             <span class="badge">{{ unread_messages_count }}</span>
+            {% endif %}
+            </a>
+        </div>
+        <div class="dropdown-menu__a-cont">
+            <a class="dropdown-menu__a" href="{% url 'gallery' %}">Gallery</a>
+        </div>
+        </div>
+        <div class="mobile-menu__a-cont">
+        <a
+            class="mobile-menu__a-with-arrow workSans-btns"
+            href="{% url 'catalog-all' %}"
+            >Marketplace</a
+        >
+        <button
+            class="btn-arrow-down btn--with-img btn--with-img--marketplace"
+        ></button>
+        </div>
+        <div
+        class="dropdown-menu dropdown-menu--mobile-marketplace workSans-base hidden"
+        >
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'users-cart' %}">My goods({{ total_quantity }})</a>
+        </div>
+        {% for category in categories %}
+        <div class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+            <a class="dropdown-menu__a" href="{% url 'catalog' category.slug %}">{{ category.name }}</a>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    </header>
+    <!--? Конец мобильного хедера -->
+    <!--? Десктопный хедер -->
+    <header class="header-desktop wrapper-header">
+        <a class="logo spaceMono-btns" href="{% url 'home' %}">
+          <img
+            class="logo__img img-in-btn"
+            src="{% static 'image/icons/logo.png' % }"
+            alt="logo"
+          />
+          Animalshare
+        </a>
+        <div class="desktop-menu">
+          <ul class="desktop-menu__marketplace-list">
+            <li>
+              <a
+                class="desktop-menu__list-title workSans-btns"
+                href="{% url 'catalog-all' %}"
+                >Marketplace</a
+              >
+            </li>
+            <ul
+              class="dropdown-menu dropdown-menu--desktop-marketplace workSans-base"
+            >
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'users-cart' %}">My goods({{ total_quantity }})</a>
+              </li>
+              {% for category in categories %}
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'catalog' category.slug %}">{{ category.name }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </ul>
+          <ul class="desktop-menu__forum-list">
+            <li>
+              <a
+                class="desktop-menu__list-title workSans-btns"
+                href="{% url 'forum' %}"
+                >Forum</a
+              >
+            </li>
+            <ul class="dropdown-menu dropdown-menu--desktop-forum workSans-base">
+            {% if user.is_authenticated %}
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'post-create' %}"
+                  >Create a post</a
+                >
+              </li>
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'user-posts' request.user.username %}">My posts</a>
+              </li>
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'user-comments' %}"
+                  >My comments</a
+                >
+              </li>
+            {% else %}
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'login' %}"
+                  >Create a post</a
+                >
+              </li>
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'login' %}">My posts</a>
+              </li>
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'login' %}"
+                  >My comments</a
+                >
+              </li>
+            {% endif %}
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'usertouser:inbox' %}"
+                  >My messages{% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
+                  <span class="badge">{{ unread_messages_count }}</span>
+                  {% endif %}
+                  </a>
+              </li>
+              <li class="dropdown-menu__a-cont dropdown-menu__a-cont--dashed">
+                <a class="dropdown-menu__a" href="{% url 'gallery' %}" >Gallery</a>
+              </li>
+            </ul>
+          </ul>
+        {% if user.is_superuser or user.is_stuff %}
+        <a class="workSans-btns" href="{% url 'admin:index' %}">For admin</a>
         {% endif %}
-        </a></button>
-        <button><a href="{% url 'gallery' %}" title="Gallery">
-            <img src="{% static "image/icons/logo-min-on-blue-photo.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-        <button><a href="{% url 'catalog-all' %}" title="AnimalShop">
-            <img src="{% static "image/icons/logo-min-shop.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-        <button><a href="{% url 'blog-about' %}" title="About us">
-            <img src="{% static "image/icons/logo-min-on-white.png" %}" alt="button1" width="50" height="50">
-        </a></button>
-    </aside>
-    <section class="post-block flex column">
-    {% block content %}{% endblock %}
-    </section>
-    <aside class="aside-right flex column">
-        <div class="advertising-card first-advertising-card">
-            <a href="{% url 'blog-about' %}"><img src="{% static "image/commercial2.jpg" %}" alt="Зоомагазин на Привозе" title="Our sponsors" width="200" height="200" target="_blank"></a>
-            </div>
-        <div class="advertising-card second-advertising-card">
-            <a href="{% url 'blog-about' %}"><img src="{% static "image/commercial1.jpg" %}" alt="Сухой корм для собак 2190 грн." title="Our sponsors" width="200" height="200" target="_blank"></a>
-            </div>
-        <div class="advertising-card fird-advertising-card">
-            <a href="{% url 'blog-about' %}"><img src="{% static "image/advertisement-running-wheel-img.jpg" %}" alt="Беговое колесо для кота" title="Our sponsors" width="200" height="200" target="_blank"></a>
-            </div>
-    </aside>
-</main>
+        {% if user.is_authenticated %}
+          <a class="workSans-btns" href="{% url 'profile' %}">Profile</a>
+          <a href="{% url 'logout' %}"
+              class="a-as-btn btn btn--Filled btn--Secondary workSans-btns">
+              <img
+                class="btn__img btn__img--desktop"
+                src="{% static 'image/icons/user.png' %}"
+                alt=""
+              />Log out
+            </a>
+        {% else %}
+        <a href="{% url 'login' %}"
+            class="a-as-btn btn btn--Filled btn--Secondary workSans-btns">
+            <img
+              class="btn__img btn__img--desktop"
+              src="{% static 'image/icons/user.png' %}"
+              alt=""
+            />Login
+          </a>
+        {% endif %}
+        </div>
+      </header>
+      <!--? Конец десктопного хедера -->
+      <!--? Раздел Ворнинг-месс -->
+    {% if messages %}<!--тут мы сделали условие и цикл перечиления для отображения предупредительного сообщения
+      о успехе/не успехе создания нового пользователя по форме-->
+      {% for message in messages %}
+    <div class="warning-mess warning-mess--error hidden">
+      <p class="spaceMono-h5-h4">{{ message }}</p>
+    </div>
+      {% endfor %}
+    {% endif %}
+    <!--? Конец раздела Ворнинг-месс -->
+{% block content %}{% endblock %}
+    <!--? Футер -->
+    <footer class="footer">
+      <div class="footer__inner wrapper">
+        <div class="footer__before-hr">
+          <div class="footer__before-hr-description">
+            <a class="logo spaceMono-btns" href="{% url 'home' %}">
+              <img
+                class="logo__img img-in-btn"
+                src="{% static 'image/icons/logo.png' %}"
+                alt="logo"
+              />
+              Animalshare
+            </a>
+            <p class="workSans-base">Question about commercial? Contact us!</p>
+            <address class="footer__adress">
+              <a class="footer__adress-a" href="tel:+380633731255">
+                <img
+                  class="footer__adress-img"
+                  src="{% static 'images/icons/phone--violet.png' %}"
+                  alt="Phone"
+                />
+                +380633731255</a
+              >
+              <a class="footer__adress-a" href="mailto:237629134pah@gmail.com">
+                <img
+                  class="footer__adress-img"
+                  src="{% static 'images/icons/message--violet.png'%}"
+                  width="32px"
+                  alt="Email"
+                />
+                237629134pah@gmail.com</a
+              >
+            </address>
+          </div>
+        </div>
+        <p class="footer__text-after-hr workSans-caption">
+          Ⓒ Animalshare. Use it with pleasure.
+        </p>
+      </div>
+    </footer>
+    <!--? Конец футера -->
 </body>
 </html>

@@ -1,14 +1,71 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="profile_text"><h1>This is a test site as a portfolio for job offer, to show everyone, how good I am at django and deploy it. </h1>
-<br>
-<h2>mail: 237629134pah@gmail.com</h2>
-<br>
-<h2>Question about commercial? Contact us! </h2>
-<br>
-<h2>Phone: +3 8 063 373 12 55</h2>
-<br>
-</div>
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d5499.90194632207!2d30.701902256089063!3d46.42985130852649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1721293794661!5m2!1sru!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<main class="wrapper">
+    <h1 class="welcome workSans-h4-h3-h1">Welcome to Animalshare</h1>
+    <!--? раздел херо -->
+    <div class="hero">
+      <div class="hero__description">
+        <p class="hero__text--color workSans-h5">
+          This is a test site as a portfolio for job offer, to show everyone,
+          how good I am at django and deploy it.
+        </p>
+        <p class="workSans-base-body">
+          Happiness for everyone, for free, and let no one leave offended!
+        </p>
+        <div class="hero__statistics">
+          <div class="hero__post-statistics">
+            <p class="spaceMono-h5-h4">{{ posts_quantity|default:'N/A' }}+</p>
+            <p class="workSans-base-body">Posts</p>
+          </div>
+          <div class="hero__profile-statistics">
+            <p class="spaceMono-h5-h4">{{ users_quantity|default:'N/A' }}+</p>
+            <p class="workSans-base-body">Profiles</p>
+          </div>
+          <div class="hero__goods-statistics">
+            <p class="spaceMono-h5-h4">{{ products_quantity|default:'N/A' }}+</p>
+            <p class="workSans-base-body">Products</p>
+          </div>
+        </div>
+      </div>
+      <div class="homepage-post-cards">
+
+        <div class="homepage-post-card">
+            <a href="{{ post.animal_image.url }}">
+          <img
+            class="homepage-post-card__img"
+            src="{{ post.animal_image.url }}"
+            alt="Post picture"
+          /></a>
+          <div class="homepage-post-card__description">
+            <a href="{% url 'post-detail' post.id %}" class="homepage-post-card__sign workSans-h5"
+              >{{ post.title }}</a
+            >
+            <a href="{% url 'user-posts' post.author.username %}" class="homepage-post-card__author workSans-base">
+              <img
+                class="homepage-post-card__avatar"
+                src="{{ post.author.profile.image.url }}"
+                alt="Avatar"
+              />{{post.author}}</a
+            >
+          </div>
+        </div>
+
+        <div class="homepage-post-card">
+          <img
+          src="{{ product.image.url }}"
+            alt="Post picture"
+          />
+          <div class="homepage-post-card__description">
+            <a href="{% url 'product' product.slug %}" title="{{ product.name }}
+            class="homepage-post-card__sign workSans-h5"
+              >{{ product.name|truncatechars:25 }}</a
+            >
+            <a href="/" class="homepage-post-card__author workSans-base">{{ product.sell_price }} UAH</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--? Конец раздела херо -->
 {% endblock content %}

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['animalshare-34ce92dca6ea.herokuapp.com', '127.0.0.1'] #поменять перед деплоем
 CSRF_TRUSTED_ORIGINS = ['https://animalshare-34ce92dca6ea.herokuapp.com']
@@ -68,7 +68,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'animalshare.context_processors.unread_messages_count',
+                'django.template.context_processors.request',  # Убедитесь, что этот процессор подключен
+                'animalshare.context_processors.cart_total_quantity',  # Ваш процессор для количества товаров
+                'animalshare.context_processors.categories',  # Ваш процессор для категорий
+                'animalshare.context_processors.unread_messages_count', #для отображения сообщений
             ],
         },
     },
