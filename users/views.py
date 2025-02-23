@@ -19,7 +19,7 @@ def register(request):
                 Carts.objects.filter(session_key=session_key).update(user=user)#товары которые не хареганный пользователь забросил в корзину, после регистрации появятся в его заказах
             username = form.cleaned_data.get('username') #берем данные из формы с очисткой кеша и передаем в ф строку для приветствия
             messages.success(request, f'Account created for {username}!Enjoy!')
-            return redirect('blog-home') #условие для отображения сообщения о успехе и перенаправления на главную страницу 
+            return redirect('home') #условие для отображения сообщения о успехе и перенаправления на главную страницу 
         else:
             messages.error(request, 'Error during registration.')
             return render(request, 'users/register.html', {'form': form}) #альтернативное сообщение в случае ошибки регистрации 

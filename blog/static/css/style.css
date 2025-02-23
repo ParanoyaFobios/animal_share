@@ -793,21 +793,21 @@ body {
 }
 
 .create-acc-form__input--username {
-  background-image: url(./images/static/icons/input-user.png);
+  background-image: url('../image/icons/input-user.png');
 }
 
 .create-acc-form__input--email {
-  background-image: url(./images/static/icons/input-email.png);
+  background-image: url('../image/icons/input-email.png');
 }
 
 .create-acc-form__input--password {
-  background-image: url(./images/static/icons/input-password.png),
-    url(./images/static/icons/input-show.png);
+  background-image: url('../image/icons/input-password.png'),
+    url('../image/icons/input-show.png');
   background-position: 20px center, calc(100% - 20px) center;
 }
 
 .create-acc-form__input--phone {
-  background-image: url(./images/static/icons/input-phone.png);
+  background-image: url('../image/icons/input-phone.png');
 }
 
 .create-acc-form__after {
@@ -860,35 +860,31 @@ body {
   justify-content: end;
   padding-bottom: 30px;
 }
-.bg1 {
-  background-image: url(./images/static/bg-img/kamni-zhivotnoe-kot-kotionok.jpg);
-}
+.bg1 { background-image: url('../bg-img/kamni-zhivotnoe-kot-kotionok.jpg'); }
 .bg2 {
-  background-image: url(./images/static/bg-img/iashcheritsa-trava-boke-vzgliad.jpg);
+  background-image: url('../bg-img/iashcheritsa-trava-boke-vzgliad.jpg');
 }
 .bg3 {
-  background-image: url(./images/static/bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg);
+  background-image: url('../bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg');
 }
 .bg4 {
-  background-image: url(./images/static/bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg);
+  background-image: url('../bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg');
 }
-.bg4 {
-  background-image: url(./images/static/bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg);
-}
+
 .bg5 {
-  background-image: url(./images/static/bg-img/iashcheritsa-ulitka-nezabudki-makro.jpg);
+  background-image: url('../bg-img/iashcheritsa-ulitka-nezabudki-makro.jpg');
 }
 .bg6 {
-  background-image: url(./images/static/bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg);
+  background-image: url('../bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg');
 }
 .bg7 {
-  background-image: url(./images/static/bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg);
+  background-image: url('../bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg');
 }
 .bg8 {
-  background-image: url(./images/static/bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg);
+  background-image: url('../bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg');
 }
 .bg9 {
-  background-image: url(./images/static/bg-img/tsvety-rozovye-lepestki-1.jpg);
+  background-image: url('../bg-img/tsvety-rozovye-lepestki-1.jpg');
 }
 
 @media screen and (min-width: 834px) {
@@ -966,38 +962,38 @@ body {
   }
 }
 .bg-left1 {
-  background-image: url(./images/static/bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg);
+  background-image: url('../bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg');
   background-position-x: 57%;
 }
 .bg-left2 {
-  background-image: url(./images/static/bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg);
+  background-image: url('../bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg');
   background-position-x: 45%;
 }
 .bg-left3 {
-  background-image: url(./images/static/bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg);
+  background-image: url('../bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg');
   background-position-x: 30%;
 }
 .bg-left4 {
-  background-image: url(./images/static/bg-img/priroda-sobaka-ptitsa-sova-pen.jpg);
+  background-image: url('../bg-img/priroda-sobaka-ptitsa-sova-pen.jpg');
   background-position-x: 55%;
 }
 .bg-left5 {
-  background-image: url(./images/static/bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg);
+  background-image: url('../image/bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg');
   background-position-x: 25%;
 }
 .bg-left6 {
-  background-image: url(./images/static/bg-img/iashcheritsa-trava-boke-vzgliad.jpg);
+  background-image: url('../image/bg-img/iashcheritsa-trava-boke-vzgliad.jpg');
   background-position-x: 68%;
 }
 .bg-left7 {
-  background-image: url(./images/static/bg-img/priroda-sobaka-ptitsa-sova-pen.jpg);
+  background-image: url('../image/bg-img/priroda-sobaka-ptitsa-sova-pen.jpg');
   background-position-x: 55%;
 }
 .bg-left8 {
-  background-image: url(./images/static/bg-img/kamni-zhivotnoe-kot-kotionok.jpg);
+  background-image: url('../image/bg-img/kamni-zhivotnoe-kot-kotionok.jpg');
 }
 .bg-left9 {
-  background-image: url(./images/static/bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg);
+  background-image: url('../image/bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg');
   transform: scale(-1, 1);
 }
 
@@ -1705,23 +1701,23 @@ body {
   order: 2;
   width: 30px;
   height: 30px;
-  background-image: url(./images/static/icons/arrow-right.png);
+  background-image: url('.../image/icons/arrow-right.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
 .pagination-arrow--right:hover {
-  background-image: url(./images/static/icons/arrow-right--violet.png);
+  background-image: url('.../image/icons/arrow-right--violet.png');
 }
 
 .pagination-arrow--left {
   width: 30px;
   height: 30px;
-  background-image: url(./images/static/icons/arrow-left.png);
+  background-image: url('.../image/icons/arrow-left.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
 .pagination-arrow--left:hover {
-  background-image: url(./images/static/icons/arrow-left--violet.png);
+  background-image: url('.../image/icons/arrow-left--violet.png');
 }
 
 .pagination-number--active {

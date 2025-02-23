@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{% if title %}{{title}}{% else %}Animalshare{% endif %}</title>
-    <link rel="stylesheet" href="{% static 'css/reset.css' % }" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'fonts/workSans/font.css'%}" />
     <link rel="stylesheet" href="{% static 'fonts/spaceMono/font.css.css'%}" />
@@ -18,7 +18,7 @@
     <a class="logo spaceMono-btns" href="{% url 'home' %}">
         <img
         class="logo__img img-in-btn"
-        src="{% static 'image/icons/logo.png' % }"
+        src="{% static 'image/icons/logo.png' %}"
         alt="logo"
         />
         Animalshare
@@ -30,7 +30,7 @@
         <a href="{% url 'home' %}" class="logo spaceMono-btns">
             <img
             class="btn__img"
-            src="{% static 'image/icons/logo.png' % }"
+            src="{% static 'image/icons/logo.png' %}"
             alt="logo"
             />
             Animalshare
@@ -169,9 +169,8 @@
         <a class="logo spaceMono-btns" href="{% url 'home' %}">
           <img
             class="logo__img img-in-btn"
-            src="{% static 'image/icons/logo.png' % }"
-            alt="logo"
-          />
+            src="{% static 'image/icons/logo.png' %}"
+            alt="logo">
           Animalshare
         </a>
         <div class="desktop-menu">
@@ -276,7 +275,7 @@
     {% if messages %}<!--тут мы сделали условие и цикл перечиления для отображения предупредительного сообщения
       о успехе/не успехе создания нового пользователя по форме-->
       {% for message in messages %}
-    <div class="warning-mess warning-mess--error hidden">
+    <div class="">
       <p class="spaceMono-h5-h4">{{ message }}</p>
     </div>
       {% endfor %}
@@ -301,7 +300,7 @@
               <a class="footer__adress-a" href="tel:+380633731255">
                 <img
                   class="footer__adress-img"
-                  src="{% static 'images/icons/phone--violet.png' %}"
+                  src="{% static 'image/icons/phone--violet.png' %}"
                   alt="Phone"
                 />
                 +380633731255</a
@@ -309,7 +308,7 @@
               <a class="footer__adress-a" href="mailto:237629134pah@gmail.com">
                 <img
                   class="footer__adress-img"
-                  src="{% static 'images/icons/message--violet.png'%}"
+                  src="{% static 'image/icons/message--violet.png'%}"
                   width="32px"
                   alt="Email"
                 />
@@ -319,7 +318,8 @@
           </div>
         </div>
         <p class="footer__text-after-hr workSans-caption">
-          Ⓒ Animalshare. Use it with pleasure.
+          <a href="https://www.linkedin.com/in/pavlo-lushchik/">Ⓒ Animalshare. Backend & deploy - https://www.linkedin.com/in/pavlo-lushchik</a><br>
+          <a href="https://www.linkedin.com/in/дария-долгая-151314324/">Front end developer - https://www.linkedin.com/in/дария-долгая-151314324</a>
         </p>
       </div>
     </footer>

@@ -1,28 +1,76 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<form class="" role="login" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <p><b>Log In</b></p>
-    {% if form.non_field_errors %}
-    <div class="warning login-warning">{{form.non_field_errors}}</div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
-    {% endif %}
-    <div>
-        <label for="{{ form.username.id_for_label }}" placeholder="Username"></label>
-        <input type="text" class="" name="username"  
-        value="{% if form.username.value %}{{ form.username.value }}{% endif %}" 
-        id="id_username" placeholder="Username" required>
-    </div>
-    <div>
-        <label for="{{ form.password.id_for_label }}" placeholder="Password"></label>
-        <input type="password" class="" name="password" id="id_password" placeholder="Password" required>
-    </div>
-    <p>
-        <button type="submit">Log In</button>
+<main class="create-acc-main"></main>
+<!--? Фоновая картинка для раздела Create Account -->
+<div class="bg-left bg-left2"><!--<img src="{% static 'bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg' %}">--></div>
+<!--? Начало раздела Create Acc -->
+<section class="create-acc create-acc--wrapper">
+    <div class="create-acc__description">
+    <h1 class="create-acc__title workSans-h3-h2">Login</h1>
+    <p class="workSans-base-body">
+        Welcome! Login and start creating posts, chatting and shopping on
+        Animalshare.
     </p>
-</form>
-<p>Forget your password?</p>
-    <p><a href="{% url 'password_reset' %}">Reset password</a></p>
-<p>Need an account?</p>
-    <p><a href="{% url 'register' %}">Sign Up</a></p>
+    </div>
+    <form class="create-acc-form" role="login" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    <div class="">
+    <p class="spaceMono-h5-h4">{{form.non_field_errors}}</p></div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
+    {% endif %}
+    <label for="{{ form.username.id_for_label }}" placeholder="Username"></label>
+    <input
+        class="form-input create-acc-form__input--username workSans-base"
+        type="text"
+        name="username"
+        value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+        id="id_username"
+        placeholder="Username"
+        required
+    />
+    <label for="{{ form.password.id_for_label }}" placeholder="Password"></label>
+    <input
+        class="form-input create-acc-form__input--password workSans-base"
+        type="password"
+        name="password"
+        id="id_password"
+        placeholder="Password"
+        required
+    />
+    <button
+        class="btn btn--form btn--Filled btn--Tertiary workSans-btns"
+        type="submit"
+    >
+        Login
+    </button>
+    </form>
+    <div class="create-acc-form__after">
+    <a
+        href="/"
+        class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+        >Login with google
+        <img
+        class="btn__img btn__img--mar12"
+        src="{% static './image/icons/google.png' %}"
+        alt="Login with google"
+        />
+    </a>
+    </div>
+    <div class="create-acc-form__after">
+    <p class="workSans-base-body">Forget your password?</p>
+    <a
+    href="{% url 'password_reset' %}"
+    class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+    >Reset password</a>
+    </div>
+    <div class="create-acc-form__after">
+    <p class="workSans-base-body">Need an account?</p>
+    <a
+    href="{% url 'register' %}"
+    class="a-as-btn btn btn--form btn--Filled btn--Tertiary workSans-btns"
+    >Create account</a>
+    </div>
+</section>
+<!--? Конец раздела Create Account -->
 {% endblock content %}

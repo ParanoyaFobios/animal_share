@@ -6,6 +6,7 @@ from blog.models import Post, Comment
 from goods.models import Products
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from random import randint
 
 
 
@@ -46,9 +47,13 @@ class GalleryListView(ListView): #создание класса который �
     paginate_by = 18
     ordering = ['?']
 
-    def get_queryset(self):
-        return Post.objects.exclude(animal_image='default_animal.jpg')#реализовано условие выборки из БД, КРОМЕ (что б не отображались стандартные пикчи животных)
-
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)#получаю контекст из родительского класса
+        context['gallery'] = Post.objects.exclude(animal_image='default_animal.jpg')#реализовано условие выборки из БД, КРОМЕ (что б не отображались стандартные пикчи животных)
+        context['variable'] = randint(1, 4)
+        context['title'] = 'Gallery'
+        return context
+    
 
 class UserCommentListView(ListView): #создание класса который отфильтрует комментарии пользователя
     model = Comment

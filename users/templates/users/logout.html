@@ -1,7 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<h2>Thank you for spending time with us. You have been logged out.</h2>
-<p>Log In again?</p>
-    <p><a href="{% url 'login' %}">Log In</a></p>
+<main class="create-acc-main"></main>
+<div class="bg-left bg-left2"></div>
+<section class="create-acc create-acc--wrapper">
+    <div class="create-acc__description">
+        <p class="workSans-base-body">
+            Thank you for spending time with us. You have been logged out.
+        </p>
+        </div>
+<div class="create-acc-form__after">
+    <a
+        href="{% url 'login' %}"
+        class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+        >Login again
+        <img
+        class="btn__img btn__img--mar12"
+        />
+    </a>
+</div>
+<div class="create-acc-form__after">
+    <a
+        href="/"
+        class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+        >Login with google
+        <img
+        class="btn__img btn__img--mar12"
+        src="{% static './image/icons/google.png' %}"
+        alt="Login with google"
+        />
+    </a>
+</div>
+</section>
 {% endblock content %}

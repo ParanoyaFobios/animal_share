@@ -138,7 +138,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'blog-home' #может быть проблема, держать под контролем
+LOGIN_REDIRECT_URL = 'home' #может быть проблема, держать под контролем
 LOGIN_URL = 'login' #настройка перенаправления за счет декоратора users/view.py, что бы пользователи не мутили воду без логина на сайте
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
