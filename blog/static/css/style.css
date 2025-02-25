@@ -257,12 +257,12 @@ body {
 .btn-arrow-down {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/arrow-down.png');
+  background-image: url(./images/static/icons/arrow-down.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-arrow-down:hover {
-  background-image: url('../image/icons/arrow-down--violet.png');
+  background-image: url(./images/static/icons/arrow-down--violet.png);
 }
 
 .btn__img {
@@ -407,12 +407,12 @@ body {
   border: 2px solid transparent;
   width: 32px;
   height: 32px;
-  background-image: url('../image/icons/list.png');
+  background-image: url(./images/static/icons/list.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-menu:hover {
-  background-image: url('../image/icons/list--violet.png');
+  background-image: url(./images/static/icons/list--violet.png);
 }
 
 @media screen and (min-width: 834px) {
@@ -463,12 +463,12 @@ body {
   border: none;
   width: 24px;
   height: 24px;
-  background-image: url('../image/icons/cross.png');
+  background-image: url(./images/static/icons/cross.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .mobile-menu__exit:hover {
-  background-image: url('../image/icons/cross--violet.png');
+  background-image: url(./images/static/icons/cross--violet.png);
 }
 
 .mobile-menu__a-cont,
@@ -1412,13 +1412,13 @@ body {
   position: absolute;
   right: 12px;
   border: none;
-  background-image: url('../image/icons/search.png');
+  background-image: url(./images/static/icons/search.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .btn-search:hover {
-  background-image: url('../image/icons/search--violet.png');
+  background-image: url(./images/static/icons/search--violet.png);
 }
 /*? конец секции описания маркетплейса*/
 
@@ -1577,13 +1577,13 @@ body {
   align-self: flex-end;
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/basket.png');
+  background-image: url(./images/static/icons/basket.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .marketplace-card__basket:hover {
-  background-image: url('../image/icons/basket--violet.png');
+  background-image: url(./images/static/icons/basket--violet.png);
 }
 
 .product-card-top {
@@ -1705,7 +1705,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-/* убрать лишнюю точку, как починим пагинаию */
 .pagination-arrow--right:hover {
   background-image: url('.../image/icons/arrow-right--violet.png');
 }
@@ -1823,34 +1822,34 @@ body {
 .btn-plus {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/plus.png');
+  background-image: url(./images/static/icons/plus.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-plus:hover {
-  background-image: url('../image/icons/plus--violet.png');
+  background-image: url(./images/static/icons/plus--violet.png);
 }
 
 .btn-minus {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/minus.png');
+  background-image: url(./images/static/icons/minus.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-minus:hover {
-  background-image: url('../image/icons/minus--violet.png');
+  background-image: url(./images/static/icons/minus--violet.png);
 }
 
 .btn-delete {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/trash.png');
+  background-image: url(./images/static/icons/trash.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-delete:hover {
-  background-image: url('../image/icons/trash--violet.png');
+  background-image: url(./images/static/icons/trash--violet.png);
 }
 
 .btn-delete--comments {
@@ -1861,12 +1860,12 @@ body {
 .btn-sort {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/sort.png');
+  background-image: url(./images/static/icons/sort.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-sort:hover {
-  background-image: url('../image/icons/sort--violet.png');
+  background-image: url(./images/static/icons/sort--violet.png);
 }
 
 @media screen and (min-width: 834px) {

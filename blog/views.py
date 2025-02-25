@@ -24,7 +24,6 @@ class PostListView(ListView):
         context['users_quantity'] = User.objects.filter(is_active=True).count()
         context['products_quantity'] = Products.objects.count()
         context['title'] = 'Forum'
-        context['variable'] = randint(1, 4)
         return context
 
 
@@ -125,7 +124,6 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)#получил контекст из родительского класса
         context['comments'] = Comment.objects.filter(post=self.object).order_by('-date_added')#добавил комментарии в контекст
         context['title'] = 'Post detail'
-        context['variable'] = randint(1, 4)
         return context
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

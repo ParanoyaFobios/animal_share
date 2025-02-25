@@ -1,37 +1,44 @@
 {% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
-<div class="forum-cards--bg">
-    <div class="sub-title__border">
-      <h2 class="sub-title workSans-btns-h5 wrapper">
-Your comments: ({{ page_obj.paginator.count }})
-        </h2>
-    </div>
-    <section class="forum-comments">
-        <div class="forum-comments-cont wrapper">
+<h3>Your comments: ({{ page_obj.paginator.count }})</h3>
 {% for comment in comments %}
-<div class="comment-card">
-    <a class="comment-card__avatar-a" href="{% url 'user-posts' comment.comment_author %}">
-      <img
-        class="comment-card__avatar-img"
-        src="{{ comment.comment_author.profile.image.url }}"
-        alt="Avatar"
-    /></a>
-
-    <div class="comment-card__card-inf clearfix">
-      <p class="workSans-h5 violet">
-        <a class="workSans-h5-h4" href="{% url 'user-posts' comment.comment_author %}" title="My posts">{{ comment.comment_author }}'s comment at
-        {{ comment.date_added|date:"d F - Y (H:i)" }}</a>in Post:<a class="workSans-h5-h4" href="{% url 'post-detail' comment.post.id %}" title="Source post"> {{ comment.post.title }}</a>
-        <p class="workSans-h5-h4">{{ comment.body }}</p>
-      </p>
+<a class="post-a flex">
+<div class="post-user-img-box">
+    <object>
+            <a href="{% url 'user-posts' comment.comment_author %}">
+            <img src="{{ comment.comment_author.profile.image.url }}" alt="img" >
+        </a>
+    </object>
     </div>
+    <object>{{ comment.comment_author }}'s comment at {{ comment.date_added|date:"d F - Y (H:i)" }} in Post: <a class="hz-a" href="{% url 'post-detail' comment.post.id %}"> {{ comment.post.title }}</a>
+    </br></hr>{{ comment.body }}</br></br>
     <form action="{% url 'delete-comment' comment.id %}" method="post" style="display:inline;"> <!--начало формы и кнопки для удаления комментов-->
         {% csrf_token %}
-        <button class="btn-delete btn--with-img btn-delete--comments"
-        type="submit"
-        onclick="return confirm('Are you sure you want to delete this comment?');"></button>
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button>
     </form>
-  </div>
+    </object>
+</a>
 {% endfor %}
-{% include "blog/pagination_include.html" %}
+<div class="pagination wrapper">
+{% if is_paginated %} <!--начало логики для пагинации-->
+    {% if page_obj.has_previous %}
+    <P class="blocktext"><a href="?page=1">First page</a></P>
+    <P class="blocktext previous-page"><a href="?page={{ page_obj.previous }}">Previous page</a></P>
+    {% endif %}
+  
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
+      {% endif %}
+    {% endfor %}
+  
+    {% if page_obj.has_next %}
+    <P class="blocktext next-page"><a href="?page={{ page_obj.next_page_number }}">Next page</a></P>
+    <P class="blocktext"><a href="?page={{ page_obj.paginator.num_pages }}">Last page</a></P>
+    {% endif %}
+{% endif %}
+</div>
 {% endblock content %} <!-- конец уникального контента для данной страницы -->
