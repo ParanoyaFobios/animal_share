@@ -1,45 +1,101 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <p><b>Registration</b></p>
-    {% if form.non_field_errors %}
-    <div class="warning login-warning">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
-    {% endif %}
-    <div>
-        <input type="text" class="" name="username"
-        id="id_username" placeholder="Enter your username" required>
+<main class="create-acc-main">
+    <!--? Фоновая картинка для раздела Create Account -->
+    <div class="bg-left bg-left1"></div>
+    <!--? Начало раздела Create Acc -->
+    <section class="create-acc create-acc--wrapper">
+      <div class="create-acc__description">
+        <h1 class="create-acc__title workSans-h3-h2">Create Account</h1>
+        <p class="workSans-base-body">
+            Registration.
+        </p>
+      </div>
+      <form method="POST" class="create-acc-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="warning login-warning">{% for error in form.non_field_errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
+        {% endif %}
+        <input
+          class="form-input create-acc-form__input--username workSans-base"
+          type="text"
+          name="username"
+          id="id_username"
+          value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+          placeholder="Enter your username"
+          required
+        />
         <label for="id_username" class="" placeholder="Username">Username</label>
         {% if form.username.errors %}
-        <div class="warning login-warning">{% for error in form.username.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        <div class="">{% for error in form.username.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
-    </div>
-    <div>
-        <input type="email" class="" name="email"
-        id="id_email" placeholder="Enter your email" required>
+        <input
+          class="form-input create-acc-form__input--email workSans-base"
+          type="email"
+          name="email"
+          id="id_email"
+          value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+          placeholder="Email"
+          required
+        />
         <label for="id_email" class="" placeholder="email">Email</label>
-        {% if form.email.errors %}<div class="warning login-warning">{% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% if form.email.errors %}
+        <div class="">{% for error in form.email.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
-    </div>
-    <div>
-        <input type="password" class="" name="password1"  
-        id="id_password1" placeholder="Enter your password" required>
+        <input
+          class="form-input create-acc-form__input--password workSans-base"
+          type="password"
+          name="password1"
+          id="id_password1"
+          value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}"
+          placeholder="Password"
+          required
+        />
         <label for="id_password1" class="" placeholder="password">Password</label>
-        {% if form.password1.errors %}<div class="warning login-warning">{% for error in form.password1.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% if form.password1.errors %}
+        <div class="">{% for error in form.password1.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
-    </div>
-    <div>
-        <input type="password" class="" name="password2"  
-        id="id_password2" placeholder="Repeat your password" required>
+        <input
+          class="form-input create-acc-form__input--password workSans-base"
+          type="password"
+          name="password2"
+          id="id_password2"
+          value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}"
+          placeholder="Confirm Password"
+          required
+        />
         <label for="id_password2" class="" placeholder="password">Repeat your password</label>
-        {% if form.password2.errors %}<div class="warning login-warning">{% for error in form.password2.errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% if form.password2.errors %}<div class="">{% for error in form.password2.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
-    </div>
-    <p>
-        <button type="submit">Send</button>
-    </p>
-</form>
-<p>Already have an account?</p>
-    <p><a href="{% url 'login' %}">Sign in</a></p>
+        <button
+          class="btn btn--form btn--Filled btn--Tertiary workSans-btns"
+          type="submit"
+        >
+          Create account
+        </button>
+      </form>
+      <div class="create-acc-form__after">
+        <a
+          href="/"
+          class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+          >Login with google
+          <img
+            class="btn__img btn__img--mar12"
+            src="{% static './image/icons/google.png' %}"
+            alt="Login with google"
+          />
+        </a>
+      </div>
+      <div class="create-acc-form__after">
+        <p class="workSans-base-body">Already have an account?</p>
+        <a
+        href="{% url 'login' %}"
+          class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+          >Login</a
+        >
+      </div>
+    </section>
+    <!--? Конец раздела Create Account -->
+  </main>
 {% endblock content %}

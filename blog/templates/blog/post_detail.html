@@ -1,82 +1,102 @@
 {% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
-<a class="post-a flex">
-  <div class="post-user-img-box">
-      <object>
-          <a href="{% url 'user-posts' post.author.username %}">
-              <img src="{{ post.author.profile.image.url }}" alt="img" > 
-          </a>
-      </object>
-  </div>
-  <div class="post-text-box">
-    <object>
-          <a class="user-name" href="{% url 'user-posts' post.author.username %}"> {{post.author}} </a>
-    </object>
-    <object>
-        <a class="post-title" href="{% url 'usertouser:create_message' recipient=post.author.username %}" title="sms"> Message me </a>
-    </object>
-    <object>
-          <a class="post-title" href="{% url 'post-detail' post.id %}"> {{ post.title }} </a>
-    </object>
-    <p> {{post.animaltype}} is {{post.animalstatus}} in {{post.date_posted|date:"d F - Y (H:i)"}} </p> <!--формат даты - день, месяц, год, время-->
-    <p> {{ post.description}} </p>
-  </div>
-  <div class="post-animal-img-box">
-    <object>
-        <a href="{{ post.animal_image.url }}">
-            <img src="{{ post.animal_image.url }}" alt="img">
-        </a>
-        <br></br>
-    </object>
-  </div>
-</a>
-<h3>Comments  |
+<section class="title bg{{variable}}">
+    <!--! Вставить переменную для смены bg-img -->
+    <a class="title__text wrapper workSans-h4-h3-h2" href="{% url 'forum' %}"
+      >Forum</a
+    >
+  </section>
+  <main>
+    <nav class="sort__nav wrapper">
+      <a class="workSans-btns-h5" href="{% url 'post-create' %}">Create a post</a>
+      <a class="workSans-btns-h5" href="{% url 'user-posts' request.user.username %}">My posts</a>
+      <a class="workSans-btns-h5" href="{% url 'user-comments' %}">My comments</a>
+      <a class="workSans-btns-h5" href="{% url 'usertouser:inbox' %}">My messages
+        {% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
+          <span class="badge">{{ unread_messages_count }}</span>
+        {% endif %}</a>
+      <a class="workSans-btns-h5" href="{% url 'gallery' %}">Gallery</a>
+    </nav>
+<div class="forum-cards--bg">
+    <section class="forum-cards wrapper">
+      <div class="post-cards-cont">
+        <div class="post-card clearfix">
+          <a class="post-card__a" href="{{ post.animal_image.url }}"
+            ><img
+              class="post-card__img"
+              src="{{ post.animal_image.url }}"
+              alt="Post Card image"
+          /></a>
+          <div class="post-card__author">
+            <a class="post-card__avatar-a workSans-h4-h3" href="{% url 'user-posts' post.author.username %}">
+              <img
+                class="post-card__avatar-img"
+                src="{{ post.author.profile.image.url }}"
+                alt="Avatar"
+            /></a>
+            <div class="post-card__author-inf">
+              <a class="post-card__author-name workSans-h4-h3" href="{% url 'user-posts' post.author.username %}"
+              title="User posts"
+                >{{post.author}}</a
+              >
+              <a
+                class="post-card__mess workSans-btns-h5 a-as-btn btn--Outlined btn--Tertiary"
+                href="{% url 'usertouser:create_message' recipient=post.author.username %}"
+                title="sms"
+                >Message me</a
+              >
+            </div>
+          </div>
+          <div class="post-card__post-inf">
+            <p class="workSans-h4-h3" href="{% url 'post-detail' post.id %}" title="Comments"
+              >{{ post.title }}</p
+            >
+            <p class="workSans-h5 violet">
+              {{post.animaltype}} is {{post.animalstatus}} in {{post.date_posted|date:"d F - Y (H:i)"}}
+            </p>
+          </div>
+          <p class="post-card__post-text workSans-h5">
+            {{ post.description}}
+          </p>
+        </div>
+<section class="forum-comments">
+    <div class="sub-title-cont__border">
+        <div class="sub-title-cont wrapper">
+        <h2 class="violet workSans-btns-h5">Comments</h2>
 {% if user.is_authenticated %}
-<a href="{% url 'add_comment' post.pk %}">  Add comment</a>
+<a class="workSans-btns-h5" href="{% url 'add_comment' post.pk %}"
+>Add a comment</a></div>
 {% else %}
-Log in to be able to add comments
+<a class="workSans-btns-h5" href="{% url 'add_comment' post.pk %}"
+>Log in to be able to add comments</a></div>
 {% endif %}
 </h3>
-<!-- {% if not comments %}
-<h3>No comments yet! Be the first one!</h3>
-{% else %} -->
+{% if not comments %}
+<div class="sub-title-cont wrapper">
+<h3 class="workSans-btns-h5">No comments yet! Be the first one!</h3></div>
+{% else %}
+<div class="forum-comments-cont wrapper"></div>
 {% for comment in comments %}
-<a class="post-a flex">
-    <div class="post-user-img-box">
-        <object>
-                <a href="{% url 'user-posts' comment.comment_author %}">
-                <img src="{{ comment.comment_author.profile.image.url }}" alt="img" >
-            </a>
-        </object>
-        </div>
-        <object>{{ comment.comment_author }}'s comment at {{ comment.date_added|date:"d F - Y (H:i)" }} in Post: <a class="hz-a" href="{% url 'post-detail' comment.post.id %}"> {{ comment.post.title }}</a>
-        </br></hr>{{ comment.body }}</br></br>
-        </object>
-    </a>
+    <div class="comment-card">
+      <a class="comment-card__avatar-a" href="{% url 'user-posts' comment.comment_author %}">
+        <img
+          class="comment-card__avatar-img"
+          src="{{ comment.comment_author.profile.image.url }}"
+          alt="Avatar"
+      /></a>
+
+      <div class="comment-card__card-inf clearfix">
+        <p class="workSans-h5 violet">
+          <a class="workSans-h5-h4" href="{% url 'user-posts' comment.comment_author %}">{{ comment.comment_author }}'s comment at
+          {{ comment.date_added|date:"d F - Y (H:i)" }}</a>
+          <p class="workSans-h5-h4">{{ comment.body }}</p>
+        </p>
+      </div>
+    </div>
     {% endfor %}
 {% endif %}
-<div class="pagination wrapper">
-{% if is_paginated %} <!--начало логики для пагинации-->
-    {% if page_obj.has_previous %}
-    <P class="blocktext"><a href="?page=1">First page</a></P>
-    <P class="blocktext previous-page"><a href="?page={{ page_obj.previous }}">Previous page</a></P>
-    {% endif %}
-  
-    {% for num in page_obj.paginator.page_range %}
-      {% if page_obj.number == num %}
-      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
-      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-      <P class="blocktext"><a href="?page={{ num }}">{{ num }}</a></P>
-      {% endif %}
-    {% endfor %}
-  
-    {% if page_obj.has_next %}
-    <P class="blocktext next-page"><a href="?page={{ page_obj.next_page_number }}">Next page</a></P>
-    <P class="blocktext"><a href="?page={{ page_obj.paginator.num_pages }}">Last page</a></P>
-    {% endif %}
-{% endif %}
-</div>
+{% include 'blog/pagination_include.html' %}
 {% if object.author == user %}
 <a href="{% url 'post-update' post.id %}">Update Post |</a>
 <a href="{% url 'post-delete' post.id %}">Delete Post |</a>
