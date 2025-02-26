@@ -1,66 +1,106 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="gallery-page shop-page-card">
-    <image class="userpic" src="{{ user.profile.image.url }}" 
-></image>
- <!---->
-<form method="POST" enctype="multipart/form-data"> <!--тип кодировки, для того что бы наша форма вставила правильные данные изображения, если забыть, форма не будет сохранять обновленное изображение--> 
+<section class="title bg{{variable}}">
+<h1 class="title__text title__text--my-profile wrapper workSans-h4-h3-h2">
+My profile
+</h1>
+</section>
+<main class="wrapper">
+    <section class="profile-top">
+      <!-- Левая сторона: -->
+      <div class="profile-top__left">
+        <div class="profile-top__before-form">
+          <img
+            class="profile-top__avatar"
+            src="{{ user.profile.image.url }}"
+            alt="Avatar"
+          />
+          <h1 class="profile-top__title workSans-h4-h3-h2">{{ user.username }}</h1>
+          <h2 class="profile-top__title profile-top__title--under profile-top__title--834-left workSans-h4-h3">
+            Profile info Update
+        </h2>
+      </div>
+      <!-- Левая сторона, начало формы изменения акка: -->
+      <div class="profile-top-cont">
+        <div class="profile-top__details">
+
+<form class="change-profile-form" method="POST" enctype="multipart/form-data"> <!--тип кодировки, для того что бы наша форма вставила правильные данные изображения, если забыть, форма не будет сохранять обновленное изображение--> 
     {% csrf_token %}
-    <p><b>Profile info Update</b></p>
     {% if form.non_field_errors %}
-    <div class="warning login-warning">{{form.non_field_errors}}</div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
+    <div class="">{{form.non_field_errors}}</div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
     {% endif %}
-    <div>
-        <input type="text" class="" name="username"  
+    <div class="change-profile-form__input-cont">
+        <label class="workSans-base-body" for="{{ u_form.username.id_for_label }}"
+        placeholder="Username">Change your name here</label>
+        <input type="text" class="form-input create-acc-form__input--username workSans-base" name="username"  
         value="{{ u_form.username.value }}" 
         id="id_username" placeholder="Username" required>
-        <label for="{{ u_form.username.id_for_label }}" placeholder="Username">Change your name here</label>
     </div>
-    <div>
-        <input type="email" class="" name="email" value="{{ u_form.email.value }}" id="id_email" placeholder="Email" required>
-        <label for="{{ u_form.email.id_for_label }}" placeholder="Email">Change your email</label>
+
+    <div class="change-profile-form__input-cont">
+        <label class="workSans-base-body" for="{{ u_form.email.id_for_label }}"
+        placeholder="Email">Change your email</label>
+        <input type="email" class="form-input create-acc-form__input--email workSans-base"
+        name="email" value="{{ u_form.email.value }}"
+        id="id_email"
+        placeholder="Email"
+        required>
     </div>
-    <div>
-        <input type="text" class="form-label" name="phone_number" value="{% if p_form.phone_number.value %}{{ p_form.phone_number.value }}{% endif %}"
+
+    <div class="change-profile-form__input-cont">
+        <label for="id_phone_number" class="workSans-base-body">Add or change your phone</label>
+        <input type="text" class="form-input create-acc-form__input--phone workSans-base"
+        name="phone_number"
+        value="{% if p_form.phone_number.value %}{{ p_form.phone_number.value }}{% endif %}"
         id="id_phone_number" placeholder="(000) 000-00-00" required>
-        <label for="id_phone_number" class="form-label">Add or change your phone</label>
     </div>
-    <div>
-        <label for="image" placeholder="{{ p_form.image.id_for_label }}">Your avatar picture</label>
-        <input type="file" name="image" 
+
+    <div class="change-profile-form__input-cont">
+        <p class="workSans-base-body">Change your avatar picture</p>
+        <label for="image" class="select-file-label btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+        placeholder="{{ p_form.image.id_for_label }}">
+        Select file</label>
+        <input type="file" name="image" class="hidden"
         value="{{ p_form.image.value }}" 
         id="image" accept="image/png, image/jpeg, image/jpg, image/bmp, image/gif">
     </div>
-    <p><button type="submit">Update</button></p>
+    <p><button class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns" type="submit">Update</button></p>
 </form>
-<p>Not sure about your password?</p>
-    <p><a href="{% url 'password_reset' %}">Reset password</a></p>
-</div>
-<div class="">
-    <div class="" id="accordionExample">
-        {% for order in orders %}
-        <div class="">
-            <h2 class="" id="heading{{ order.id }}">
+
+<div class="create-acc-form__after create-acc-form__after--left">
+    <p class="workSans-base-body">Forget your password?</p>
+    <a href="{% url 'password_reset' %}"
+      class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+      >Reset password</a
+    >
+  </div>
+  <!-- Конец левой стороны -->
+
+<div class="profile-top__right">
+    <h2 class="profile-top__right-title workSans-h4-h3">My orders</h2>
+    <div class="profile-top__right-cards">
+    {% for order in orders %}
+        <div class="order-card workSans-base-body">
+            <h2 class="order-card__card-title workSans-h5" id="heading{{ order.id }}">
                 <button class="accordion-button {% if order != orders.0 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
                     Order № {{ order.id }} - {{ order.created_timestamp }} | Status: <strong class="">{{order.status}}</strong>
                 </button>
             </h2>
             <div id="collapse{{ order.id }}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}" aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
-                <div class="">
-                    <table class="">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Totall price</th>
-                            </tr>
-                        </thead>
+                <table>
+                    <thead class="spaceMono-caption-base">
+                    <tr class="order-card__column-title">
+                        <th class="order-card__elem--in-start">Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Totall price</th>
+                    </tr>
+                    </thead>
                         <tbody>
                             {% for item in order.orderitem_set.all %}
-                            <tr>
-                                <td><a class="" href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a></td>
+                            <tr class="order-card__elem--in-center">
+                                <td class="order-card__elem--in-start"><a class="" href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a></td>
                                 <td>{{ item.quantity }}</td>
                                 <td>{{ item.price }}</td>
                                 <td>{{ item.products_price }}</td>  
@@ -70,11 +110,12 @@
                     </table>
                 </div>
             </div>
+            <p class="order-card__tolall-sum spaceMono-caption-base">Totall sum: <strong class="workSans-h5">{{ order.total_sum }}</strong><span class="workSans-h5">$</span></p>
         </div>
-        <strong>Totall sum: {{ order.total_sum }}</strong>
-        {% endfor %}
+            {% endfor %}
     </div>
 </div>
-{% include "carts/includes/included_cart.html" %}
 </div>
+</section>
+{% include "carts/includes/included_cart.html" %}
 {% endblock content %}

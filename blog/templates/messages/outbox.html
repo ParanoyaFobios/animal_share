@@ -1,27 +1,37 @@
 {% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
-<a class="post-title" href="{% url 'usertouser:inbox' %}" title="Outbox messages"> Inbox messages </a>
-<br><br>
-{% for usertouser in sms %}
-<a class="post-a flex">
-  <div class="post-user-img-box">
-      <object>
-          <a href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">
-              <img src="{{ usertouser.sender.profile.image.url }}" alt="img" > 
-          </a>
-      </object>
+<main>
+<div class="forum-cards--bg">
+  <div class="sub-title__border">
+    <div class="sub-title-cont sub-title-cont--top-padd wrapper">
+      <a class="workSans-btns-h5" href="{% url 'usertouser:inbox' %}" title="Inbox messages"
+        >Go to inbox messages</a
+      >
+      <h2 class="violet workSans-btns-h5">Outbox messages</h2>
+    </div>
   </div>
-  <div class="post-text-box">
-      <object>
-          <a class="user-name" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">
-            To: {{usertouser.recipient.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}</a>
-      </object> 
-        <p>{{ usertouser.subject }}</p>
-      <p>{{ usertouser.content }}</p>
-  </div>
-</a>
-{% empty %}
-No messages yet.
-{% endfor %}
+  <section class="forum-comments">
+    <div class="forum-comments-cont wrapper">
+      {% for usertouser in sms %}
+      <div class="message-card">
+        <h3 class="workSans-h5 violet">
+          To: <a class="workSans-h5-h4" href="{% url 'user-posts' usertouser.recipient.username %}">
+            <img class="comment-card__avatar-img" src="{{ usertouser.recipient.profile.image.url }}" alt="img"
+          title="User posts">{{usertouser.recipient.username}}</a> at
+          {{usertouser.timestamp|date:"d F - Y (H:i)"}}
+        </h3>
+      <h4 class="message-card__mess-subject violet workSans-h5">
+          {{ usertouser.subject }}</h4> 
+        <p class="comment-card__card-text workSans-h5">
+      {{ usertouser.content }}
+    </p>
+      </div>
+      {% empty %}
+      <h3 class="workSans-h5 violet">No messages yet.</h3>
+      {% endfor %}
+      </div>
+  </section>
+</div>
+</main>
 {% endblock content %} <!-- конец уникального контента для данной страницы -->

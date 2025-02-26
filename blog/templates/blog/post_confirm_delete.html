@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<form method="POST">
+<center><form method="POST">
     {% csrf_token %}
-    <p><b>Delete Post</b></p>
-    <h2>Are you sure you wont to delete Post "{{ object.title }}"</h2>
-    <p><button type="submit">Yes, delete</button>
-        <a href="{% url 'post-detail' object.id %}"> Cancel</a>
-    </p>
-</form>
+    <h1 class="create-acc__title workSans-h3-h2">Delete Post</h1>
+    <p class="workSans-base-body">Are you sure you wont to delete Post "{{ object.title }}"</p>
+    <button
+    class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns"
+    type="submit">
+    Yes, delete!
+  </button>
+  <a
+  href="{% url 'post-detail' object.id %}"
+  class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+  >Cancel</a>
+</form></center>
 {% endblock content %}

@@ -5,6 +5,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from carts.models import Carts
 from orders.models import Order, OrderItem
 from django.db.models import Prefetch
+from random import randint
 
 
 def register(request):
@@ -48,6 +49,7 @@ def profile(request):
                         )
                     ).order_by("-id")
     context = {
+        'variable': randint(1, 4),
         'u_form': u_form,
         'p_form': p_form,
         'orders': orders,

@@ -5,7 +5,7 @@
     <div class="wrapper">
 <form class="create-smt-form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <h2 class="create-smt__title workSans-h4-h3">New post</h2>
+    <h2 class="create-smt__title workSans-h4-h3">Change some values</h2>
     <div class="create-smt-form__input-cont">
       <label class="workSans-base-body" for="id_title">Title:</label>
       <input
@@ -14,6 +14,7 @@
         type="text"
         name="title"
         id="id_title"
+        value="{% if form.title.value %}{{ form.title.value }}{% endif %}"
         required
       />
     </div>
@@ -26,6 +27,7 @@
         type="text"
         name="animaltype"
         id="id_animaltype"
+        value="{% if form.animaltype.value %}{{ form.animaltype.value }}{% endif %}"
         maxlength="50"
         required
       />
@@ -39,6 +41,7 @@
         type="text"
         name="animalstatus"
         id="id_animalstatus"
+        value="{% if form.animalstatus.value %}{{ form.animalstatus.value }}{% endif %}"
         maxlength="50"
         required
       />
@@ -55,6 +58,7 @@
         type="file"
         name="animal_image"
         id="id_animal_image"
+        value="{% if form.animal_image.value %}{{ form.animal_image.value }}{% endif %}"
         accept="image/*"
       />
     </div>
@@ -71,18 +75,22 @@
         name="description"
         cols="40"
         rows="10"
-        required=""
         id="id_description"
+        value="{% if form.description.value %}{{ form.description.value }}{% endif %}"
+        required
       ></textarea>
     </div>
     <button
       class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns"
       type="submit"
     >
-      Send post
+      Update Post
     </button>
-  </form>
-</div>
+  </form><br><br>
+  <a href="{% url 'post-delete' post.id %}"
+    class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+    >Delete Post</a>
+  </div>
 </section>
 </main>
 {% endblock content %}

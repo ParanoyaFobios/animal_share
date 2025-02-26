@@ -2,41 +2,55 @@
 {% load carts_tags %}
 {% user_carts request as carts %}<!--запускается шаблонный тэг, берет значение user_carts и записывается в переменную carts-->
 
-<p>My orders</p>
+<section class="profile-bottom profile-bottom--margin">
+    <div class="selected-goods">
+      <h2
+        class="profile-top__title profile-top__title--under profile-top__title--834-left workSans-h4-h3"
+      >
+        Selected goods
+      </h2>
 {% for cart in carts %}
-<div class="shop-page-card shop-page-card-cont" data-cart-id="{{ cart.id }}">
-    <div class="shop-page-card-cont-left">
-        <a href="{% url 'product' cart.product.slug %}" title="Go to description">
-            <img src="{{ cart.product.image.url }}" alt="img" >
+<div class="selected-goods__card" data-cart-id="{{ cart.id }}">
+           <a class="selected-goods__card-a-whith-img" href="{% url 'product' cart.product.slug %}" title="Go to description">
+            <img class="selected-goods__card-img" src="{{ cart.product.image.url }}" alt="img" >
         </a>
-    </div>
-    <div class="shop-page-card-cont-middle">
-        <a class="post-title" href="{% url 'product' cart.product.slug %}" title="{{cart.product.name}}">{{ cart.product.name|truncatechars:35 }}      
+    
+    <div class="selected-goods__card-inf">
+        <a class="workSans-h4-h3" href="{% url 'product' cart.product.slug %}" title="{{cart.product.name}}">{{ cart.product.name|truncatechars:35 }}      
         </a><!--оберание оборажения более чем 20ти символов на странице-->
-        <p>{{ cart.product.sell_price }}$</p>
-        <strong id="cart-price-{{ cart.id }}">Totall {{ cart.products_price }}$</strong><!--обращаемся в методу, написанному в carts/Carts.Models-->
+        <p class="workSans-base-body">{{ cart.product.sell_price }}$</p>
+        <p class="workSans-h5-h4" id="cart-price-{{ cart.id }}">Totall {{ cart.products_price }}$</p><!--обращаемся в методу, написанному в carts/Carts.Models-->
     </div>
-    <div class="shop-page-card-cont-right">
-        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
+    <div class="selected-goods__card-btns--content-center">
+        <div class="selected-goods__card-btns">
+            <div class="selected-goods__card-change-quantity-cont">
+        <button type="button" class="pagination-arrow--left" data-cart-id="{{ cart.id }}" 
         data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">{% csrf_token %}-</button>
-        <p class="cart-quantity" data-cart-id="{{ cart.id }}">WTB {{ cart.quantity }} pieces</p>
-        <button type="button" class="change-quantity" data-cart-id="{{ cart.id }}" 
+        <p class="selected-goods__cart-quantity" data-cart-id="{{ cart.id }}">WTB {{ cart.quantity }} pieces</p>
+        <button type="button" class="pagination-arrow--left" data-cart-id="{{ cart.id }}" 
         data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">{% csrf_token %}+</button> 
         <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">{% csrf_token %}
             <img src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
         </button>
-    </div>
+    </div></div></div></div>
+    {% endfor %}
 </div>
-{% endfor %}
+    </div>
+</section>
+<strong class="workSans-h5-h4" id="cart-quantity">{{ carts.totall_quantity }} goods for </strong><strong class="workSans-h5-h4" id="cart-price"> totall: {{ carts.totall_price }} $</strong>
 {% if carts and not order %}<!--проверка, если есть товары в корзине, но я не в вкладке заказы, в заказах этой кнопки быть не должно-->
-<strong><a href="{% url 'create-order' %}">Place an order!</a></strong>
+<div class="create-acc-form__after create-acc-form__after--left">
+    <a href="{% url 'create-order' %}"
+      class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+      >Place an order!</a
+    >
+  </div>
 {% endif %}
-<strong id="cart-quantity">{{ carts.totall_quantity }} goods for</strong><strong id="cart-price"> totall {{ carts.totall_price }} $</strong>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
     // Изменение количества товара
-    $('.change-quantity').on('click', function() {
+    $('.pagination-arrow--left').on('click', function() {
         var cartId = $(this).data('cart-id');
         var changeUrl = $(this).data('change-url');
         var action = $(this).data('action');
@@ -54,7 +68,7 @@ $(document).ready(function() {
                 // Обновить количество на странице
                 // Например, если response содержит новое количество
                 var cartId = button.data('cart-id'); // Получаем cart_id из сохраненной кнопки
-                $('p.cart-quantity[data-cart-id="' + cartId + '"]').text('WTB ' + response.new_quantity + ' pieces');     
+                $('p.selected-goods__cart-quantity[data-cart-id="' + cartId + '"]').text('WTB ' + response.new_quantity + ' pieces');     
                 $('#cart-price-' + cartId).text('Totall ' + response.new_price + ' $');
                 updateCartSummary(response);
             },
@@ -78,7 +92,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 // Удалить элемент из DOM или обновить корзину
-                $('div.shop-page-card[data-cart-id="' + cartId + '"]').remove();
+                $('div.selected-goods__card[data-cart-id="' + cartId + '"]').remove();
             },
             error: function(xhr) {
                 console.error(xhr.responseText);
@@ -88,7 +102,7 @@ $(document).ready(function() {
 
     function updateCartSummary(response) {
         // Предполагаем, что сервер возвращает обновленные данные о сумме и количестве
-        $('#cart-quantity').text(response.total_quantity + ' goods for');
+        $('#selected-goods__cart-quantity').text(response.total_quantity + ' goods for');
         $('#cart-price').text('total ' + response.total_price + ' $');
     }
 });

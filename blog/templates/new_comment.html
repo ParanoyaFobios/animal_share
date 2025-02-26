@@ -3,12 +3,29 @@
 {% block title %} Add a message {% endblock %}
 {% block content %}
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <p><b>New comment</b></p>
-    {{ form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
-    <p>
-        <button type="submit">Send message</button>
-    </p>
-</form>
+
+<section class="create-smt">
+<div class="wrapper">
+<form class="create-smt-form" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <h2 class="create-smt__title workSans-h4-h3">New comment</h2>
+        <div class="create-smt-form__input-cont create-smt-form__input-cont--column"
+            >
+              <textarea
+                class="textarea workSans-base"
+                name="body"
+                cols="40"
+                rows="10"
+                id="id_body"
+              ></textarea>
+            </div>
+            <button
+              class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns"
+              type="submit"
+            >
+              Send comment
+            </button>
+          </form>
+        </div>
+      </section>
 {% endblock content %}

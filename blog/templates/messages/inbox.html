@@ -1,23 +1,36 @@
 {% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
+<main>
+    <div class="forum-cards--bg">
+      <div class="sub-title__border">
+        <div class="sub-title-cont sub-title-cont--top-padd wrapper">
+            <h2 class="violet workSans-btns-h5">Inbox messages</h2>
 
-<a class="post-title" href="{% url 'usertouser:outbox' %}" title="Outbox messages"> Outbox messages </a>
-<br><br>
-
+          <a class="workSans-btns-h5" href="{% url 'usertouser:outbox' %}" title="Outbox messages"
+            >Go to outbox messages</a
+          >
+        </div>
+      </div>
+    <section class="forum-comments">
+<div class="forum-comments-cont wrapper">
 {% for usertouser in sms %}
-<a class="post-a flex">
-    <div class="post-text-box">
-      <object>
-          <a class="post-title" href="{% url 'user-posts' usertouser.sender.username %}" title="User posts">From: {{usertouser.sender.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}
-          {% if not usertouser.is_read %}<span class="badge">New</span>{% endif %}</a>
-      </object> 
-      <object>
-          <a class="post-title" href="{% url 'usertouser:detail' usertouser.id %}" title="Details"> {{ usertouser.subject }} <- click for detail </a>
-      </object>
-    </div>
-</a>
+<div class="message-card">
+    <h3 class="workSans-h5 violet">
+                From: <a class="workSans-h5-h4" title="Go to sender profile" href="{% url 'user-posts' usertouser.sender.username %}">
+                    {{usertouser.sender.username}} at {{usertouser.timestamp|date:"d F - Y (H:i)"}}
+                    {% if not usertouser.is_read %}<span class="badge">New</span>{% endif %}</a></h3>
+                        <a class="workSans-h5" href="{% url 'usertouser:detail' usertouser.id %}">
+                          <h4 class="message-card__mess-subject violet workSans-h5" title="Messege detials">
+                            {{ usertouser.subject }}<-click for detial
+                          </h4>
+                        </a>
+</div>
 {% empty %}
-No messages yet.
+    <h3 class="workSans-h5 violet">No messages yet.</h3>
 {% endfor %}
+</div>
+    </section>
+</div>
+</main>
 {% endblock content %} <!-- конец уникального контента для данной страницы -->

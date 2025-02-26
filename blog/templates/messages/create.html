@@ -2,13 +2,54 @@
 {% load static %}
 {% block title %} Send message {% endblock %}
 {% block content %}
-
-<form method="POST" enctype="multipart/form-data">
+<main>
+<section class="create-smt">
+    <div class="wrapper">
+        <form
+        class="create-smt-form"
+        method="post"
+        enctype="multipart/form-data"
+    >
     {% csrf_token %}
-    <p><b>New message to {{recipient}}</b></p>
-    {{ form.as_p }} <!-- вставляет стандартную форму из Джанго, а команда .as_p разбивает форму на параграфы-->
-    <p>
-        <button type="submit">Send message</button>
-    </p>
-</form>
+        <h2 class="create-smt__title workSans-h4-h3">
+        New message to {{recipient}}
+        </h2>
+        <div class="create-smt-form__input-cont">
+        <label class="workSans-base-body" for="id_subject"
+            >Subject:</label
+        >
+        <input
+            class="form-input form-input--without-img workSans-base"
+            maxlength="255"
+            type="text"
+            name="subject"
+            id="id_subject"
+            required
+        />
+        </div>
+        <div
+        class="create-smt-form__input-cont create-smt-form__input-cont--column"
+        >
+        <label class="workSans-base-body" for="id_content"
+            >Content:</label
+        >
+        <textarea
+            class="textarea workSans-base"
+            name="content"
+            cols="40"
+            rows="10"
+            required
+            id="id_content"
+        ></textarea>
+        </div>
+        <button
+        class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns"
+        type="submit"
+        >
+        Send message
+        </button>
+        </form>
+    </div>
+</section>
+</main>
 {% endblock content %}
