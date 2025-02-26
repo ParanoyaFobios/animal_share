@@ -29,9 +29,7 @@
               <h4 class="violet workSans-h5">{{ usertouser.subject }}</h4>
               <p class="comment-card__card-text workSans-h5">
                 {{ usertouser.content }}
-              </p>
-
-
+              </p><br><br>
               <a class="post-card__mess workSans-btns-h5 a-as-btn btn--Outlined btn--Tertiary"
               href="{% url 'usertouser:create_message' recipient=usertouser.sender.username %}" title="Answer">Answer
             </a>
@@ -45,7 +43,7 @@
         onclick="return confirm('Are you sure you want to delete this message?');"
     >
     Delete
-      </button>
+      </button><br><br>
     </form>
         </div>
       </section>
