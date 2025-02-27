@@ -130,10 +130,10 @@
             <div class="marketplace-card__bottom-cont">
               <div class="marketplace-card__price-cont spaceMono-base">
                 {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
-                <p class="marketplace-card__crossed-out-price">{{ product.sell_price }}$</p>
-                <p>Discount - {{ product.discount }}%</p>
-                {% else %}
                 <p class="marketplace-card__crossed-out-price">{{ product.price }}$</p>
+                <p class="spaceMono-h4-h3">{{ product.sell_price }}$</p>
+                {% else %}
+                <p class="spaceMono-h4-h3">{{ product.sell_price }}$</p>
                 {% endif %}
               </div>
               <a class="marketplace-card__basket"
@@ -145,27 +145,28 @@
         
         
       </div>
+      <div class="pagination workSans-btns-h5"> <!--начало логики для пагинации-->
+        <div class="pagination-numbers">
+        {% if page_obj.has_previous %}
+        <P class="pagination-numbers"><a class="pagination-numbers" href="?{% change_params page=page_obj.first %}">First page</a></P>
+        <a class="pagination-arrow--left" href="?{% change_params page=page_obj.previous %}"></a>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+          <P class="pagination-numbers"><a href="?{% change_params page=num %}">{{ num }}</a></P>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <P class="pagination-numbers"><a href="?{% change_params page=num %}">{{ num }}</a></P>
+          {% endif %}
+        {% endfor %}
+      
+        {% if page_obj.has_next %}
+        <a class="pagination-arrow--right" href="?{% change_params page=page_obj.next_page_number %}"></a>
+        <P class="pagination-numbers"><a href="?{% change_params page=page_obj.paginator.num_pages %}">Last page</a></P>
+        {% endif %}
+        </div>
+      </div>
     </section>
   </div>
 </main>
-<div class="pagination workSans-btns-h5"> <!--начало логики для пагинации-->
-  <div class="pagination-numbers">
-  {% if page_obj.has_previous %}
-  <P class="pagination-numbers"><a class="pagination-numbers" href="?{% change_params page=page_obj.first %}">First page</a></P>
-  <a class="pagination-arrow--left" href="?{% change_params page=page_obj.previous %}"></a>
-  {% endif %}
-  {% for num in page_obj.paginator.page_range %}
-    {% if page_obj.number == num %}
-    <P class="pagination-numbers"><a href="?{% change_params page=num %}">{{ num }}</a></P>
-    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-    <P class="pagination-numbers"><a href="?{% change_params page=num %}">{{ num }}</a></P>
-    {% endif %}
-  {% endfor %}
 
-  {% if page_obj.has_next %}
-  <a class="pagination-arrow--right" href="?{% change_params page=page_obj.next_page_number %}"></a>
-  <P class="pagination-numbers"><a href="?{% change_params page=page_obj.paginator.num_pages %}">Last page</a></P>
-  {% endif %}
-  </div>
-</div>
 {% endblock content %}
