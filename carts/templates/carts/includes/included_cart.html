@@ -26,11 +26,11 @@
             <div class="selected-goods__card-change-quantity-cont">
         <button type="button" class="pagination-arrow--left" data-cart-id="{{ cart.id }}" 
         data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">{% csrf_token %}-</button>
-        <p class="selected-goods__cart-quantity" data-cart-id="{{ cart.id }}">WTB {{ cart.quantity }} pieces</p>
+        <p class="selected-goods__cart-quantity" data-cart-id="{{ cart.id }}">{{ cart.quantity }}</p>
         <button type="button" class="pagination-arrow--left" data-cart-id="{{ cart.id }}" 
         data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">{% csrf_token %}+</button> 
         <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">{% csrf_token %}
-            <img src="{% static 'image/icons/trash.png' %}" alt="img" width="16" height="16">
+            <img src="{% static 'image/icons/trash.png' %}" alt="img" width="26" height="26">
         </button>
     </div></div></div></div>
     {% endfor %}
@@ -68,7 +68,7 @@ $(document).ready(function() {
                 // Обновить количество на странице
                 // Например, если response содержит новое количество
                 var cartId = button.data('cart-id'); // Получаем cart_id из сохраненной кнопки
-                $('p.selected-goods__cart-quantity[data-cart-id="' + cartId + '"]').text('WTB ' + response.new_quantity + ' pieces');     
+                $('p.selected-goods__cart-quantity[data-cart-id="' + cartId + '"]').text(response.new_quantity);     
                 $('#cart-price-' + cartId).text('Totall ' + response.new_price + ' $');
                 updateCartSummary(response);
             },

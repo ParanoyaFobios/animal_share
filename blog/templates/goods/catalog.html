@@ -31,8 +31,8 @@
       <div class="sort__nav">
         
         <a  class="workSans-btns-h5" href="{% url 'catalog-all' %}">All goods</a>
-          {% tag_categories as categories %} <!--tag_categories это имя функции пользовательского тэга для джанго, мы создали ее в goods.templatetags.goods_tags-->
-          {% for category in categories %} <!-- начало цикла словарей из модуля views.py, в данной ситуации categories это функция qwery set из шаблонных тагов  -->
+        {% tag_categories as categories %} <!--tag_categories это имя функции пользовательского тэга для джанго, мы создали ее в goods.templatetags.goods_tags-->
+        {% for category in categories %} <!-- начало цикла словарей из модуля views.py, в данной ситуации categories это функция qwery set из шаблонных тагов  -->
       <li>
         <a class="workSans-btns-h5" href="{% url 'catalog' category.slug %}">{{category.name}}</a>
       </li><br>
@@ -41,6 +41,8 @@
       </div>
       <form class="sort__sorting">
         <button
+          form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}"
+          method="GET"
           type="button"
           class="sort__sorting-btn-open btn btn--Outlined btn--Tertiary workSans-btns"
           tabindex="1"
@@ -54,9 +56,12 @@
               type="checkbox"
               name="on_sale"
               value="on"
-            /><label>Discount only</label>
+              {% if request.GET.on_sale == 'on' %}checked{% endif %}
+            /><label>Discount only</label><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
           </li>
-          <!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
+  {% if request.GET.q %}
+      <input type="hidden" name="q" value="{{ request.GET.q }}"><!--если пользователь делает поисковый запрос с включенной сортировкой, срабатывает скрыттый ввод, который сохранит все параметры-->
+  {% endif %}
           <div class="sort__dropdown-menu-radio-items">
             <li>
               <input
@@ -65,7 +70,7 @@
                 name="order_by"
                 id="flexRadioDefault1"
                 value="default"
-                checked=""
+                {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}
               /><label>No filter</label>
             </li>
             <li>
@@ -75,6 +80,7 @@
                 name="order_by"
                 id="flexRadioDefault2"
                 value="-price"
+                {% if request.GET.order_by == '-price' %}checked{% endif %}
               /><label>Expensive first</label>
             </li>
             <li>
@@ -84,6 +90,7 @@
                 name="order_by"
                 id="flexRadioDefault3"
                 value="price"
+                {% if request.GET.order_by == 'price' %}checked{% endif %}
               /><label>Cheap first</label>
             </li>
             <button class="btn-sort btn--with-img" type="submit"></button>
@@ -92,270 +99,73 @@
       </form>
     </nav>
   </div>
+
   <div class="marketplace-cards--bg">
     <section class="marketplace-cards wrapper">
       <div class="marketplace-cards-cont">
+{% for product in goods %}
         <div class="marketplace-card">
-          <a class="marketplace-card__a-whith-img" href="/">
+          <a class="marketplace-card__a-whith-img" href="{% url 'product' product.slug %}"
+          title="Go to description">
             <img
               class="marketplace-card__img"
-              src="./images/static/goods/81JoIbWrcWL._AC_UF10001000_QL80_.jpg"
+              src="{{ product.image.url }}"
               alt="Automatic fish feeder"
             />
           </a>
           <div class="marketplace-card__description">
             <a
-              href="./product-page.html"
-              class="marketplace-card__title workSans-h5"
+            href="{% url 'product' product.slug %}"
+            title="{{ product.name }}"
+            class="marketplace-card__title workSans-h5"
             >
-              Automatic fish feeder
+            {{ product.name|truncatechars:20 }} <!--обрезание оборажения более чем 20ти символов на странице-->
             </a>
             <p class="marketplace-card__availability spaceMono-base">
               In stock<span
                 class="marketplace-card__quantity spaceMono-base"
-                >(7)</span
+                >({{ product.quantity }})</span
               >
             </p>
             <div class="marketplace-card__bottom-cont">
               <div class="marketplace-card__price-cont spaceMono-base">
-                <p class="marketplace-card__crossed-out-price">650.20$</p>
-                <p>617.69$</p>
+                {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
+                <p class="marketplace-card__crossed-out-price">{{ product.sell_price }}$</p>
+                <p>Discount - {{ product.discount }}%</p>
+                {% else %}
+                <p class="marketplace-card__crossed-out-price">{{ product.price }}$</p>
+                {% endif %}
               </div>
-              <button class="marketplace-card__basket"></button>
+              <a class="marketplace-card__basket"
+              href="{% url 'cart-add' product.slug %}"></a>
             </div>
           </div>
         </div>
-        <div class="marketplace-card">
-          <a class="marketplace-card__a-whith-img" href="/">
-            <img
-              class="marketplace-card__img"
-              src="./images/static/goods/81JoIbWrcWL._AC_UF10001000_QL80_.jpg"
-              alt="Automatic fish feeder"
-            />
-          </a>
-          <div class="marketplace-card__description">
-            <a
-              href="./product-page.html"
-              class="marketplace-card__title workSans-h5"
-            >
-              Automatic fish feeder
-            </a>
-            <p class="marketplace-card__availability spaceMono-base">
-              In stock<span
-                class="marketplace-card__quantity spaceMono-base"
-                >(7)</span
-              >
-            </p>
-            <div class="marketplace-card__bottom-cont">
-              <div class="marketplace-card__price-cont spaceMono-base">
-                <p class="marketplace-card__crossed-out-price">650.20$</p>
-                <p>617.69$</p>
-              </div>
-              <button class="marketplace-card__basket"></button>
-            </div>
-          </div>
-        </div>
-        <div class="marketplace-card">
-          <a class="marketplace-card__a-whith-img" href="/">
-            <img
-              class="marketplace-card__img"
-              src="./images/static/goods/81JoIbWrcWL._AC_UF10001000_QL80_.jpg"
-              alt="Automatic fish feeder"
-            />
-          </a>
-          <div class="marketplace-card__description">
-            <a
-              href="./product-page.html"
-              class="marketplace-card__title workSans-h5"
-            >
-              Automatic fish feeder
-            </a>
-            <p class="marketplace-card__availability spaceMono-base">
-              In stock<span
-                class="marketplace-card__quantity spaceMono-base"
-                >(7)</span
-              >
-            </p>
-            <div class="marketplace-card__bottom-cont">
-              <div class="marketplace-card__price-cont spaceMono-base">
-                <p class="marketplace-card__crossed-out-price">650.20$</p>
-                <p>617.69$</p>
-              </div>
-              <button class="marketplace-card__basket"></button>
-            </div>
-          </div>
-        </div>
-        <div class="marketplace-card">
-          <a class="marketplace-card__a-whith-img" href="/">
-            <img
-              class="marketplace-card__img"
-              src="./images/static/goods/81JoIbWrcWL._AC_UF10001000_QL80_.jpg"
-              alt="Automatic fish feeder"
-            />
-          </a>
-          <div class="marketplace-card__description">
-            <a
-              href="./product-page.html"
-              class="marketplace-card__title workSans-h5"
-            >
-              Automatic fish feeder
-            </a>
-            <p class="marketplace-card__availability spaceMono-base">
-              In stock<span
-                class="marketplace-card__quantity spaceMono-base"
-                >(7)</span
-              >
-            </p>
-            <div class="marketplace-card__bottom-cont">
-              <div class="marketplace-card__price-cont spaceMono-base">
-                <p class="marketplace-card__crossed-out-price">650.20$</p>
-                <p>617.69$</p>
-              </div>
-              <button class="marketplace-card__basket"></button>
-            </div>
-          </div>
-        </div>
-        <div class="marketplace-card">
-          <a class="marketplace-card__a-whith-img" href="/">
-            <img
-              class="marketplace-card__img"
-              src="./images/static/goods/81JoIbWrcWL._AC_UF10001000_QL80_.jpg"
-              alt="Automatic fish feeder"
-            />
-          </a>
-          <div class="marketplace-card__description">
-            <a
-              href="./product-page.html"
-              class="marketplace-card__title workSans-h5"
-            >
-              Automatic fish feeder
-            </a>
-            <p class="marketplace-card__availability spaceMono-base">
-              In stock<span
-                class="marketplace-card__quantity spaceMono-base"
-                >(7)</span
-              >
-            </p>
-            <div class="marketplace-card__bottom-cont">
-              <div class="marketplace-card__price-cont spaceMono-base">
-                <p class="marketplace-card__crossed-out-price">650.20$</p>
-                <p>617.69$</p>
-              </div>
-              <button class="marketplace-card__basket"></button>
-            </div>
-          </div>
-        </div>
-        <div class="marketplace-card">
-          <a class="marketplace-card__a-whith-img" href="/">
-            <img
-              class="marketplace-card__img"
-              src="./images/static/goods/81JoIbWrcWL._AC_UF10001000_QL80_.jpg"
-              alt="Automatic fish feeder"
-            />
-          </a>
-          <div class="marketplace-card__description">
-            <a
-              href="./product-page.html"
-              class="marketplace-card__title workSans-h5"
-            >
-              Automatic fish feeder
-            </a>
-            <p class="marketplace-card__availability spaceMono-base">
-              In stock<span
-                class="marketplace-card__quantity spaceMono-base"
-                >(7)</span
-              >
-            </p>
-            <div class="marketplace-card__bottom-cont">
-              <div class="marketplace-card__price-cont spaceMono-base">
-                <p class="marketplace-card__crossed-out-price">650.20$</p>
-                <p>617.69$</p>
-              </div>
-              <button class="marketplace-card__basket"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pagination workSans-btns-h5">
-        <div class="pagination-numbers">
-          <a class="pagination-number--active" href="?page=1">1</a>
-          <a href="?page=2">2</a>
-          <a href="?page=3">3</a>
-        </div>
-        <a class="pagination-arrow--left" href="?page=2"></a>
-        <a class="pagination-arrow--right" href="?page=3"></a>
+{% endfor %}
+        
+        
       </div>
     </section>
   </div>
 </main>
-
-<form class="" role="search" action="{% url 'search' %}" method="get">
-  <input class="" type="search" name="q" placeholder="Good's search">
-  <button class="" type="submit">Search</button>
-</form>
-<a href="{% url 'users-cart' %}" class="orders-href">My goods ({{ total_quantity }})</a>
-<form><a form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}" method="GET" class="main-item" href="javascript:void(0);" tabindex="1" ><label>Price filter</label></a>
-<ul class="sub-menu"> 
-   <li><input type="checkbox" name="on_sale" value="on" {% if request.GET.on_sale == 'on' %}checked{% endif %}><label>Discount only</label></li><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
-   {% if request.GET.q %}
-    <input type="hidden" name="q" value="{{ request.GET.q }}"><!--если пользователь делает поисковый запрос с включенной сортировкой, срабатывает скрыттый ввод, который сохранит все параметры-->
-   {% endif %}
-   <p>Sort by:</p>
-   <li><input type="radio" name="order_by" id="flexRadioDefault1" value="default" 
-    {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}><label>No filter</label></li>
-   <li><input type="radio" name="order_by" id="flexRadioDefault2" value="-price" 
-    {% if request.GET.order_by == '-price' %}checked{% endif %}><label>From high to low</label></li>
-   <li><input type="radio" name="order_by" id="flexRadioDefault3" value="price" 
-    {% if request.GET.order_by == 'price' %}checked{% endif %}><label>Cheaperst first</label></li>
-   <button type="submit">Sort</button>
-  </ul>
-</form>
-<br>
-<!--конец поиска и фильтра-->
-<!--начало каталога товаров-->
-<div class="asd"> 
-<li>
-  <a href="{% url 'catalog-all' %}">All goods</a>
-</li><br>
-    {% tag_categories as categories %} <!--tag_categories это имя функции пользовательского тэга для джанго, мы создали ее в goods.templatetags.goods_tags-->
-    {% for category in categories %} <!-- начало цикла словарей из модуля views.py, в данной ситуации categories это функция qwery set из шаблонных тагов  -->
-<li>
-  <a href="{% url 'catalog' category.slug %}">{{category.name}}</a>
-</li><br>
-    {% endfor %}
-    <br><br>
-    {% for product in goods %}
-    <div class="gallery-page shop-page-card">
-      <a href="{% url 'product' product.slug %}" title="Go to description">
-        <img src="{{ product.image.url }}" alt="img" >
-        <a class="post-title" href="{% url 'product' product.slug %}" title="{{ product.name }}"> {{ product.name|truncatechars:20 }} </a><!--оберание оборажения более чем 20ти символов на странице-->
-        {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
-        <p>Price - {{ product.sell_price }}</p>
-        <p>Discount - {{ product.discount }}%</p>
-        {% else %}
-        <p>{{ product.price }} $</p>
-        {% endif %}
-        <p>Aviable - {{ product.quantity }} pieces</p>
-        <a href="{% url 'cart-add' product.slug %}">Add to my goods{% csrf_token %}</a>
-    </div>
-    {% endfor %}
-</div>
-<!--конец каталога товаров-->
-<div class="pagination wrapper"> <!--начало логики для пагинации-->
+<div class="pagination workSans-btns-h5"> <!--начало логики для пагинации-->
+  <div class="pagination-numbers">
   {% if page_obj.has_previous %}
-  <P class="blocktext"><a href="?{% change_params page=page_obj.first %}">First page</a></P>
-  <P class="blocktext previous-page"><a href="?{% change_params page=page_obj.previous %}">Previous page</a></P>
+  <P class="pagination-numbers"><a href="?{% change_params page=page_obj.first %}">First page</a></P>
+  <P class="pagination-arrow--left"><a href="?{% change_params page=page_obj.previous %}"><</a></P>
   {% endif %}
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
-    <P class="blocktext"><a href="?{% change_params page=num %}">{{ num }}</a></P>
+    <P class="pagination-numbers"><a href="?{% change_params page=num %}">{{ num }}</a></P>
     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-    <P class="blocktext"><a href="?{% change_params page=num %}">{{ num }}</a></P>
+    <P class="pagination-numbers"><a href="?{% change_params page=num %}">{{ num }}</a></P>
     {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-  <P class="blocktext next-page"><a href="?{% change_params page=page_obj.next_page_number %}">Next page</a></P>
-  <P class="blocktext"><a href="?{% change_params page=page_obj.paginator.num_pages %}">Last page</a></P>
-{% endif %}</div>
+  <P class="pagination-arrow--right"><a href="?{% change_params page=page_obj.next_page_number %}">></a></P>
+  <P class="pagination-numbers"><a href="?{% change_params page=page_obj.paginator.num_pages %}">Last page</a></P>
+  {% endif %}
+  </div>
+</div>
 {% endblock content %}

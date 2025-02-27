@@ -1,6 +1,9 @@
-{% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
-{% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
-{% block content %} <!-- начало уникального контента для данной страницы-->
+{% extends "base.html" %}
+<!-- загрузка повторяемых элементов из родительсткого шаблона -->
+{% load static %}
+<!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
+{% block content %}
+<!-- начало уникального контента для данной страницы-->
 <section class="title bg{{variable}}">
   <!--! Вставить переменную для смены bg-img -->
   <a class="title__text wrapper workSans-h4-h3-h2" href="{% url 'forum' %}"
@@ -10,58 +13,73 @@
 <main>
   <nav class="sort__nav wrapper">
     <a class="workSans-btns-h5" href="{% url 'post-create' %}">Create a post</a>
-    <a class="workSans-btns-h5" href="{% url 'user-posts' request.user.username %}">My posts</a>
+    <a
+      class="workSans-btns-h5"
+      href="{% url 'user-posts' request.user.username %}"
+      >My posts</a
+    >
     <a class="workSans-btns-h5" href="{% url 'user-comments' %}">My comments</a>
-    <a class="workSans-btns-h5" href="{% url 'usertouser:inbox' %}">My messages
-      {% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
-        <span class="badge">{{ unread_messages_count }}</span>
-      {% endif %}</a>
+    <a class="workSans-btns-h5" href="{% url 'usertouser:inbox' %}"
+      >My messages {% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
+      <span class="badge">{{ unread_messages_count }}</span>
+      {% endif %}</a
+    >
     <a class="workSans-btns-h5" href="{% url 'gallery' %}">Gallery</a>
   </nav>
-<div class="forum-cards--bg">
-  <section class="forum-cards wrapper">
-    <div class="post-cards-cont">
-{% for post in posts %}
-      <div class="post-card clearfix">
-        <a class="post-card__a" href="{{ post.animal_image.url }}"
-          ><img
-            class="post-card__img"
-            src="{{ post.animal_image.url }}"
-            alt="Post Card image"
-        /></a>
-        <div class="post-card__author">
-          <a class="post-card__avatar-a workSans-h4-h3" href="{% url 'user-posts' post.author.username %}">
-            <img
-              class="post-card__avatar-img"
-              src="{{ post.author.profile.image.url }}"
-              alt="Avatar"
+  <div class="forum-cards--bg">
+    <section class="forum-cards wrapper">
+      <div class="post-cards-cont">
+        {% for post in posts %}
+        <div class="post-card clearfix">
+          <a class="post-card__a" href="{{ post.animal_image.url }}"
+            ><img
+              class="post-card__img"
+              src="{{ post.animal_image.url }}"
+              alt="Post Card image"
           /></a>
-          <div class="post-card__author-inf">
-            <a class="post-card__author-name workSans-h4-h3" href="{% url 'user-posts' post.author.username %}"
-            title="User posts"
-              >{{post.author}}</a
-            >
+          <div class="post-card__author">
             <a
-              class="post-card__mess workSans-btns-h5 a-as-btn btn--Outlined btn--Tertiary"
-              href="{% url 'usertouser:create_message' recipient=post.author.username %}"
-              title="sms"
-              >Message me</a
+              class="post-card__avatar-a workSans-h4-h3"
+              href="{% url 'user-posts' post.author.username %}"
             >
+              <img
+                class="post-card__avatar-img"
+                src="{{ post.author.profile.image.url }}"
+                alt="Avatar"
+            /></a>
+            <div class="post-card__author-inf">
+              <a
+                class="post-card__author-name workSans-h4-h3"
+                href="{% url 'user-posts' post.author.username %}"
+                title="User posts"
+                >{{post.author}}</a
+              >
+              <a
+                class="post-card__mess workSans-btns-h5 a-as-btn btn--Outlined btn--Tertiary"
+                href="{% url 'usertouser:create_message' recipient=post.author.username %}"
+                title="sms"
+                >Message me</a
+              >
+            </div>
           </div>
+          <div class="post-card__post-inf">
+            <a
+              class="workSans-h4-h3"
+              href="{% url 'post-detail' post.id %}"
+              title="Comments"
+              >{{ post.title }}</a
+            >
+            <p class="workSans-h5 violet">
+              {{post.animaltype}} is {{post.animalstatus}} in
+              {{post.date_posted|date:"d F - Y (H:i)"}}
+            </p>
+          </div>
+          <p class="post-card__post-text workSans-h5">{{ post.description}}</p>
         </div>
-        <div class="post-card__post-inf">
-          <a class="workSans-h4-h3" href="{% url 'post-detail' post.id %}" title="Comments"
-            >{{ post.title }}</a
-          >
-          <p class="workSans-h5 violet">
-            {{post.animaltype}} is {{post.animalstatus}} in {{post.date_posted|date:"d F - Y (H:i)"}}
-          </p>
-        </div>
-        <p class="post-card__post-text workSans-h5">
-          {{ post.description}}
-        </p>
+        {% endfor %} {% include "blog/pagination_include.html" %}
       </div>
-      {% endfor %}
-      {% include "blog/pagination_include.html" %}
-  </section></div>
-{% endblock content %} <!-- конец уникального контента для данной страницы -->
+    </section>
+  </div>
+</main>
+  {% endblock content %}
+<!-- конец уникального контента для данной страницы -->

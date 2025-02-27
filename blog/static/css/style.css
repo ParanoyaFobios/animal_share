@@ -257,12 +257,12 @@ body {
 .btn-arrow-down {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/arrow-down.png');
+  background-image: url("../image/icons/arrow-down.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-arrow-down:hover {
-  background-image: url('../image/icons/arrow-down--violet.png');
+  background-image: url("../image/icons/arrow-down--violet.png");
 }
 
 .btn__img {
@@ -407,12 +407,12 @@ body {
   border: 2px solid transparent;
   width: 32px;
   height: 32px;
-  background-image: url('../image/icons/list.png');
+  background-image: url("../image/icons/list.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-menu:hover {
-  background-image: url('../image/icons/list--violet.png');
+  background-image: url("../image/icons/list--violet.png");
 }
 
 @media screen and (min-width: 834px) {
@@ -463,12 +463,12 @@ body {
   border: none;
   width: 24px;
   height: 24px;
-  background-image: url('../image/icons/cross.png');
+  background-image: url("../image/icons/cross.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .mobile-menu__exit:hover {
-  background-image: url('../image/icons/cross--violet.png');
+  background-image: url("../image/icons/cross--violet.png");
 }
 
 .mobile-menu__a-cont,
@@ -793,21 +793,21 @@ body {
 }
 
 .create-acc-form__input--username {
-  background-image: url('../image/icons/input-user.png');
+  background-image: url("../image/icons/input-user.png");
 }
 
 .create-acc-form__input--email {
-  background-image: url('../image/icons/input-email.png');
+  background-image: url("../image/icons/input-email.png");
 }
 
 .create-acc-form__input--password {
-  background-image: url('../image/icons/input-password.png'),
-    url('../image/icons/input-show.png');
+  background-image: url("../image/icons/input-password.png"),
+    url("../image/icons/input-show.png");
   background-position: 20px center, calc(100% - 20px) center;
 }
 
 .create-acc-form__input--phone {
-  background-image: url('../image/icons/input-phone.png');
+  background-image: url("../image/icons/input-phone.png");
 }
 
 .create-acc-form__after {
@@ -860,31 +860,33 @@ body {
   justify-content: end;
   padding-bottom: 30px;
 }
-.bg1 { background-image: url('../bg-img/kamni-zhivotnoe-kot-kotionok.jpg'); }
+.bg1 {
+  background-image: url("../bg-img/kamni-zhivotnoe-kot-kotionok.jpg");
+}
 .bg2 {
-  background-image: url('../bg-img/iashcheritsa-trava-boke-vzgliad.jpg');
+  background-image: url("../bg-img/iashcheritsa-trava-boke-vzgliad.jpg");
 }
 .bg3 {
-  background-image: url('../bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg');
+  background-image: url("../bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg");
 }
 .bg4 {
-  background-image: url('../bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg');
+  background-image: url("../bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg");
 }
 
 .bg5 {
-  background-image: url('../bg-img/iashcheritsa-ulitka-nezabudki-makro.jpg');
+  background-image: url("../bg-img/iashcheritsa-ulitka-nezabudki-makro.jpg");
 }
 .bg6 {
-  background-image: url('../bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg');
+  background-image: url("../bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg");
 }
 .bg7 {
-  background-image: url('../bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg');
+  background-image: url("../bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg");
 }
 .bg8 {
-  background-image: url('../bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg');
+  background-image: url("../bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg");
 }
 .bg9 {
-  background-image: url('../bg-img/tsvety-rozovye-lepestki-1.jpg');
+  background-image: url("../bg-img/tsvety-rozovye-lepestki-1.jpg");
 }
 
 @media screen and (min-width: 834px) {
@@ -962,38 +964,38 @@ body {
   }
 }
 .bg-left1 {
-  background-image: url('../bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg');
+  background-image: url("../bg-img/priroda-zarosli-tsvety-listia-zhivotnoe-kot-koshka-golova.jpg");
   background-position-x: 57%;
 }
 .bg-left2 {
-  background-image: url('../bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg');
+  background-image: url("../bg-img/sobaka-zhivotnoe-pes-vzglyad.jpg");
   background-position-x: 45%;
 }
 .bg-left3 {
-  background-image: url('../bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg');
+  background-image: url("../bg-img/svetlana-pisareva-zhivotnye-sobaki-para-priroda-vesna-kamen.jpg");
   background-position-x: 30%;
 }
 .bg-left4 {
-  background-image: url('../bg-img/priroda-sobaka-ptitsa-sova-pen.jpg');
+  background-image: url("../bg-img/priroda-sobaka-ptitsa-sova-pen.jpg");
   background-position-x: 55%;
 }
 .bg-left5 {
-  background-image: url('../image/bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg');
+  background-image: url("../image/bg-img/zhivotnoe-iashcheritsa-priroda-trava-kapli.jpg");
   background-position-x: 25%;
 }
 .bg-left6 {
-  background-image: url('../image/bg-img/iashcheritsa-trava-boke-vzgliad.jpg');
+  background-image: url("../image/bg-img/iashcheritsa-trava-boke-vzgliad.jpg");
   background-position-x: 68%;
 }
 .bg-left7 {
-  background-image: url('../image/bg-img/priroda-sobaka-ptitsa-sova-pen.jpg');
+  background-image: url("../image/bg-img/priroda-sobaka-ptitsa-sova-pen.jpg");
   background-position-x: 55%;
 }
 .bg-left8 {
-  background-image: url('../image/bg-img/kamni-zhivotnoe-kot-kotionok.jpg');
+  background-image: url("../image/bg-img/kamni-zhivotnoe-kot-kotionok.jpg");
 }
 .bg-left9 {
-  background-image: url('../image/bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg');
+  background-image: url("../image/bg-img/khameleon-iashcheritsa-okras-trava-chameleon-chamaeleonidae.jpg");
   transform: scale(-1, 1);
 }
 
@@ -1412,13 +1414,13 @@ body {
   position: absolute;
   right: 12px;
   border: none;
-  background-image: url('../image/icons/search.png');
+  background-image: url("../image/icons/search.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .btn-search:hover {
-  background-image: url('../image/icons/search--violet.png');
+  background-image: url("../image/icons/search--violet.png");
 }
 /*? конец секции описания маркетплейса*/
 
@@ -1572,18 +1574,17 @@ body {
 }
 
 .marketplace-card__basket {
-  background-color: transparent;
-  border: none;
+  display: block;
   align-self: flex-end;
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/basket.png');
+  background-image: url("../image/icons/basket.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .marketplace-card__basket:hover {
-  background-image: url('../image/icons/basket--violet.png');
+  background-image: url("../image/icons/basket--violet.png");
 }
 
 .product-card-top {
@@ -1701,23 +1702,23 @@ body {
   order: 2;
   width: 30px;
   height: 30px;
-  background-image: url('.../image/icons/arrow-right.png');
+  background-image: url("../image/icons/arrow-right.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .pagination-arrow--right:hover {
-  background-image: url('.../image/icons/arrow-right--violet.png');
+  background-image: url("../image/icons/arrow-right--violet.png");
 }
 
 .pagination-arrow--left {
   width: 30px;
   height: 30px;
-  background-image: url('.../image/icons/arrow-left.png');
+  background-image: url("../image/icons/arrow-left.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .pagination-arrow--left:hover {
-  background-image: url('.../image/icons/arrow-left--violet.png');
+  background-image: url("../image/icons/arrow-left--violet.png");
 }
 
 .pagination-number--active {
@@ -1822,34 +1823,34 @@ body {
 .btn-plus {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/plus.png');
+  background-image: url("../image/icons/plus.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-plus:hover {
-  background-image: url('../image/icons/plus--violet.png');
+  background-image: url("../image/icons/plus--violet.png");
 }
 
 .btn-minus {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/minus.png');
+  background-image: url("../image/icons/minus.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-minus:hover {
-  background-image: url('../image/icons/minus--violet.png');
+  background-image: url("../image/icons/minus--violet.png");
 }
 
 .btn-delete {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/trash.png');
+  background-image: url("../image/icons/trash.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-delete:hover {
-  background-image: url('../image/icons/trash--violet.png');
+  background-image: url("../image/icons/trash--violet.png");
 }
 
 .btn-delete--comments {
@@ -1860,12 +1861,12 @@ body {
 .btn-sort {
   width: 30px;
   height: 30px;
-  background-image: url('../image/icons/sort.png');
+  background-image: url("../image/icons/sort.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .btn-sort:hover {
-  background-image: url('../image/icons/sort--violet.png');
+  background-image: url("../image/icons/sort--violet.png");
 }
 
 @media screen and (min-width: 834px) {
@@ -2013,10 +2014,20 @@ a:hover {
   color: var(--elem-primary-color);
 }
 
+.accordion-button--norm{
+  background-color: transparent;
+  color: var(--elem-primary-color);
+  border: none;
+}
+
+
+
+
+
 .hidden {
   display: none;
 }
-  
+
 .badge {
   background-color: red;
   color: white;
@@ -2026,4 +2037,18 @@ a:hover {
   position: relative;
   top: -10px;
   left: -10px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  -webkit-clip-path: inset(100%) !important;
+          clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
 }

@@ -2,19 +2,52 @@
 {% load static %}
 {% load goods_tags %}
 {% block content %}
-<div class="gallery-page">
-    <img class="shop-image" src="{{ product.image.url }}" alt="img" >
-    <h3> {{ product.name }} </h3>
-    {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
-    <p><s>Price - {{ product.price }}</s></p>
-    <p>Discount - {{ product.discount }}%</p>
-    <p>Final price - {{ product.sell_price }}</p>
-    {% else %}
-    <p>Price - {{ product.price }}</p>
-    {% endif %}
-    <p>Aviable - {{ product.quantity }} pieces</p>
-    <p>Id № - {{ product.display_id }}</p><!-- в обычой ситуации мы бы вызвали айди товара через запись {{product.id}},однко, если мы хотим вызвать метод класса Product с измененным отображением, пишем {{product.display_id}} -->
-    <p>{{ product.description }}</p>
-    <a href="{% url 'cart-add' product.slug %}">Add to my goods</a>
-</div>
+<main>
+    <!--? Начало раздела Product-card-top -->
+    <section class="product-card-top">
+      <div class="product-card">
+        <img
+          class="product-card__img"
+          src="{{ product.image.url }}"
+          alt="product card"
+        />
+        <div class="product-card-top__left">
+          <div class="product-card-top__left-top">
+            <h1 class="workSans-h3-h2">{{ product.name }}</h1>
+            <div
+              class="product-card-top__availability-cont spaceMono-base-body"
+            >
+              <p>In stock <span class="spaceMono-base-body">{{ product.quantity }}</span></p>
+              <p>Id № - <span class="spaceMono-base-body">{{ product.display_id }}</span></p>
+            </div>
+          </div>
+          <div class="product-card-top__left-bottom">
+            <div class="marketplace-card__price-cont spaceMono-h4-h3">
+{% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
+              <p class="product-card__crossed-out-price">{{ product.price }}$</p>
+              <p class="spaceMono-h4-h3">Discount {{ product.discount }}%</p>
+              <p class="spaceMono-h4-h3">{{ product.sell_price }}$</p>
+{% else %}
+              <p class="spaceMono-h4-h3">{{ product.sell_price }}$</p>
+{% endif %}
+            </div>
+            <button
+              class="product-card__basket btn btn--Outlined btn--Secondary workSans-btns"
+            >
+            <a class="marketplace-card__basket"
+            href="{% url 'cart-add' product.slug %}"></a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--? Конец раздела Product-card-top -->
+    <!--? Начало раздела Product-card-bottom -->
+    <section class="product-card-bottom wrapper">
+      <p class="workSans-base-body">
+        {{ product.description }}
+      </p>
+    </section>
+    <!--? Начало раздела Product-card-bottom -->
+  </main>
 {% endblock content %}

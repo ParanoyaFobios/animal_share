@@ -3,7 +3,7 @@
     {% if is_paginated %} <!--начало логики для пагинации-->
       {% if page_obj.has_previous %}
       <P class="pagination-numbers"><a href="?page=1">First page</a></P>
-      <P class="pagination-arrow--left"><a href="?page={{ page_obj.previous }}"><</a></P>
+      <a class="pagination-arrow--left" href="?page={{ page_obj.previous }}"></a>
       {% endif %}
     
       {% for num in page_obj.paginator.page_range %}
@@ -15,7 +15,7 @@
       {% endfor %}
     
       {% if page_obj.has_next %}
-      <P class="pagination-arrow--right"><a href="?page={{ page_obj.next_page_number }}">></a></P>
+      <a class="pagination-arrow--right" href="?page={{ page_obj.next_page_number }}"></a>
       <P class="pagination-numbers"><a href="?page={{ page_obj.paginator.num_pages }}">Last page</a></P>
       {% endif %}
     {% endif %}
