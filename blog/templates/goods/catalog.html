@@ -151,8 +151,8 @@
 <div class="pagination workSans-btns-h5"> <!--начало логики для пагинации-->
   <div class="pagination-numbers">
   {% if page_obj.has_previous %}
-  <P class="pagination-numbers"><a href="?{% change_params page=page_obj.first %}">First page</a></P>
-  <P class="pagination-arrow--left"><a href="?{% change_params page=page_obj.previous %}"><</a></P>
+  <P class="pagination-numbers"><a class="pagination-numbers" href="?{% change_params page=page_obj.first %}">First page</a></P>
+  <a class="pagination-arrow--left" href="?{% change_params page=page_obj.previous %}"></a>
   {% endif %}
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
@@ -163,7 +163,7 @@
   {% endfor %}
 
   {% if page_obj.has_next %}
-  <P class="pagination-arrow--right"><a href="?{% change_params page=page_obj.next_page_number %}">></a></P>
+  <a class="pagination-arrow--right" href="?{% change_params page=page_obj.next_page_number %}"></a>
   <P class="pagination-numbers"><a href="?{% change_params page=page_obj.paginator.num_pages %}">Last page</a></P>
   {% endif %}
   </div>
