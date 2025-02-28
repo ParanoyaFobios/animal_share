@@ -37,6 +37,7 @@
 </div>
     </div>
 </section>
+
 <strong class="workSans-h5-h4" id="cart-quantity">{{ carts.totall_quantity }} goods for </strong><strong class="workSans-h5-h4" id="cart-price"> totall: {{ carts.totall_price }} $</strong>
 {% if carts and not order %}<!--проверка, если есть товары в корзине, но я не в вкладке заказы, в заказах этой кнопки быть не должно-->
 <div class="create-acc-form__after create-acc-form__after--left">
@@ -45,6 +46,7 @@
       >Place an order!</a
     >
   </div>
+  <br><br>
 {% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

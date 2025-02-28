@@ -34,7 +34,7 @@ def catalog_all(request): #контроллер отображения ката�
         total_quantity = Carts.objects.filter(session_key=user).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0 # Получаем общее количество товаров в корзине для анонимного пользователя
 
 
-    on_sale = request.GET.get('on_sale', None)
+    on_sale = request.GET.get('on_sale', None)#сортировка см goods/catalog.html
     order_by = request.GET.get('order_by', None)
     query = request.GET.get('q', None)
 
@@ -47,7 +47,7 @@ def catalog_all(request): #контроллер отображения ката�
     if on_sale:
         goods = goods.filter(discount__gt=0) #discount__gt означает условие greater then, думаю есть такое же lt - lesser then
     if order_by and order_by != 'default':
-        goods = goods.order_by('?')
+        goods = goods.order_by(order_by)
 
     paginator = Paginator(goods, 6) #пагинация не для классов, как я делал раьше, а для функций отображения
     page_number = request.GET.get('page')

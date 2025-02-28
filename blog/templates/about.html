@@ -5,11 +5,13 @@
   <div class="hero">
     <div class="hero__description">
       <p class="hero__text--color workSans-h5">
-        This is a test site as a portfolio for job offer, to show everyone, how
-        good I am at django and deploy it.
+        If you have seen a homeless animal or lost your pet, visit our forum and leave your ad,
+        this will help find a new home for our smaller brothers.
+        In the market section, you can choose products for your pet.
       </p>
-      <p class="workSans-base-body">
-        Happiness for everyone, for free, and let no one leave offended!
+      <p class="workSans-base">
+        This is a test but fully working project project, to demonstrate skills in working with Django and the visual part.
+        The user database is stored for 24 hours. If you decide to become a sponsor, a full launch is possible. 
       </p>
       <div class="hero__statistics">
         <div class="hero__post-statistics">
@@ -28,7 +30,7 @@
     </div>
     <div class="homepage-post-cards">
       <div class="homepage-post-card">
-        <a href="{{ post.animal_image.url }}">
+        <a class="homepage-post-card__a" href="{{ post.animal_image.url }}">
           <img
             class="homepage-post-card__img"
             src="{{ post.animal_image.url }}"
@@ -54,7 +56,9 @@
       </div>
 
       <div class="homepage-post-card">
-        <img src="{{ product.image.url }}" alt="Post picture" />
+        <a href="{% url 'product' product.slug %}" class="homepage-post-card__a">
+          <img class="homepage-post-card__img" src="{{ product.image.url }}" alt="Post picture" />
+        </a>
         <div class="homepage-post-card__description">
           <a
             href="{% url 'product' product.slug %}"

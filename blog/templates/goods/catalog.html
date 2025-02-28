@@ -37,12 +37,12 @@
         <a class="workSans-btns-h5" href="{% url 'catalog' category.slug %}">{{category.name}}</a>
       </li><br>
           {% endfor %}
-
       </div>
-      <form class="sort__sorting">
+
+      <form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}"
+      method="get"
+      class="sort__sorting">
         <button
-          form action="{% if request.GET.q %}{% url 'search' %}{% else %}{% url 'catalog-all' %}{% endif %}"
-          method="GET"
           type="button"
           class="sort__sorting-btn-open btn btn--Outlined btn--Tertiary workSans-btns"
           tabindex="1"
@@ -55,13 +55,15 @@
               class="sort__dropdown-menu-switch"
               type="checkbox"
               name="on_sale"
+              id="flexRadioDefault"
               value="on"
               {% if request.GET.on_sale == 'on' %}checked{% endif %}
-            /><label>Discount only</label><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
+            />
+            {% if request.GET.q %}
+            <input type="hidden" name="q" value="{{ request.GET.q }}"><!--если пользователь делает поисковый запрос с включенной сортировкой, срабатывает скрыттый ввод, который сохранит все параметры-->
+            {% endif %}
+            <label for="flexCheckDefault">Discount only</label><!--тут мы реализовали метод, который будет оставлять галочку при сортировке и перемещении по магазину с пункта - по скидке, 2== обязательно!-->
           </li>
-  {% if request.GET.q %}
-      <input type="hidden" name="q" value="{{ request.GET.q }}"><!--если пользователь делает поисковый запрос с включенной сортировкой, срабатывает скрыттый ввод, который сохранит все параметры-->
-  {% endif %}
           <div class="sort__dropdown-menu-radio-items">
             <li>
               <input
@@ -71,7 +73,7 @@
                 id="flexRadioDefault1"
                 value="default"
                 {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}
-              /><label>No filter</label>
+              /><label for="flexCheckDefault1">No filter</label>
             </li>
             <li>
               <input
@@ -81,7 +83,7 @@
                 id="flexRadioDefault2"
                 value="-price"
                 {% if request.GET.order_by == '-price' %}checked{% endif %}
-              /><label>Expensive first</label>
+              /><label for="flexCheckDefault2">Expensive first</label>
             </li>
             <li>
               <input
@@ -91,12 +93,13 @@
                 id="flexRadioDefault3"
                 value="price"
                 {% if request.GET.order_by == 'price' %}checked{% endif %}
-              /><label>Cheap first</label>
+              /><label for="flexCheckDefault3">Cheap first</label>
             </li>
             <button class="btn-sort btn--with-img" type="submit"></button>
           </div>
         </ul>
       </form>
+
     </nav>
   </div>
 

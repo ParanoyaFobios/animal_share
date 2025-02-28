@@ -159,6 +159,7 @@ body {
   line-height: clamp(1.375rem, 1.038rem + 1.44vw, 2.188rem);
 }
 
+
 .workSans-h4-h3 {
   font-family: "Work Sans", "Trebuchet MS", Helvetica, sans-serif;
   font-weight: 600;
@@ -617,11 +618,25 @@ body {
 
 .homepage-post-card__description {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
-  justify-content: space-between;
+  margin-top: auto;
+  justify-content: flex-end;
   gap: 10px;
   padding: 22px 20px;
+}
+
+.homepage-post-card__a {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.homepage-post-card__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .homepage-post-card__avatar {
