@@ -15,10 +15,10 @@
     <a class="workSans-btns-h5" href="{% url 'post-create' %}">Create a post</a>
     <a
       class="workSans-btns-h5"
-      href="{% url 'user-posts' request.user.username %}"
+      href="{% if user.is_authenticated %}{% url 'user-posts' request.user.username %}{% else %}{% url 'login' %}{% endif %}"
       >My posts</a
     >
-    <a class="workSans-btns-h5" href="{% url 'user-comments' %}">My comments</a>
+    <a class="workSans-btns-h5" href="{% if user.is_authenticated %}{% url 'user-comments' %}{% else %}{% url 'login' %}{% endif %}">My comments</a>
     <a class="workSans-btns-h5" href="{% url 'usertouser:inbox' %}"
       >My messages {% if unread_messages_count %}<!--добавляем изменение на странице, если есть не прочитанные сообщения-->
       <span class="badge">{{ unread_messages_count }}</span>

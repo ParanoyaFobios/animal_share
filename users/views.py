@@ -23,10 +23,10 @@ def register(request):
             return redirect('home') #условие для отображения сообщения о успехе и перенаправления на главную страницу 
         else:
             messages.error(request, 'Error during registration.')
-            return render(request, 'users/register.html', {'form': form}) #альтернативное сообщение в случае ошибки регистрации 
+            return render(request, 'users/register.html', {'form': form, 'variable': randint(1, 9),}) #альтернативное сообщение в случае ошибки регистрации 
     else:
         form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form, 'title': 'Registration'})
+    return render(request, 'users/register.html', {'form': form, 'title': 'Registration', 'variable': randint(1, 9),})
 
 @login_required #это декоратор связанный с настройкой animalshare/settings.py LOGIN_URL = 'login', дает доступ к контроллеру только авторизированным пользователям, выдаст 404 если не указать в настройках куда редиректить
 def profile(request):
@@ -49,7 +49,7 @@ def profile(request):
                         )
                     ).order_by("-id")
     context = {
-        'variable': randint(1, 4),
+        'variable': randint(1, 9),
         'u_form': u_form,
         'p_form': p_form,
         'orders': orders,
