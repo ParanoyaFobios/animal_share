@@ -1,111 +1,161 @@
-{% load static %}
-{% load carts_tags %}
-{% user_carts request as carts %}<!--запускается шаблонный тэг, берет значение user_carts и записывается в переменную carts-->
+{% load static %} {% load carts_tags %} {% user_carts request as carts %}<!--запускается шаблонный тэг, берет значение user_carts и записывается в переменную carts-->
 
 <section class="profile-bottom profile-bottom--margin">
-    <div class="selected-goods">
-      <h2
-        class="profile-top__title profile-top__title--under profile-top__title--834-left workSans-h4-h3"
-      >
-        Selected goods
-      </h2>
-{% for cart in carts %}
-<div class="selected-goods__card" data-cart-id="{{ cart.id }}">
-           <a class="selected-goods__card-a-whith-img" href="{% url 'product' cart.product.slug %}" title="Go to description">
-            <img class="selected-goods__card-img" src="{{ cart.product.image.url }}" alt="img" >
-        </a>
-    
-    <div class="selected-goods__card-inf">
-        <a class="workSans-h4-h3" href="{% url 'product' cart.product.slug %}" title="{{cart.product.name}}">{{ cart.product.name|truncatechars:35 }}      
-        </a><!--оберание оборажения более чем 20ти символов на странице-->
-        <p class="workSans-base-body">{{ cart.product.sell_price }}$</p>
-        <p class="workSans-h5-h4" id="cart-price-{{ cart.id }}">Totall {{ cart.products_price }}$</p><!--обращаемся в методу, написанному в carts/Carts.Models-->
-    </div>
-    <div class="selected-goods__card-btns--content-center">
-        <div class="selected-goods__card-btns">
-            <div class="selected-goods__card-change-quantity-cont">
-        <button type="button" class="pagination-arrow--left" data-cart-id="{{ cart.id }}" 
-        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="decrease">{% csrf_token %}-</button>
-        <p class="selected-goods__cart-quantity" data-cart-id="{{ cart.id }}">{{ cart.quantity }}</p>
-        <button type="button" class="pagination-arrow--left" data-cart-id="{{ cart.id }}" 
-        data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}" data-action="increase">{% csrf_token %}+</button> 
-        <button type="button" class="remove-cart-item" data-cart-id="{{ cart.id }}" data-remove-url="{% url 'cart-remove' cart.id %}">{% csrf_token %}
-            <img src="{% static 'image/icons/trash.png' %}" alt="img" width="26" height="26">
-        </button>
-    </div></div></div></div>
-    {% endfor %}
-</div>
-    </div>
-</section>
-
-<strong class="workSans-h5-h4" id="cart-quantity">{{ carts.totall_quantity }} goods for </strong><strong class="workSans-h5-h4" id="cart-price"> totall: {{ carts.totall_price }} $</strong>
-{% if carts and not order %}<!--проверка, если есть товары в корзине, но я не в вкладке заказы, в заказах этой кнопки быть не должно-->
-<div class="create-acc-form__after create-acc-form__after--left">
-    <a href="{% url 'create-order' %}"
-      class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
-      >Place an order!</a
+  <div class="selected-goods">
+    <h2
+      class="profile-top__title profile-top__title--under profile-top__title--834-left workSans-h4-h3"
     >
+      Selected goods
+    </h2>
+    {% for cart in carts %}
+    <div class="selected-goods__card" data-cart-id="{{ cart.id }}">
+      <a
+        class="selected-goods__card-a-whith-img"
+        href="{% url 'product' cart.product.slug %}"
+        title="Go to description"
+      >
+        <img
+          class="selected-goods__card-img"
+          src="{{ cart.product.image.url }}"
+          alt="img"
+        />
+      </a>
+      <div class="selected-goods__card-inf">
+        <a
+          class="workSans-h4-h3"
+          href="{% url 'product' cart.product.slug %}"
+          title="{{cart.product.name}}"
+          >{{ cart.product.name|truncatechars:35 }} </a
+        ><!--оберание оборажения более чем 20ти символов на странице-->
+        <p class="workSans-base-body">{{ cart.product.sell_price }}$</p>
+        <p class="workSans-h5-h4" id="cart-price-{{ cart.id }}">
+          Totall {{ cart.products_price }}$
+        </p>
+        <!--обращаемся в методу, написанному в carts/Carts.Models-->
+        <div class="selected-goods__card-btns--content-center">
+          <div class="selected-goods__card-btns">
+            <div class="selected-goods__card-change-quantity-cont">
+              <button
+                type="button"
+                class="btn-minus btn--with-img change-quantity"
+                data-cart-id="{{ cart.id }}"
+                data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}"
+                data-action="decrease"
+              >
+                {% csrf_token %}
+              </button>
+              <p
+                class="selected-goods__cart-quantity workSans-h4-h3"
+                data-cart-id="{{ cart.id }}"
+              >
+                {{ cart.quantity }}
+              </p>
+              <button
+                type="button"
+                class="btn-plus btn--with-img change-quantity"
+                data-cart-id="{{ cart.id }}"
+                data-change-url="{% url 'cart-change' product_slug=cart.product.slug %}"
+                data-action="increase"
+              >
+                {% csrf_token %}
+              </button>
+            </div>
+            <button
+              type="button"
+              class="btn-delete btn--with-img remove-cart-item"
+              data-cart-id="{{ cart.id }}"
+              data-remove-url="{% url 'cart-remove' cart.id %}"
+            >
+              {% csrf_token %}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
-  <br><br>
+</section>
+<div class="googs-for-totall wrapper">
+  <strong class="workSans-h5-h4" id="cart-quantity"
+    >{{ carts.totall_quantity }} goods for </strong
+  ><strong class="workSans-h5-h4" id="cart-price">
+    totall: {{ carts.totall_price }} $</strong
+  >
+  {% if carts and not order %}<!--проверка, если есть товары в корзине, но я не в вкладке заказы, в заказах этой кнопки быть не должно-->
+</div>
+<div class="create-acc-form__after create-acc-form__after--left">
+  <a
+    href="{% url 'create-order' %}"
+    class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+    >Place an order!</a
+  >
+</div>
+<br /><br />
 {% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
+  $(document).ready(function () {
     // Изменение количества товара
-    $('.pagination-arrow--left').on('click', function() {
-        var cartId = $(this).data('cart-id');
-        var changeUrl = $(this).data('change-url');
-        var action = $(this).data('action');
-        var button = $(this); // Сохраняем ссылку на кнопку
+    $(".change-quantity").on("click", function () {
+      var cartId = $(this).data("cart-id");
+      var changeUrl = $(this).data("change-url");
+      var action = $(this).data("action");
+      var button = $(this); // Сохраняем ссылку на кнопку
 
-        $.ajax({
-            url: changeUrl,
-            type: 'POST',
-            data: {
-                'action': action,
-                'cart_id': cartId,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function(response) {
-                // Обновить количество на странице
-                // Например, если response содержит новое количество
-                var cartId = button.data('cart-id'); // Получаем cart_id из сохраненной кнопки
-                $('p.selected-goods__cart-quantity[data-cart-id="' + cartId + '"]').text(response.new_quantity);     
-                $('#cart-price-' + cartId).text('Totall ' + response.new_price + ' $');
-                updateCartSummary(response);
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
-        });
+      $.ajax({
+        url: changeUrl,
+        type: "POST",
+        data: {
+          action: action,
+          cart_id: cartId,
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (response) {
+          // Обновить количество на странице
+          // Например, если response содержит новое количество
+          var cartId = button.data("cart-id"); // Получаем cart_id из сохраненной кнопки
+          $(
+            'p.selected-goods__cart-quantity[data-cart-id="' + cartId + '"]'
+          ).text(response.new_quantity);
+          $("#cart-price-" + cartId).text(
+            "Totall " + response.new_price + " $"
+          );
+          updateCartSummary(response);
+        },
+        error: function (xhr) {
+          console.error(xhr.responseText);
+        },
+      });
     });
-    
-    // Удаление товара из корзины
-    $('.remove-cart-item').on('click', function() {
-        var cartId = $(this).data('cart-id');
-        var removeUrl = $(this).data('remove-url');
 
-        $.ajax({
-            url: removeUrl,
-            type: 'POST',
-            data: {
-                'cart_id': cartId,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function(response) {
-                // Удалить элемент из DOM или обновить корзину
-                $('div.selected-goods__card[data-cart-id="' + cartId + '"]').remove();
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
-        });
+    // Удаление товара из корзины
+    $(".remove-cart-item").on("click", function () {
+      var cartId = $(this).data("cart-id");
+      var removeUrl = $(this).data("remove-url");
+
+      $.ajax({
+        url: removeUrl,
+        type: "POST",
+        data: {
+          cart_id: cartId,
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (response) {
+          // Удалить элемент из DOM или обновить корзину
+          $('div.selected-goods__card[data-cart-id="' + cartId + '"]').remove();
+        },
+        error: function (xhr) {
+          console.error(xhr.responseText);
+        },
+      });
     });
 
     function updateCartSummary(response) {
-        // Предполагаем, что сервер возвращает обновленные данные о сумме и количестве
-        $('#selected-goods__cart-quantity').text(response.total_quantity + ' goods for');
-        $('#cart-price').text('total ' + response.total_price + ' $');
+      // Предполагаем, что сервер возвращает обновленные данные о сумме и количестве
+      $("#cart-quantity").text(
+        response.total_quantity + " goods for"
+      );
+      $("#cart-price").text("total " + response.total_price + " $");
     }
-});
+  });
 </script>

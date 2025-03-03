@@ -3,14 +3,11 @@
 {% block content %}
 <main class="create-acc-main">
     <!--? Фоновая картинка для раздела Create Account -->
-    <div class="bg-left bg-left1"></div>
+    <div class="bg-left bg-left{{variable}}"></div>
     <!--? Начало раздела Create Acc -->
     <section class="create-acc create-acc--wrapper">
       <div class="create-acc__description">
         <h1 class="create-acc__title workSans-h3-h2">Create Account</h1>
-        <p class="workSans-base-body">
-            Registration.
-        </p>
       </div>
       <form method="POST" class="create-acc-form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -26,7 +23,6 @@
           placeholder="Enter your username"
           required
         />
-        <label for="id_username" class="" placeholder="Username">Username</label>
         {% if form.username.errors %}
         <div class="">{% for error in form.username.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
@@ -39,7 +35,6 @@
         placeholder="Email"
         required
       />
-        <label for="id_email" class="" placeholder="email">Email</label>
         {% if form.email.errors %}
         <div class="">{% for error in form.email.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
@@ -52,7 +47,6 @@
           placeholder="Password"
           required
         />
-        <label for="id_password1" class="" placeholder="password">Password</label>
         {% if form.password1.errors %}
         <div class="">{% for error in form.password1.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
@@ -65,7 +59,6 @@
           placeholder="Confirm Password"
           required
         />
-        <label for="id_password2" class="" placeholder="password">Repeat your password</label>
         {% if form.password2.errors %}<div class="">{% for error in form.password2.errors %}<p class="spaceMono-h5-h4">{{ error }}</p>{% endfor %}</div>
         {% endif %}
         <button

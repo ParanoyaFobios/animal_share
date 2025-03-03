@@ -15,17 +15,27 @@
     <div class="forum-comments-cont wrapper">
       {% for usertouser in sms %}
       <div class="message-card">
-        <h3 class="workSans-h5 violet">
-          To: <a class="workSans-h5-h4" href="{% url 'user-posts' usertouser.recipient.username %}">
-            <img class="comment-card__avatar-img" src="{{ usertouser.recipient.profile.image.url }}" alt="img"
-          title="User posts">{{usertouser.recipient.username}}</a> at
-          {{usertouser.timestamp|date:"d F - Y (H:i)"}}
-        </h3>
-      <h4 class="message-card__mess-subject violet workSans-h5">
-          {{ usertouser.subject }}</h4> 
-        <p class="comment-card__card-text workSans-h5">
-      {{ usertouser.content }}
-    </p>
+        <a
+        class="comment-card__avatar-a"
+        href="{% url 'user-posts' usertouser.recipient.username %}"
+        title="User posts"
+      >
+        <img
+          class="comment-card__avatar-img"
+          src="{{ usertouser.sender.profile.image.url }}"
+          alt="Avatar"
+      /></a>
+        <div class="comment-card__card-inf">
+          <h3 class="workSans-h5 violet">
+            To: <a class="workSans-h5-h4" href="{% url 'user-posts' usertouser.recipient.username %}">{{usertouser.recipient.username}}</a> at
+            {{usertouser.timestamp|date:"d F - Y (H:i)"}}
+          </h3>
+        <h4 class="message-card__mess-subject violet workSans-h5">
+            {{ usertouser.subject }}</h4> 
+          <p class="comment-card__card-text workSans-h5">
+        {{ usertouser.content }}
+      </p>
+        </div>
       </div>
       {% empty %}
       <h3 class="workSans-h5 violet">No messages yet.</h3>

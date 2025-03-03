@@ -1,37 +1,66 @@
-{% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
-{% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
-{% block content %} <!-- начало уникального контента для данной страницы-->
-<div class="forum-cards--bg">
+{% extends "base.html" %}
+<!-- загрузка повторяемых элементов из родительсткого шаблона -->
+{% load static %}
+<!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
+{% block content %}
+<!-- начало уникального контента для данной страницы-->
+<main>
+  <div class="forum-cards--bg">
     <div class="sub-title__border">
       <h2 class="sub-title workSans-btns-h5 wrapper">
-Your comments: ({{ page_obj.paginator.count }})
-        </h2>
+        Your comments: ({{ page_obj.paginator.count }})
+      </h2>
     </div>
     <section class="forum-comments">
-        <div class="forum-comments-cont wrapper">
-{% for comment in comments %}
-<div class="comment-card">
-    <a class="comment-card__avatar-a" href="{% url 'user-posts' comment.comment_author %}">
-      <img
-        class="comment-card__avatar-img"
-        src="{{ comment.comment_author.profile.image.url }}"
-        alt="Avatar"
-    /></a>
-
-    <div class="comment-card__card-inf clearfix">
-      <p class="workSans-h5 violet">
-        <a class="workSans-h5-h4" href="{% url 'user-posts' comment.comment_author %}" title="My posts">{{ comment.comment_author }}'s comment at
-        {{ comment.date_added|date:"d F - Y (H:i)" }}</a>in Post:<a class="workSans-h5-h4" href="{% url 'post-detail' comment.post.id %}" title="Source post"> {{ comment.post.title }}</a>
-        <p class="workSans-h5-h4">{{ comment.body }}</p>
-      </p>
-    </div>
-    <form action="{% url 'delete-comment' comment.id %}" method="post" style="display:inline;"> <!--начало формы и кнопки для удаления комментов-->
-        {% csrf_token %}
-        <button class="btn-delete btn--with-img btn-delete--comments"
-        type="submit"
-        onclick="return confirm('Are you sure you want to delete this comment?');"></button>
-    </form>
-</div>
-{% endfor %}
-{% include "blog/pagination_include.html" %}
-{% endblock content %} <!-- конец уникального контента для данной страницы -->
+      <div class="forum-comments-cont wrapper">
+        {% for comment in comments %}
+        <div class="comment-card">
+          <a
+            class="comment-card__avatar-a"
+            href="{% url 'user-posts' comment.comment_author %}"
+          >
+            <img
+              class="comment-card__avatar-img"
+              src="{{ comment.comment_author.profile.image.url }}"
+              alt="Avatar"
+          /></a>
+          <div class="comment-card__card-inf clearfix">
+            <div class="workSans-h5-h4">
+              <a
+                class="violet workSans-h5-h4"
+                href="{% url 'user-posts' comment.comment_author %}"
+                title="My posts"
+                >{{ comment.comment_author }}'s</a
+              ><span> comment at
+                {{comment.date_added|date:"d F - Y (H:i)" }}</span>
+              in Post:<a
+                class="violet workSans-h5-h4"
+                href="{% url 'post-detail' comment.post.id %}"
+                title="Source post"
+              >
+                {{ comment.post.title }}</a
+              >
+              <p class="workSans-h5-h4">{{ comment.body }}</p>
+            </div>
+            <form
+              action="{% url 'delete-comment' comment.id %}"
+              method="post"
+              style="display: inline"
+            >
+              <!--начало формы и кнопки для удаления комментов-->
+              {% csrf_token %}
+              <button
+                class="btn-delete btn--with-img btn-delete--comments"
+                type="submit"
+                onclick="return confirm('Are you sure you want to delete this comment?');"
+              ></button>
+            </form>
+          </div>
+        </div>
+        {% endfor %} {% include "blog/pagination_include.html" %}
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock content %}
+<!-- конец уникального контента для данной страницы -->

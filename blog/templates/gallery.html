@@ -20,20 +20,23 @@
       <div class="sub-title__border">
         <h2 class="sub-title workSans-h5-h4 wrapper">Gallery</h2>
       </div>
-      <div class="pictures-cont wrapper">
-      {% for post in gallery %} <!-- начало цикла словарей из модуля views.py  -->
-        <div class="picture-card">
-          <a href="{{ post.animal_image.url }}">
-            <img src="{{ post.animal_image.url }}"
-              alt="Post animal">
-          </a>
-          <a class="picture-card__text workSans-h5" href="{% url 'post-detail' post.id %}"
-          title="Go to post"
-            >{{ post.title }}</a
-          >
+      <div class="sub-title__border sub-title__border--in-gallery">
+        <div class="pictures-cont wrapper">
+        {% for post in gallery %} <!-- начало цикла словарей из модуля views.py  -->
+          <div class="picture-card">
+            <a class="picture-card__a-whith-img" href="{{ post.animal_image.url }}">
+              <img class="picture-card__img" src="{{ post.animal_image.url }}"
+                alt="Post animal">
+            </a>
+            <a class="picture-card__text workSans-h5" href="{% url 'post-detail' post.id %}"
+            title="Go to post"
+              >{{ post.title }}</a
+            >
+          </div>
+          {% endfor %}
+          {% include "blog/pagination_include.html" %}
         </div>
-        {% endfor %}
       </div>
 <!--? Конец раздела Меин -->
-{% include "blog/pagination_include.html" %}
+
 {% endblock content %} <!-- конец уникального контента для данной страницы -->

@@ -1,6 +1,7 @@
 {% extends "base.html" %} <!-- загрузка повторяемых элементов из родительсткого шаблона -->
 {% load static %}  <!-- подгружать статики нужно на каждой странице независимо есть ли эта команда в родительском шаблоне -->
 {% block content %} <!-- начало уникального контента для данной страницы-->
+<main>
 <div class="forum-cards--bg">
     <div class="sub-title__border">
         <h2 class="sub-title workSans-btns-h5 wrapper">
@@ -52,4 +53,5 @@
     {% endfor %}
 </div>
 {% include "blog/pagination_include.html" %}
+</main>
 {% endblock content %} <!-- конец уникального контента для данной страницы -->

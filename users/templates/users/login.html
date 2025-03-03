@@ -1,26 +1,34 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 <main class="create-acc-main">
-<!--? Фоновая картинка для раздела Create Account -->
-<div class="bg-left bg-left2"></div>
-<!--? Начало раздела Create Acc -->
-<section class="create-acc create-acc--wrapper">
+  <!--? Фоновая картинка для раздела Create Account -->
+  <div class="bg-left bg-left2"></div>
+  <!--? Начало раздела Create Acc -->
+  <section class="create-acc create-acc--wrapper">
     <div class="create-acc__description">
-    <h1 class="create-acc__title workSans-h3-h2">Login</h1>
-    <p class="workSans-base-body">
+      <h1 class="create-acc__title workSans-h3-h2">Login</h1>
+      <p class="workSans-base-body">
         Welcome! Login and start creating posts, chatting and shopping on
         Animalshare.
-    </p>
+      </p>
     </div>
-    <form class="create-acc-form" role="login" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-    <div class="">
-    <p class="spaceMono-h5-h4">{{form.non_field_errors}}</p></div> <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
-    {% endif %}
-    <label for="{{ form.username.id_for_label }}" placeholder="Username"></label>
-    <input
+    <form
+      class="create-acc-form"
+      role="login"
+      action="{% url 'login' %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %} {% if form.non_field_errors %}
+      <div class="">
+        <p class="spaceMono-h5-h4">{{form.non_field_errors}}</p>
+      </div>
+      <!--альтернатива джанго мессаджес, выводит инфу о ошибке в поле, если она есть-->
+      {% endif %}
+      <label
+        for="{{ form.username.id_for_label }}"
+        placeholder="Username"
+      ></label>
+      <input
         class="form-input create-acc-form__input--username workSans-base"
         type="text"
         name="username"
@@ -28,22 +36,26 @@
         id="id_username"
         placeholder="Username"
         required
-    />
-    <label for="{{ form.password.id_for_label }}" placeholder="Password"></label>
-    <input
+      />
+      <label
+      class="hidden"
+        for="{{ form.password.id_for_label }}"
+        placeholder="Password"
+      ></label>
+      <input
         class="form-input create-acc-form__input--password workSans-base"
         type="password"
         name="password"
         id="id_password"
         placeholder="Password"
         required
-    />
-    <button
+      />
+      <button
         class="btn btn--form btn--Filled btn--Tertiary workSans-btns"
         type="submit"
-    >
+      >
         Login
-    </button>
+      </button>
     </form>
     <!-- <div class="create-acc-form__after">
     <a
@@ -58,20 +70,26 @@
     </a>
     </div> -->
     <div class="create-acc-form__after">
-    <p class="workSans-base-body">Forget your password?</p>
-    <a
-    href="{% url 'password_reset' %}"
-    class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
-    >Reset password</a>
+      <p class="workSans-base-body">Forget your password?</p>
+      <a
+        href="{% url 'password_reset' %}"
+        class="a-as-btn btn btn--form btn--Outlined btn--Tertiary workSans-btns"
+        >Reset password</a
+      >
     </div>
     <div class="create-acc-form__after">
-    <p class="workSans-base-body">Need an account?</p>
-    <a
-    href="{% url 'register' %}"
-    class="a-as-btn btn btn--form btn--Filled btn--Tertiary workSans-btns"
-    >Create account</a>
+      <p class="workSans-base-body">Need an account?</p>
+      <a
+        href="{% url 'register' %}"
+        class="a-as-btn btn btn--form btn--Filled btn--Tertiary workSans-btns"
+        >Create account</a
+      >
     </div>
-</section>
+  </section>
 </main>
 <!--? Конец раздела Create Account -->
+<script>
+  "use strict";
+document.querySelector(".bg-left").classList.replace('bg-left2', `bg-left${Math.ceil(Math.random() * 9)}`);
+</script>
 {% endblock content %}
