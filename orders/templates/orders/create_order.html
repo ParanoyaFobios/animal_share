@@ -1,94 +1,106 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% include "carts/includes/included_cart.html" %} <!--заинклудил разметку корзины, дальше пишем форму доставки и оплаты-->
-<center><h1 class="workSans-h4-h3-h2">Order details</h1></center>
-<div class="#">
-    <div class="profile-top-cont">
-        <div class="profile-top__details">
-            <form class="change-profile-form" action="{% url 'create-order' %}"
-            method="post"
-            id="create_order_form"
-            enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="#">
-                    <div class="change-profile-form__input-cont">
-                        <label for="id_first_name" class="workSans-base-body">*First name:</label>
-                        <input type="text"
-                        class="form-input create-acc-form__input--username workSans-base"
-                        id="id_first_name"
-                            value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
-                            name="first_name" required>
-                        {% if form.first_name.errors %}
-                            <div class="">{{form.first_name.errors}}</div>
-                        {% endif %}
-                    </div>
-                    <div class="change-profile-form__input-cont">
-                        <label for="id_last_name" class="workSans-base-body">*Last name:</label>
-                        <input type="text"
-                        class="form-input create-acc-form__input--username workSans-base"
-                        id="id_last_name" name="last_name"
-                        value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
-                        required>
-                        {% if form.last_name.errors %}
-                            <div class="">{{form.last_name.errors}}</div>
-                        {% endif %}
-                    </div>
-                    <div class="change-profile-form__input-cont">
-                        <label for="id_phone_number" class="workSans-base-body">*Phone number:</label>
-                        <input type="text"
-                        class="form-input create-acc-form__input--phone workSans-base"
-                        id="id_phone_number" name="phone_number"
-                            value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
-                            placeholder="(000) 000-00-00"
-                            required>
-                        {% if form.phone_number.errors %}
-                            <div class="">{{form.phone_number.errors}}</div>
-                        {% endif %}
-                        <div class="" style="display: none" id="phone_number_error">Wrong number added.</div>
-                    </div>
-                    <div class="change-profile-form__input-cont">
-                        <label for="delivery" class="workSans-base-body">Delivery type: </label>
-                        <div class="#">
-                            <input class="sort__dropdown-menu-switch" type="radio" name="requires_delivery"
-                                id="id_requires_delivery" value="1" checked>
-                            <label class="workSans-base-body" for="id_requires_delivery">Bring it to me</label>
-                        </div>
-                        <div class="#">
-                            <input class="sort__dropdown-menu-switch" type="radio" name="requires_delivery"
-                                id="id_requires_delivery" value="0">
-                            <label class="workSans-base-body" for="id_requires_delivery">I'll carry it by myself</label>
-                        </div>
-                    </div>
-                    <div class="#" id="deliveryAddressField">
-                        <label for="id_delivery_address" class="workSans-base-body">*Delivery adress:<br></label>
-                        <textarea class="form-input form-input--without-img workSans-base" id="id_delivery_address"
-                            value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
-                            name="delivery_address" rows="2" placeholder="Skip if not neccesarry"></textarea>
-                        {% if form.delivery_address.errors %}
-                            <div class="">{{form.delivery_address.errors}}</div>
-                        {% endif %}
-                    </div>
-                    <div class="#">
-                        <label class="workSans-base-body">Payment method: </label>
-                        <div class="#">
-                            <input class="sort__dropdown-menu-switch" type="radio" name="payment_on_get"
-                                id="id_payment_on_get" value="0" checked>
-                            <label class="workSans-base-body" for="id_payment_on_get">Credit card</label>
-                        </div>
-                        <div class="#">
-                            <input class="sort__dropdown-menu-switch" type="radio" name="payment_on_get"
-                                id="id_payment_on_get" value="1">
-                            <label class="workSans-base-body" for="id_payment_on_get">By cash when delivered</label>
-                            {% if form.payment_on_get.errors %}
-                                <div class="">{{form.payment_on_get.errors}}</div>
-                            {% endif %}
-                        </div>
+<main class="create-order">
+    <div class="wrapper">
+        {% include "carts/includes/included_cart.html" %} <!--заинклудил разметку корзины, дальше пишем форму доставки и оплаты-->
+    </div>
+    <div class="forum-cards--bg">
+        <div class="wrapper">
+            <h2 class="profile-top__title profile-top__title--under profile-top__title--834-left workSans-h4-h3">Order details</h2>
+            <div class="#">
+                <div class="profile-top-cont">
+                    <div class="profile-top__details">
+                        <form class="change-profile-form" action="{% url 'create-order' %}"
+                        method="post"
+                        id="create_order_form"
+                        enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="create-smt-form">
+                                <div class="create-smt-form__input-cont">
+                                    <label for="id_first_name" class="workSans-base-body">*First name:</label>
+                                    <input type="text"
+                                    class="form-input create-acc-form__input--username workSans-base"
+                                    id="id_first_name"
+                                        value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+                                        name="first_name" required>
+                                    {% if form.first_name.errors %}
+                                        <div class="">{{form.first_name.errors}}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="create-smt-form__input-cont">
+                                    <label for="id_last_name" class="workSans-base-body">*Last name:</label>
+                                    <input type="text"
+                                    class="form-input create-acc-form__input--username workSans-base"
+                                    id="id_last_name" name="last_name"
+                                    value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
+                                    required>
+                                    {% if form.last_name.errors %}
+                                        <div class="">{{form.last_name.errors}}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="create-smt-form__input-cont">
+                                    <label for="id_phone_number" class="workSans-base-body">*Phone number:</label>
+                                    <input type="text"
+                                    class="form-input create-acc-form__input--phone workSans-base"
+                                    id="id_phone_number" name="phone_number"
+                                        value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
+                                        placeholder="(000) 000-00-00"
+                                        required>
+                                    {% if form.phone_number.errors %}
+                                        <div class="">{{form.phone_number.errors}}</div>
+                                    {% endif %}
+                                    <div class="" style="display: none" id="phone_number_error">Wrong number added.</div>
+                                </div>
+                                <div class="create-smt-form__input-cont" id="deliveryAddressField">
+                                    <label for="id_delivery_address" class="workSans-base-body">*Delivery adress:</label>
+                                    <textarea class="form-input form-input--without-img workSans-base" id="id_delivery_address"
+                                        value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
+                                        name="delivery_address" rows="2" placeholder="Skip if not neccesarry"></textarea>
+                                    {% if form.delivery_address.errors %}
+                                        <div class="">{{form.delivery_address.errors}}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="create-smt-form__input-cont">
+                                    <label for="delivery" class="workSans-base-body">Delivery type: </label>
+                                    <div class="create-smt-form__input-cont--column">
+                                        <div class="#">
+                                            <input class="sort__dropdown-menu-switch" type="radio" name="requires_delivery"
+                                                id="id_requires_delivery" value="1" checked>
+                                            <label class="workSans-base-body" for="id_requires_delivery">Bring it to me</label>
+                                        </div>
+                                        <div class="#">
+                                            <input class="sort__dropdown-menu-switch" type="radio" name="requires_delivery"
+                                                id="id_requires_delivery" value="0">
+                                            <label class="workSans-base-body" for="id_requires_delivery">I'll carry it by myself</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="create-smt-form__input-cont">
+                                    <label class="workSans-base-body">Payment method: </label>
+                                    <div class="create-smt-form__input-cont--column">
+                                        <div class="#">                                        
+                                            <input class="sort__dropdown-menu-switch" type="radio" name="payment_on_get"
+                                                id="id_payment_on_get" value="0" checked>
+                                            <label class="workSans-base-body" for="id_payment_on_get">Credit card</label>
+                                        </div>
+                                        <div class="#">
+                                            <input class="sort__dropdown-menu-switch" type="radio" name="payment_on_get"
+                                                id="id_payment_on_get" value="1">
+                                            <label class="workSans-base-body" for="id_payment_on_get">By cash when delivered</label>
+                                            {% if form.payment_on_get.errors %}
+                                                <div class="">{{form.payment_on_get.errors}}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns">I need it!</button><br><br>
+                        </form>
                     </div>
                 </div>
-                <button type="submit" class="btn btn--form btn--Filled btn--Tertiary btn--margin-top20 workSans-btns">I need it!</button><br><br>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</main>
 {% endblock content %}
