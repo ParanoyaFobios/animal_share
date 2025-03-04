@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['animalshare-34ce92dca6ea.herokuapp.com', '127.0.0.1'] #поменять перед деплоем
 CSRF_TRUSTED_ORIGINS = ['https://animalshare-34ce92dca6ea.herokuapp.com']
