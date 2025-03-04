@@ -20,7 +20,7 @@
           name="q"
           placeholder="Good's search"
         />
-        <button class="btn-search" type="submit">Search</button>
+        <button class="btn-search" type="submit"></button>
       </form>
       <a
       href="{% url 'users-cart' %}"
@@ -134,9 +134,9 @@
               <div class="marketplace-card__price-cont spaceMono-base">
                 {% if product.discount  %} <!-- начало логики для отображения скидки, функция прописана в goods.models,py sell_price -->
                 <p class="marketplace-card__crossed-out-price">{{ product.price }}$</p>
-                <p class="spaceMono-h4-h3">{{ product.sell_price }}$</p>
+                <p class="spaceMono-h5-h4">{{ product.sell_price }}$</p>
                 {% else %}
-                <p class="spaceMono-h4-h3">{{ product.sell_price }}$</p>
+                <p class="spaceMono-h5-h4">{{ product.sell_price }}$</p>
                 {% endif %}
               </div>
               <a class="marketplace-card__basket"

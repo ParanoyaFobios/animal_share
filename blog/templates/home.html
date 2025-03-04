@@ -15,7 +15,11 @@
     <a class="workSans-btns-h5" href="{% url 'post-create' %}">Create a post</a>
     <a
       class="workSans-btns-h5"
+<<<<<<< HEAD
       href="{% if user.is_authenticated %}{% url 'user-posts' request.user.username %}{% else %}{% url 'login' %}{% endif %}"
+=======
+    href="{% if user.is_authenticated %}{% url 'user-posts' request.user.username %}{% else %}{% url 'login' %}{% endif %}"
+>>>>>>> origin/frontend
       >My posts</a
     >
     <a class="workSans-btns-h5" href="{% if user.is_authenticated %}{% url 'user-comments' %}{% else %}{% url 'login' %}{% endif %}">My comments</a>
